@@ -1036,7 +1036,7 @@ const brushTypes = [
 ];
 
 // ==========================================
-// PAPER TYPES DATABASE
+// PAPER & SURFACE TYPES DATABASE (with GSM)
 // ==========================================
 
 const paperTypes = [
@@ -1046,6 +1046,12 @@ const paperTypes = [
     icon: "📜",
     description: "Smooth surface created by pressing paper through hot rollers. Best for detailed work.",
     weight: "140lb (300gsm) - 300lb (640gsm)",
+    gsmOptions: [
+      { gsm: 185, lb: "90lb", use: "Practice, sketching" },
+      { gsm: 300, lb: "140lb", use: "Standard work" },
+      { gsm: 425, lb: "200lb", use: "Heavy washes" },
+      { gsm: 640, lb: "300lb", use: "No buckling, professional" }
+    ],
     bestFor: ["Detailed illustrations", "Botanical art", "Pen & ink + wash", "Portraits", "Fine lines"],
     notIdealFor: ["Wet-on-wet", "Heavy washes", "Texture effects"],
     characteristics: [
@@ -1054,7 +1060,8 @@ const paperTypes = [
       "Colors appear more vibrant",
       "Shows brush marks clearly",
       "Great for scanning/reproduction"
-    ]
+    ],
+    brands: ["Arches", "Fabriano Artistico", "Saunders Waterford", "Strathmore"]
   },
   {
     name: "Cold Press Watercolor",
@@ -1062,6 +1069,12 @@ const paperTypes = [
     icon: "📄",
     description: "Most popular watercolor paper. Medium texture good for most techniques.",
     weight: "140lb (300gsm) - 300lb (640gsm)",
+    gsmOptions: [
+      { gsm: 185, lb: "90lb", use: "Student grade, practice" },
+      { gsm: 300, lb: "140lb", use: "Most common, versatile" },
+      { gsm: 425, lb: "200lb", use: "Less buckling" },
+      { gsm: 640, lb: "300lb", use: "Professional, no stretching needed" }
+    ],
     bestFor: ["General watercolor", "Landscapes", "Portraits", "Mixed techniques", "Learning"],
     notIdealFor: ["Very fine details", "Smooth gradients"],
     characteristics: [
@@ -1070,7 +1083,8 @@ const paperTypes = [
       "Good for wet-on-wet",
       "Forgiving for beginners",
       "Most versatile choice"
-    ]
+    ],
+    brands: ["Arches", "Winsor & Newton", "Canson Heritage", "Hahnemühle"]
   },
   {
     name: "Rough Watercolor",
@@ -1078,6 +1092,11 @@ const paperTypes = [
     icon: "🏔️",
     description: "Maximum texture for dramatic effects. Paper shows through strokes.",
     weight: "140lb (300gsm) - 300lb (640gsm)",
+    gsmOptions: [
+      { gsm: 300, lb: "140lb", use: "Standard rough work" },
+      { gsm: 425, lb: "200lb", use: "Heavy techniques" },
+      { gsm: 640, lb: "300lb", use: "Maximum durability" }
+    ],
     bestFor: ["Expressive work", "Landscapes", "Texture effects", "Dry brush", "Impressionistic style"],
     notIdealFor: ["Fine details", "Smooth washes", "Portraits"],
     characteristics: [
@@ -1086,7 +1105,8 @@ const paperTypes = [
       "Paper texture shows through",
       "Great for dry brush sparkle",
       "Most dramatic effects"
-    ]
+    ],
+    brands: ["Arches", "Fabriano", "Langton"]
   },
   {
     name: "Canvas",
@@ -1094,6 +1114,12 @@ const paperTypes = [
     icon: "🖼️",
     description: "Traditional surface for oil and acrylic. Woven texture adds depth.",
     weight: "Cotton or Linen",
+    gsmOptions: [
+      { gsm: 280, type: "Light Cotton", use: "Student grade" },
+      { gsm: 380, type: "Medium Cotton", use: "General purpose" },
+      { gsm: 450, type: "Heavy Cotton", use: "Professional" },
+      { gsm: 520, type: "Linen", use: "Archival, museum quality" }
+    ],
     bestFor: ["Oil painting", "Acrylics", "Impasto techniques", "Large works", "Professional galleries"],
     notIdealFor: ["Fine watercolor", "Detailed pencil work"],
     characteristics: [
@@ -1126,6 +1152,11 @@ const paperTypes = [
     icon: "🎭",
     description: "Versatile paper that handles wet and dry media. Jack of all trades.",
     weight: "90lb - 140lb",
+    gsmOptions: [
+      { gsm: 160, lb: "75lb", use: "Light techniques" },
+      { gsm: 200, lb: "90lb", use: "Mixed media standard" },
+      { gsm: 300, lb: "140lb", use: "Heavier applications" }
+    ],
     bestFor: ["Mixed media", "Journaling", "Experimentation", "Collage", "Multiple techniques"],
     notIdealFor: ["Heavy watercolor washes", "Professional final work"],
     characteristics: [
@@ -1134,9 +1165,216 @@ const paperTypes = [
       "Affordable for practice",
       "Light texture",
       "Versatile but not specialist"
-    ]
+    ],
+    brands: ["Strathmore", "Canson XL", "Fabriano Mixed Media"]
   },
 ];
+
+// ==========================================
+// CANVAS & CLOTH TYPES DATABASE
+// ==========================================
+
+const canvasTypes = [
+  {
+    name: "Cotton Duck Canvas",
+    weave: "Plain weave",
+    color: "#F5F5DC",
+    description: "Most common and affordable canvas. Good tooth for oil and acrylic.",
+    weights: [
+      { oz: "4oz", gsm: 135, use: "Light work, practice" },
+      { oz: "7oz", gsm: 237, use: "Student grade" },
+      { oz: "10oz", gsm: 340, use: "Standard professional" },
+      { oz: "12oz", gsm: 407, use: "Heavy impasto" }
+    ],
+    characteristics: ["Affordable", "Good tooth", "Slightly elastic", "Takes gesso well"],
+    bestFor: ["Beginners", "Large works", "Budget-conscious artists"],
+    brands: ["Fredrix", "Blick", "Utrecht"]
+  },
+  {
+    name: "Linen Canvas",
+    weave: "Plain/Twill weave",
+    color: "#D4C4A8",
+    description: "Premium natural fiber. Stronger, less elastic, archival quality.",
+    weights: [
+      { oz: "9oz", gsm: 305, use: "Portrait grade" },
+      { oz: "12oz", gsm: 407, use: "Professional standard" },
+      { oz: "15oz", gsm: 508, use: "Museum quality" }
+    ],
+    characteristics: ["Non-elastic", "Fine texture", "Archival", "Natural brown color"],
+    bestFor: ["Professional work", "Portraits", "Museum pieces", "Long-term preservation"],
+    brands: ["Claessens", "Artfix", "Belle Arti"]
+  },
+  {
+    name: "Polyester Canvas",
+    weave: "Synthetic weave",
+    color: "#FFFFFF",
+    description: "Synthetic alternative. Doesn't rot, consistent texture, very stable.",
+    weights: [
+      { oz: "8oz", gsm: 271, use: "General use" },
+      { oz: "12oz", gsm: 407, use: "Heavy applications" }
+    ],
+    characteristics: ["Weather resistant", "No rot/mildew", "Very stable", "Uniform texture"],
+    bestFor: ["Outdoor work", "Humid climates", "Commercial applications"],
+    brands: ["Fredrix Polyflax", "Masterpiece"]
+  },
+  {
+    name: "Jute/Burlap",
+    weave: "Coarse open weave",
+    color: "#C4A35A",
+    description: "Very coarse natural fiber. Creates heavily textured surface.",
+    weights: [
+      { oz: "10oz", gsm: 340, use: "Textured work" },
+      { oz: "14oz", gsm: 475, use: "Heavy texture" }
+    ],
+    characteristics: ["Very coarse", "Visible weave", "Natural look", "Requires heavy gesso"],
+    bestFor: ["Rustic effects", "Abstract work", "Heavy texture"],
+    brands: ["Various craft suppliers"]
+  }
+];
+
+// ==========================================
+// BRUSH HAIR TYPES DATABASE
+// ==========================================
+
+const brushHairTypes = [
+  {
+    name: "Kolinsky Sable",
+    origin: "Siberian mink tail",
+    color: "#8B4513",
+    colorName: "Rich brown with golden tips",
+    description: "The finest natural hair for watercolor. Exceptional point and spring.",
+    characteristics: ["Holds water exceptionally", "Perfect point", "Natural spring", "Most expensive"],
+    bestMedia: ["Watercolor", "Gouache", "Ink"],
+    priceRange: "$$$$$",
+    brands: ["Winsor & Newton Series 7", "Raphael Kolinsky", "Da Vinci Maestro"],
+    famousUsers: ["John Singer Sargent", "Winslow Homer"]
+  },
+  {
+    name: "Red Sable",
+    origin: "Weasel family",
+    color: "#A0522D",
+    colorName: "Reddish-brown",
+    description: "Good quality natural hair. Less expensive alternative to Kolinsky.",
+    characteristics: ["Good point", "Decent spring", "Holds water well", "Moderate price"],
+    bestMedia: ["Watercolor", "Gouache", "Acrylic"],
+    priceRange: "$$$",
+    brands: ["Escoda Reserva", "Princeton Neptune"],
+    famousUsers: ["Many professional watercolorists"]
+  },
+  {
+    name: "Squirrel Hair",
+    origin: "Squirrel tail",
+    color: "#696969",
+    colorName: "Soft gray-brown",
+    description: "Extremely soft, holds huge amounts of water. No point but great for washes.",
+    characteristics: ["Ultra soft", "Massive water capacity", "No point", "Great for mops"],
+    bestMedia: ["Watercolor washes", "Glazing"],
+    priceRange: "$$$$",
+    brands: ["Isabey Petit Gris", "Raphael Softaqua"],
+    famousUsers: ["Claude Monet", "J.M.W. Turner"]
+  },
+  {
+    name: "Hog Bristle (Chungking)",
+    origin: "Chinese pig hair",
+    color: "#F5DEB3",
+    colorName: "Cream/off-white with flagged tips",
+    description: "Stiff natural hair for oil painting. Flagged tips hold paint well.",
+    characteristics: ["Stiff", "Flagged tips", "Holds thick paint", "Visible brushmarks"],
+    bestMedia: ["Oil", "Heavy body acrylic"],
+    priceRange: "$$",
+    brands: ["Winsor & Newton Artisan", "Robert Simmons Signet", "Silver Bristlon"],
+    famousUsers: ["Van Gogh", "Rembrandt", "Bob Ross"]
+  },
+  {
+    name: "Badger Hair",
+    origin: "Badger",
+    color: "#D3D3D3",
+    colorName: "Gray with dark bands",
+    description: "Very soft natural hair for blending. Used in oil painting for glazes.",
+    characteristics: ["Extremely soft", "Perfect for blending", "Creates no marks", "Delicate"],
+    bestMedia: ["Oil glazing", "Softening edges"],
+    priceRange: "$$$",
+    brands: ["Da Vinci", "Rosemary & Co"],
+    famousUsers: ["Classical portrait painters"]
+  },
+  {
+    name: "Golden Taklon (Synthetic)",
+    origin: "Nylon/polyester blend",
+    color: "#DAA520",
+    colorName: "Golden yellow",
+    description: "High-quality synthetic. Mimics sable properties at lower cost.",
+    characteristics: ["Good spring", "Easy to clean", "Durable", "Vegan-friendly"],
+    bestMedia: ["Acrylic", "Watercolor", "All media"],
+    priceRange: "$",
+    brands: ["Princeton Velvetouch", "Royal & Langnickel", "Loew-Cornell"],
+    famousUsers: ["Modern acrylics artists"]
+  },
+  {
+    name: "White Taklon (Synthetic)",
+    origin: "Nylon/polyester",
+    color: "#FFFAFA",
+    colorName: "Pure white",
+    description: "Soft synthetic for smooth application. Great for blending.",
+    characteristics: ["Soft", "Smooth application", "Good for thin paints", "Affordable"],
+    bestMedia: ["Acrylic", "Fabric paint", "Face paint"],
+    priceRange: "$",
+    brands: ["Royal & Langnickel", "Dynasty"],
+    famousUsers: ["Craft and hobby artists"]
+  }
+];
+
+// ==========================================
+// PAINT MEDIA & BRANDS DATABASE
+// ==========================================
+
+const paintMediaBrands = {
+  "Watercolor": {
+    description: "Transparent water-based paint. Pigment bound with gum arabic.",
+    characteristics: ["Transparent", "Rewettable", "Luminous", "Paper shows through"],
+    brands: [
+      { name: "Winsor & Newton Professional", tier: "Professional", priceRange: "$$$", colorCount: 108, famous: "British heritage since 1832" },
+      { name: "Daniel Smith Extra Fine", tier: "Professional", priceRange: "$$$", colorCount: 250, famous: "PrimaTek mineral colors" },
+      { name: "Schmincke Horadam", tier: "Professional", priceRange: "$$$$", colorCount: 140, famous: "German precision" },
+      { name: "Holbein Artists'", tier: "Professional", priceRange: "$$$", colorCount: 108, famous: "Japanese quality, even flow" },
+      { name: "Cotman/Cotman", tier: "Student", priceRange: "$", colorCount: 40, famous: "Good student grade" },
+      { name: "Van Gogh", tier: "Student", priceRange: "$$", colorCount: 40, famous: "Balanced price/quality" }
+    ]
+  },
+  "Oil": {
+    description: "Pigment bound with drying oils (linseed, walnut). Traditional fine art medium.",
+    characteristics: ["Slow drying", "Rich colors", "Blendable", "Buttery texture"],
+    brands: [
+      { name: "Old Holland", tier: "Professional", priceRange: "$$$$$", colorCount: 168, famous: "Highest pigment load since 1664" },
+      { name: "Michael Harding", tier: "Professional", priceRange: "$$$$", colorCount: 100, famous: "Handmade, artist-owned" },
+      { name: "Winsor & Newton Artists'", tier: "Professional", priceRange: "$$$", colorCount: 120, famous: "Industry standard" },
+      { name: "Gamblin Artist's", tier: "Professional", priceRange: "$$$", colorCount: 90, famous: "American made, consistent" },
+      { name: "Bob Ross", tier: "Specialty", priceRange: "$$", colorCount: 14, famous: "Wet-on-wet technique" },
+      { name: "Winton", tier: "Student", priceRange: "$", colorCount: 47, famous: "Good student oil" }
+    ]
+  },
+  "Acrylic": {
+    description: "Pigment in acrylic polymer emulsion. Fast drying, water cleanup.",
+    characteristics: ["Fast drying", "Water cleanup", "Flexible when dry", "Versatile"],
+    brands: [
+      { name: "Golden Heavy Body", tier: "Professional", priceRange: "$$$", colorCount: 90, famous: "Industry standard, color mixing" },
+      { name: "Liquitex Professional", tier: "Professional", priceRange: "$$$", colorCount: 100, famous: "First acrylic paint brand 1955" },
+      { name: "Holbein Acryla", tier: "Professional", priceRange: "$$$", colorCount: 84, famous: "Buttery, oil-like feel" },
+      { name: "Golden Fluid", tier: "Professional", priceRange: "$$$", colorCount: 90, famous: "Smooth, ink-like" },
+      { name: "Liquitex Basics", tier: "Student", priceRange: "$", colorCount: 48, famous: "Best student acrylic" },
+      { name: "Amsterdam Standard", tier: "Student", priceRange: "$", colorCount: 90, famous: "Dutch quality, affordable" }
+    ]
+  },
+  "Gouache": {
+    description: "Opaque watercolor. Pigment with gum arabic and white added.",
+    characteristics: ["Opaque", "Matte finish", "Rewettable", "Velvety texture"],
+    brands: [
+      { name: "Winsor & Newton Designers'", tier: "Professional", priceRange: "$$$", colorCount: 83, famous: "Industry standard" },
+      { name: "Holbein Acryla Gouache", tier: "Professional", priceRange: "$$$", colorCount: 102, famous: "Acrylic-based, permanent" },
+      { name: "Schmincke Horadam Gouache", tier: "Professional", priceRange: "$$$$", colorCount: 48, famous: "German excellence" },
+      { name: "Himi/MIYA Gouache", tier: "Student", priceRange: "$", colorCount: 56, famous: "Popular with illustrators" }
+    ]
+  }
+};
 
 // ==========================================
 // PAINTING REFERENCES (Creative Commons)
@@ -2456,143 +2694,357 @@ export default function ColorMixingMasterGuide() {
               </div>
             </section>
 
-            {/* Visual Stroke Simulator - Colors on Papers */}
+            {/* Realistic Brush Hair Strokes */}
             <section>
               <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <span className="text-2xl">🎨</span> Visual Stroke Examples
+                <span className="text-2xl">🖌️</span> Brush Hair & Stroke Effects
               </h3>
-              <p className="text-xs sm:text-sm text-gray-500 mb-4">See how brush strokes with different colors appear on various paper textures:</p>
+              <p className="text-xs sm:text-sm text-gray-500 mb-4">See how different brush hair types create unique stroke characteristics:</p>
 
-              <div className="grid sm:grid-cols-2 gap-4">
-                {/* Hot Press Paper */}
+              <div className="space-y-6">
+                {/* Kolinsky Sable - Watercolor */}
                 <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
-                  <div className="p-3 bg-gray-100 border-b">
-                    <h4 className="font-bold text-gray-800 text-sm sm:text-base">Hot Press (Smooth)</h4>
-                    <p className="text-[10px] text-gray-500">Clean edges, vibrant colors</p>
+                  <div className="p-3 sm:p-4 bg-gradient-to-r from-amber-50 to-yellow-50 border-b">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-bold text-gray-800 text-sm sm:text-base">Kolinsky Sable (Natural Hair)</h4>
+                        <p className="text-[10px] sm:text-xs text-gray-500">Premium watercolor brush - Holds water, springs to point</p>
+                      </div>
+                      <span className="text-xs bg-amber-200 text-amber-800 px-2 py-1 rounded-full">Watercolor</span>
+                    </div>
                   </div>
-                  <div className="p-4" style={{ background: 'linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%)' }}>
-                    <svg viewBox="0 0 300 150" className="w-full">
-                      {/* Round brush stroke - Blue */}
-                      <path d="M20,30 Q80,10 140,30 Q200,50 260,30" fill="none" stroke="#0047AB" strokeWidth="8" strokeLinecap="round" opacity="0.9"/>
-                      {/* Flat brush stroke - Red */}
-                      <path d="M20,60 L280,60" fill="none" stroke="#E30022" strokeWidth="16" strokeLinecap="butt" opacity="0.85"/>
-                      {/* Fine liner - Green */}
-                      <path d="M20,95 Q60,80 100,95 Q140,110 180,95 Q220,80 260,95" fill="none" stroke="#228B22" strokeWidth="2" strokeLinecap="round"/>
-                      {/* Fan brush texture - Yellow */}
-                      <g opacity="0.8">
-                        {[0,15,30,45,60,75,90,105,120].map((x, i) => (
-                          <line key={i} x1={40+x*2} y1="125" x2={45+x*2} y2="140" stroke="#FFD300" strokeWidth="1.5"/>
+                  <div className="p-4">
+                    <svg viewBox="0 0 400 180" className="w-full" style={{ background: 'linear-gradient(180deg, #faf8f5 0%, #f5f0e8 100%)' }}>
+                      <defs>
+                        {/* Paper texture filter */}
+                        <filter id="paperTex">
+                          <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" result="noise"/>
+                          <feDiffuseLighting in="noise" lightingColor="white" surfaceScale="1.5" result="light">
+                            <feDistantLight azimuth="45" elevation="60"/>
+                          </feDiffuseLighting>
+                          <feBlend in="SourceGraphic" in2="light" mode="multiply"/>
+                        </filter>
+                        {/* Watercolor wet edge effect */}
+                        <filter id="wetEdge">
+                          <feGaussianBlur in="SourceGraphic" stdDeviation="0.8" result="blur"/>
+                          <feMorphology in="blur" operator="dilate" radius="0.5" result="dilated"/>
+                          <feComposite in="SourceGraphic" in2="dilated" operator="over"/>
+                        </filter>
+                        {/* Gradient for wet wash */}
+                        <linearGradient id="sableWash" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stopColor="#2A52BE" stopOpacity="0.7"/>
+                          <stop offset="50%" stopColor="#4166F5" stopOpacity="0.5"/>
+                          <stop offset="100%" stopColor="#6495ED" stopOpacity="0.2"/>
+                        </linearGradient>
+                        <radialGradient id="waterBloom" cx="50%" cy="50%" r="50%">
+                          <stop offset="0%" stopColor="#DC143C" stopOpacity="0.6"/>
+                          <stop offset="70%" stopColor="#DC143C" stopOpacity="0.3"/>
+                          <stop offset="100%" stopColor="#DC143C" stopOpacity="0.1"/>
+                        </radialGradient>
+                      </defs>
+
+                      {/* Fine pointed strokes - sable point */}
+                      <g filter="url(#wetEdge)">
+                        <path d="M20,30 Q30,28 50,30 Q80,25 100,32 Q110,35 115,30" fill="none" stroke="#1034A6" strokeWidth="1" opacity="0.9"/>
+                        <path d="M15,35 Q40,30 70,38 Q100,32 125,36 Q140,40 145,35" fill="none" stroke="#1034A6" strokeWidth="2.5" opacity="0.85"/>
+                        <path d="M10,42 Q50,35 90,45 Q130,38 150,42" fill="none" stroke="#2A52BE" strokeWidth="4" opacity="0.8"/>
+                      </g>
+                      <text x="160" y="40" fontSize="8" fill="#666">Fine point control</text>
+
+                      {/* Wet-on-wet bloom effect */}
+                      <ellipse cx="80" cy="90" rx="50" ry="25" fill="url(#waterBloom)" filter="url(#wetEdge)"/>
+                      <ellipse cx="90" cy="85" rx="30" ry="15" fill="#E32636" opacity="0.4"/>
+                      <text x="160" y="95" fontSize="8" fill="#666">Wet-on-wet bloom</text>
+
+                      {/* Graded wash */}
+                      <rect x="15" y="120" width="130" height="25" rx="3" fill="url(#sableWash)" filter="url(#wetEdge)"/>
+                      <text x="160" y="135" fontSize="8" fill="#666">Smooth graded wash</text>
+
+                      {/* Dry brush detail */}
+                      <g opacity="0.75">
+                        <path d="M15,165 Q25,160 40,165 Q55,162 65,167" fill="none" stroke="#228B22" strokeWidth="1.5"/>
+                        <path d="M70,163 Q85,158 100,163 Q115,160 125,165" fill="none" stroke="#228B22" strokeWidth="1"/>
+                        <path d="M50,170 Q70,165 90,172 Q110,168 130,173" fill="none" stroke="#32CD32" strokeWidth="0.8"/>
+                      </g>
+                      <text x="160" y="170" fontSize="8" fill="#666">Delicate dry details</text>
+
+                      {/* Brush illustration */}
+                      <g transform="translate(300, 20)">
+                        <ellipse cx="30" cy="10" rx="8" ry="4" fill="#8B4513"/>
+                        <rect x="22" y="10" width="16" height="60" fill="url(#ferruleGrad)" rx="1"/>
+                        <path d="M26,70 Q30,130 34,70" fill="#D4A574" stroke="#C49A6C" strokeWidth="0.5"/>
+                        <defs>
+                          <linearGradient id="ferruleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stopColor="#B8860B"/>
+                            <stop offset="50%" stopColor="#DAA520"/>
+                            <stop offset="100%" stopColor="#B8860B"/>
+                          </linearGradient>
+                        </defs>
+                        <text x="5" y="145" fontSize="7" fill="#666">Kolinsky</text>
+                        <text x="10" y="155" fontSize="7" fill="#666">Sable</text>
+                      </g>
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Hog Bristle - Oil */}
+                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
+                  <div className="p-3 sm:p-4 bg-gradient-to-r from-orange-50 to-red-50 border-b">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-bold text-gray-800 text-sm sm:text-base">Hog Bristle (Natural Stiff)</h4>
+                        <p className="text-[10px] sm:text-xs text-gray-500">Traditional oil painting brush - Holds thick paint, visible strokes</p>
+                      </div>
+                      <span className="text-xs bg-orange-200 text-orange-800 px-2 py-1 rounded-full">Oil Painting</span>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <svg viewBox="0 0 400 180" className="w-full">
+                      <defs>
+                        {/* Canvas texture */}
+                        <pattern id="canvasTex" patternUnits="userSpaceOnUse" width="4" height="4">
+                          <rect width="4" height="4" fill="#f5f0e6"/>
+                          <rect width="2" height="4" fill="#ebe6dc"/>
+                          <rect width="4" height="2" fill="#ebe6dc"/>
+                        </pattern>
+                        {/* Impasto filter for thick paint */}
+                        <filter id="impasto">
+                          <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="3" result="noise"/>
+                          <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+                          <feGaussianBlur stdDeviation="0.3"/>
+                        </filter>
+                        {/* Bristle marks filter */}
+                        <filter id="bristle">
+                          <feTurbulence type="fractalNoise" baseFrequency="0.1" numOctaves="2" result="noise"/>
+                          <feDisplacementMap in="SourceGraphic" in2="noise" scale="2"/>
+                        </filter>
+                      </defs>
+
+                      <rect width="400" height="180" fill="url(#canvasTex)"/>
+
+                      {/* Heavy impasto strokes */}
+                      <g filter="url(#impasto)">
+                        <path d="M20,35 C50,20 90,40 120,30 C140,25 150,35 160,30" fill="none" stroke="#FFD700" strokeWidth="18" strokeLinecap="round"/>
+                        <path d="M25,33 C55,22 85,38 115,32" fill="none" stroke="#FFC200" strokeWidth="8" strokeLinecap="round" opacity="0.6"/>
+                        <path d="M30,38 C60,28 90,42 110,35" fill="none" stroke="#FFE135" strokeWidth="4" strokeLinecap="round" opacity="0.4"/>
+                      </g>
+                      <text x="175" y="35" fontSize="8" fill="#666">Thick impasto - visible bristle marks</text>
+
+                      {/* Flat brush strokes showing bristle tracks */}
+                      <g filter="url(#bristle)">
+                        <rect x="20" y="60" width="140" height="20" rx="2" fill="#E30022" opacity="0.85"/>
+                        {/* Bristle track lines */}
+                        {[0,8,16,24,32,40,48,56,64,72,80,88,96,104,112,120,128].map((x, i) => (
+                          <line key={i} x1={22+x} y1="62" x2={22+x} y2="78" stroke="#B8001F" strokeWidth="0.5" opacity="0.3"/>
                         ))}
                       </g>
+                      <text x="175" y="75" fontSize="8" fill="#666">Flat bristle - parallel brush marks</text>
+
+                      {/* Scumbling / broken color */}
+                      <g>
+                        {[...Array(40)].map((_, i) => (
+                          <rect key={i} x={20 + (i % 10) * 14 + Math.random() * 4} y={105 + Math.floor(i / 10) * 8 + Math.random() * 3}
+                            width={6 + Math.random() * 4} height={4 + Math.random() * 3}
+                            fill={i % 3 === 0 ? '#0047AB' : i % 3 === 1 ? '#4169E1' : '#6495ED'}
+                            opacity={0.5 + Math.random() * 0.4}
+                            transform={`rotate(${Math.random() * 20 - 10})`}
+                          />
+                        ))}
+                      </g>
+                      <text x="175" y="125" fontSize="8" fill="#666">Scumbling - broken color layers</text>
+
+                      {/* Fan brush blend */}
+                      <g opacity="0.8">
+                        {[...Array(25)].map((_, i) => (
+                          <line key={i} x1={20 + i * 5} y1="160" x2={30 + i * 5} y2="175"
+                            stroke={`hsl(${30 + i * 2}, 70%, ${45 + i}%)`} strokeWidth="2" strokeLinecap="round"/>
+                        ))}
+                      </g>
+                      <text x="175" y="170" fontSize="8" fill="#666">Fan bristle - blending strokes</text>
+
+                      {/* Brush illustration */}
+                      <g transform="translate(320, 20)">
+                        <rect x="15" y="0" width="30" height="8" fill="#4a3728" rx="1"/>
+                        <rect x="15" y="8" width="30" height="50" fill="url(#ferruleGrad2)" rx="1"/>
+                        <g>
+                          {[...Array(15)].map((_, i) => (
+                            <line key={i} x1={18 + i * 2} y1="58" x2={17 + i * 2 + Math.random() * 2} y2={95 + Math.random() * 10}
+                              stroke="#E8DCC8" strokeWidth="1.5" strokeLinecap="round"/>
+                          ))}
+                        </g>
+                        <defs>
+                          <linearGradient id="ferruleGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stopColor="#888"/>
+                            <stop offset="50%" stopColor="#aaa"/>
+                            <stop offset="100%" stopColor="#888"/>
+                          </linearGradient>
+                        </defs>
+                        <text x="10" y="120" fontSize="7" fill="#666">Hog</text>
+                        <text x="5" y="130" fontSize="7" fill="#666">Bristle</text>
+                      </g>
                     </svg>
-                    <div className="flex gap-2 mt-2 text-[9px]">
-                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#0047AB'}}/> Round</span>
-                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#E30022'}}/> Flat</span>
-                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#228B22'}}/> Liner</span>
-                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#FFD300'}}/> Fan</span>
-                    </div>
                   </div>
                 </div>
 
-                {/* Cold Press Paper */}
+                {/* Synthetic Taklon - Acrylic */}
                 <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
-                  <div className="p-3 bg-gray-100 border-b">
-                    <h4 className="font-bold text-gray-800 text-sm sm:text-base">Cold Press (Medium Texture)</h4>
-                    <p className="text-[10px] text-gray-500">Slight texture, good absorption</p>
+                  <div className="p-3 sm:p-4 bg-gradient-to-r from-purple-50 to-pink-50 border-b">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-bold text-gray-800 text-sm sm:text-base">Synthetic Taklon (Golden Taklon)</h4>
+                        <p className="text-[10px] sm:text-xs text-gray-500">Versatile acrylic brush - Smooth application, easy cleanup</p>
+                      </div>
+                      <span className="text-xs bg-purple-200 text-purple-800 px-2 py-1 rounded-full">Acrylic</span>
+                    </div>
                   </div>
-                  <div className="p-4" style={{ background: 'repeating-linear-gradient(45deg, #f8f8f8, #f8f8f8 2px, #f0f0f0 2px, #f0f0f0 4px)' }}>
-                    <svg viewBox="0 0 300 150" className="w-full">
+                  <div className="p-4">
+                    <svg viewBox="0 0 400 180" className="w-full" style={{ background: '#fafafa' }}>
                       <defs>
-                        <filter id="coldpress">
-                          <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" result="noise"/>
-                          <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+                        {/* Smooth synthetic stroke */}
+                        <linearGradient id="synthGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stopColor="#8B008B" stopOpacity="0.9"/>
+                          <stop offset="100%" stopColor="#DA70D6" stopOpacity="0.7"/>
+                        </linearGradient>
+                        <linearGradient id="synthGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" stopColor="#228B22"/>
+                          <stop offset="100%" stopColor="#90EE90"/>
+                        </linearGradient>
+                        <filter id="smoothEdge">
+                          <feGaussianBlur stdDeviation="0.5"/>
                         </filter>
                       </defs>
-                      {/* Round brush stroke - Purple */}
-                      <path d="M20,30 Q80,15 140,30 Q200,45 260,30" fill="none" stroke="#8B008B" strokeWidth="10" strokeLinecap="round" filter="url(#coldpress)" opacity="0.85"/>
-                      {/* Filbert stroke - Orange */}
-                      <ellipse cx="150" cy="70" rx="80" ry="15" fill="#FF7F00" opacity="0.75" filter="url(#coldpress)"/>
-                      {/* Dry brush effect - Brown */}
-                      <path d="M30,110 Q90,100 150,110 Q210,120 270,110" fill="none" stroke="#8B4513" strokeWidth="12" strokeLinecap="round" strokeDasharray="2,3" opacity="0.7"/>
-                      {/* Wash gradient */}
-                      <rect x="30" y="130" width="240" height="15" fill="url(#washGradient)" opacity="0.5" rx="2"/>
+
+                      {/* Smooth gradient stroke */}
+                      <path d="M20,30 C60,20 100,35 140,28 C160,25 170,32 180,28" fill="none" stroke="url(#synthGrad1)" strokeWidth="12" strokeLinecap="round" filter="url(#smoothEdge)"/>
+                      <text x="195" y="32" fontSize="8" fill="#666">Smooth gradient application</text>
+
+                      {/* Clean flat coverage */}
+                      <rect x="20" y="55" width="160" height="22" rx="2" fill="#E30022" opacity="0.9" filter="url(#smoothEdge)"/>
+                      <rect x="22" y="57" width="156" height="18" rx="1" fill="#FF4444" opacity="0.3"/>
+                      <text x="195" y="70" fontSize="8" fill="#666">Even flat coverage</text>
+
+                      {/* Blended transition */}
                       <defs>
-                        <linearGradient id="washGradient">
-                          <stop offset="0%" stopColor="#4166F5" stopOpacity="0.8"/>
-                          <stop offset="100%" stopColor="#4166F5" stopOpacity="0.1"/>
+                        <linearGradient id="blendGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stopColor="#FFD700"/>
+                          <stop offset="50%" stopColor="#FFA500"/>
+                          <stop offset="100%" stopColor="#FF4500"/>
                         </linearGradient>
                       </defs>
-                    </svg>
-                    <div className="flex gap-2 mt-2 text-[9px]">
-                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#8B008B'}}/> Round</span>
-                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#FF7F00'}}/> Filbert</span>
-                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#8B4513'}}/> Dry</span>
-                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#4166F5'}}/> Wash</span>
-                    </div>
-                  </div>
-                </div>
+                      <rect x="20" y="95" width="160" height="20" rx="10" fill="url(#blendGrad)" filter="url(#smoothEdge)"/>
+                      <text x="195" y="108" fontSize="8" fill="#666">Seamless color blending</text>
 
-                {/* Rough Paper */}
-                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
-                  <div className="p-3 bg-gray-100 border-b">
-                    <h4 className="font-bold text-gray-800 text-sm sm:text-base">Rough (Heavy Texture)</h4>
-                    <p className="text-[10px] text-gray-500">Dramatic texture, broken strokes</p>
-                  </div>
-                  <div className="p-4" style={{ background: 'repeating-conic-gradient(#f5f5f5 0% 25%, #e8e8e8 0% 50%) 50% / 6px 6px' }}>
-                    <svg viewBox="0 0 300 150" className="w-full">
-                      <defs>
-                        <filter id="rough">
-                          <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="3" result="noise"/>
-                          <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
-                        </filter>
-                      </defs>
-                      {/* Heavy texture stroke - Teal */}
-                      <path d="M20,35 Q90,15 160,35 Q230,55 280,35" fill="none" stroke="#008B8B" strokeWidth="14" strokeLinecap="round" strokeDasharray="8,4" filter="url(#rough)" opacity="0.8"/>
-                      {/* Dry brush - Crimson */}
-                      <path d="M30,75 L270,75" fill="none" stroke="#DC143C" strokeWidth="10" strokeDasharray="4,6,2,8" opacity="0.7"/>
-                      {/* Granulation effect - Earth */}
-                      <g filter="url(#rough)" opacity="0.6">
-                        <circle cx="60" cy="115" r="12" fill="#826644"/>
-                        <circle cx="110" cy="120" r="10" fill="#8A3324"/>
-                        <circle cx="160" cy="112" r="14" fill="#D68A59"/>
-                        <circle cx="210" cy="118" r="11" fill="#664228"/>
-                        <circle cx="250" cy="115" r="9" fill="#826644"/>
-                      </g>
-                    </svg>
-                    <div className="flex gap-2 mt-2 text-[9px]">
-                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#008B8B'}}/> Texture</span>
-                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#DC143C'}}/> Dry</span>
-                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#826644'}}/> Granulation</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Canvas */}
-                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
-                  <div className="p-3 bg-gray-100 border-b">
-                    <h4 className="font-bold text-gray-800 text-sm sm:text-base">Canvas (Woven)</h4>
-                    <p className="text-[10px] text-gray-500">Bold impasto, visible texture</p>
-                  </div>
-                  <div className="p-4" style={{ background: 'repeating-linear-gradient(0deg, #f0f0f0, #f0f0f0 2px, #e5e5e5 2px, #e5e5e5 4px), repeating-linear-gradient(90deg, #f0f0f0, #f0f0f0 2px, #e5e5e5 2px, #e5e5e5 4px)' }}>
-                    <svg viewBox="0 0 300 150" className="w-full">
-                      {/* Thick impasto stroke - Cadmium Yellow */}
-                      <path d="M20,30 Q70,10 120,30 Q170,50 220,30 Q250,20 280,35" fill="none" stroke="#FFD300" strokeWidth="18" strokeLinecap="round" opacity="0.95"/>
-                      <path d="M25,32 Q75,12 125,32 Q175,52 225,32" fill="none" stroke="#FFC200" strokeWidth="6" strokeLinecap="round" opacity="0.4"/>
-                      {/* Palette knife - Blue */}
-                      <polygon points="40,70 120,60 130,80 50,90" fill="#0047AB" opacity="0.85"/>
-                      <polygon points="150,65 240,55 250,75 160,85" fill="#003153" opacity="0.8"/>
-                      {/* Heavy brush strokes - Van Gogh style */}
+                      {/* Fine detail work */}
                       <g>
-                        <path d="M30,115 Q50,100 70,115 Q90,130 110,115" fill="none" stroke="#FF7F00" strokeWidth="8" strokeLinecap="round"/>
-                        <path d="M120,110 Q140,95 160,110 Q180,125 200,110" fill="none" stroke="#E30022" strokeWidth="8" strokeLinecap="round"/>
-                        <path d="M210,115 Q230,100 250,115 Q270,130 280,120" fill="none" stroke="#8B008B" strokeWidth="8" strokeLinecap="round"/>
+                        <circle cx="40" cy="150" r="12" fill="none" stroke="#0047AB" strokeWidth="1.5"/>
+                        <circle cx="40" cy="150" r="8" fill="none" stroke="#4169E1" strokeWidth="1"/>
+                        <circle cx="40" cy="150" r="4" fill="#6495ED"/>
+                        <path d="M70,140 Q90,145 110,140 Q130,155 150,145 Q165,150 175,142" fill="none" stroke="#008B8B" strokeWidth="1.5"/>
+                      </g>
+                      <text x="195" y="150" fontSize="8" fill="#666">Precise detail work</text>
+
+                      {/* Brush illustration */}
+                      <g transform="translate(320, 20)">
+                        <rect x="18" y="0" width="24" height="8" fill="#2a2a2a" rx="1"/>
+                        <rect x="18" y="8" width="24" height="45" fill="url(#ferruleGrad3)" rx="1"/>
+                        <path d="M20,53 Q30,110 40,53" fill="#F5DEB3" stroke="#E8DCC8" strokeWidth="0.5"/>
+                        <defs>
+                          <linearGradient id="ferruleGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stopColor="#DAA520"/>
+                            <stop offset="50%" stopColor="#FFD700"/>
+                            <stop offset="100%" stopColor="#DAA520"/>
+                          </linearGradient>
+                        </defs>
+                        <text x="5" y="125" fontSize="7" fill="#666">Golden</text>
+                        <text x="5" y="135" fontSize="7" fill="#666">Taklon</text>
                       </g>
                     </svg>
-                    <div className="flex gap-2 mt-2 text-[9px]">
-                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#FFD300'}}/> Impasto</span>
-                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#0047AB'}}/> Knife</span>
-                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#FF7F00'}}/> Heavy</span>
+                  </div>
+                </div>
+
+                {/* Fan & Specialty Brushes */}
+                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
+                  <div className="p-3 sm:p-4 bg-gradient-to-r from-green-50 to-teal-50 border-b">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h4 className="font-bold text-gray-800 text-sm sm:text-base">Specialty Brushes</h4>
+                        <p className="text-[10px] sm:text-xs text-gray-500">Fan, Mop, Rigger - Each creates unique textures</p>
+                      </div>
+                      <span className="text-xs bg-green-200 text-green-800 px-2 py-1 rounded-full">All Media</span>
                     </div>
+                  </div>
+                  <div className="p-4">
+                    <svg viewBox="0 0 400 200" className="w-full" style={{ background: 'linear-gradient(180deg, #f8f6f0 0%, #f0ebe0 100%)' }}>
+                      {/* Fan Brush - Trees */}
+                      <g>
+                        <text x="20" y="20" fontSize="9" fontWeight="bold" fill="#333">Fan Brush - Foliage & Texture</text>
+                        {/* Tree foliage effect */}
+                        {[...Array(35)].map((_, i) => {
+                          const x = 30 + (i % 7) * 18;
+                          const y = 35 + Math.floor(i / 7) * 10;
+                          return (
+                            <g key={i} transform={`translate(${x},${y}) rotate(${-30 + Math.random() * 60})`}>
+                              <line x1="0" y1="0" x2={4 + Math.random() * 3} y2={8 + Math.random() * 4}
+                                stroke={`hsl(${100 + Math.random() * 40}, ${50 + Math.random() * 30}%, ${25 + Math.random() * 20}%)`}
+                                strokeWidth="1.5" strokeLinecap="round"/>
+                            </g>
+                          );
+                        })}
+                      </g>
+
+                      {/* Mop Brush - Soft Wash */}
+                      <g>
+                        <text x="200" y="20" fontSize="9" fontWeight="bold" fill="#333">Mop Brush - Soft Washes</text>
+                        <defs>
+                          <radialGradient id="mopWash" cx="50%" cy="30%" r="70%">
+                            <stop offset="0%" stopColor="#87CEEB" stopOpacity="0.6"/>
+                            <stop offset="50%" stopColor="#ADD8E6" stopOpacity="0.4"/>
+                            <stop offset="100%" stopColor="#E0FFFF" stopOpacity="0.1"/>
+                          </radialGradient>
+                        </defs>
+                        <ellipse cx="280" cy="55" rx="70" ry="30" fill="url(#mopWash)"/>
+                        <ellipse cx="290" cy="50" rx="40" ry="18" fill="#87CEEB" opacity="0.3"/>
+                      </g>
+
+                      {/* Rigger/Liner - Fine Lines */}
+                      <g>
+                        <text x="20" y="110" fontSize="9" fontWeight="bold" fill="#333">Rigger/Liner - Fine Details</text>
+                        {/* Tree branches */}
+                        <path d="M30,125 Q50,120 80,130 Q100,125 120,135" fill="none" stroke="#4a3728" strokeWidth="0.8"/>
+                        <path d="M50,122 Q60,115 75,120" fill="none" stroke="#5a4738" strokeWidth="0.6"/>
+                        <path d="M90,128 Q105,120 115,125" fill="none" stroke="#5a4738" strokeWidth="0.5"/>
+                        <path d="M60,132 Q70,140 85,135" fill="none" stroke="#4a3728" strokeWidth="0.5"/>
+                        {/* Grass blades */}
+                        {[...Array(15)].map((_, i) => (
+                          <path key={i} d={`M${130 + i * 8},155 Q${132 + i * 8},${140 - Math.random() * 10} ${135 + i * 8 + Math.random() * 5},${125 + Math.random() * 10}`}
+                            fill="none" stroke={`hsl(${90 + Math.random() * 30}, 60%, ${30 + Math.random() * 20}%)`}
+                            strokeWidth="0.7" strokeLinecap="round"/>
+                        ))}
+                      </g>
+
+                      {/* Filbert - Blending */}
+                      <g>
+                        <text x="200" y="110" fontSize="9" fontWeight="bold" fill="#333">Filbert - Organic Shapes</text>
+                        {/* Rose petals */}
+                        <ellipse cx="250" cy="140" rx="20" ry="12" fill="#FFB6C1" opacity="0.7" transform="rotate(-20, 250, 140)"/>
+                        <ellipse cx="270" cy="135" rx="18" ry="10" fill="#FFC0CB" opacity="0.8" transform="rotate(15, 270, 135)"/>
+                        <ellipse cx="260" cy="150" rx="22" ry="11" fill="#FF69B4" opacity="0.6" transform="rotate(-10, 260, 150)"/>
+                        <ellipse cx="280" cy="148" rx="16" ry="9" fill="#FFB6C1" opacity="0.75" transform="rotate(25, 280, 148)"/>
+                        <circle cx="265" cy="143" r="8" fill="#FF1493" opacity="0.5"/>
+                        {/* Leaves */}
+                        <ellipse cx="310" cy="155" rx="15" ry="6" fill="#228B22" opacity="0.7" transform="rotate(30, 310, 155)"/>
+                        <ellipse cx="325" cy="145" rx="12" ry="5" fill="#32CD32" opacity="0.6" transform="rotate(-20, 325, 145)"/>
+                      </g>
+
+                      {/* Palette Knife */}
+                      <g>
+                        <text x="20" y="175" fontSize="9" fontWeight="bold" fill="#333">Palette Knife - Bold Texture</text>
+                        <polygon points="50,185 100,180 105,192 55,197" fill="#0047AB" opacity="0.9"/>
+                        <polygon points="52,186 95,182 98,190 57,194" fill="#4169E1" opacity="0.4"/>
+                        <polygon points="110,182 155,178 158,190 113,194" fill="#FFD700" opacity="0.85"/>
+                        <polygon points="112,183 150,180 153,188 115,191" fill="#FFF700" opacity="0.3"/>
+                      </g>
+                    </svg>
                   </div>
                 </div>
               </div>
@@ -2669,6 +3121,313 @@ export default function ColorMixingMasterGuide() {
                     <p className="text-[10px] text-gray-500 mt-2 pt-2 border-t">Stiff for thick paint, soft for glazing</p>
                   </div>
                 </div>
+              </div>
+            </section>
+
+            {/* Canvas & Cloth Types */}
+            <section className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl border border-amber-200 p-4 sm:p-6 print-card">
+              <h3 className="text-lg sm:text-xl font-bold text-amber-800 mb-4 flex items-center gap-2">
+                <span className="text-2xl">🧵</span> Canvas & Cloth Types
+              </h3>
+              <p className="text-xs sm:text-sm text-amber-700 mb-4">Choose the right canvas material and weight for your painting:</p>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                {canvasTypes.map((canvas, i) => (
+                  <div key={i} className="bg-white rounded-xl border border-amber-100 overflow-hidden">
+                    {/* Canvas color swatch header */}
+                    <div className="flex items-center gap-3 p-3 border-b border-amber-100">
+                      <div
+                        className="w-16 h-16 rounded-lg border-2 border-amber-200 shadow-inner flex-shrink-0"
+                        style={{
+                          backgroundColor: canvas.color,
+                          backgroundImage: canvas.name.includes('Jute')
+                            ? 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.1) 3px, rgba(0,0,0,0.1) 6px), repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,0.1) 3px, rgba(0,0,0,0.1) 6px)'
+                            : canvas.name.includes('Linen')
+                            ? 'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px)'
+                            : 'none'
+                        }}
+                      />
+                      <div>
+                        <h4 className="font-bold text-amber-900 text-sm sm:text-base">{canvas.name}</h4>
+                        <p className="text-xs text-amber-600">{canvas.weave}</p>
+                      </div>
+                    </div>
+
+                    <div className="p-3">
+                      <p className="text-xs text-gray-600 mb-3">{canvas.description}</p>
+
+                      {/* GSM/Weight Table */}
+                      <div className="mb-3">
+                        <p className="text-[10px] font-bold text-amber-700 uppercase tracking-wide mb-1">Weight Options:</p>
+                        <div className="bg-amber-50 rounded-lg p-2">
+                          <div className="grid grid-cols-3 gap-1 text-[10px]">
+                            <span className="font-bold text-amber-800">Weight</span>
+                            <span className="font-bold text-amber-800">GSM</span>
+                            <span className="font-bold text-amber-800">Use</span>
+                            {canvas.weights.map((w, wi) => (
+                              <React.Fragment key={wi}>
+                                <span className="text-gray-700">{w.oz}</span>
+                                <span className="text-gray-700">{w.gsm}g/m²</span>
+                                <span className="text-gray-600 truncate">{w.use}</span>
+                              </React.Fragment>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Characteristics */}
+                      <div className="flex flex-wrap gap-1 mb-2">
+                        {canvas.characteristics.map((char, ci) => (
+                          <span key={ci} className="text-[9px] px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">
+                            {char}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Brands */}
+                      <p className="text-[10px] text-gray-500">
+                        <span className="font-semibold">Brands:</span> {canvas.brands.join(', ')}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Brush Hair Types */}
+            <section className="bg-gradient-to-r from-rose-50 to-pink-50 rounded-2xl border border-rose-200 p-4 sm:p-6 print-card">
+              <h3 className="text-lg sm:text-xl font-bold text-rose-800 mb-4 flex items-center gap-2">
+                <span className="text-2xl">🖌️</span> Brush Hair Types
+              </h3>
+              <p className="text-xs sm:text-sm text-rose-700 mb-4">Natural and synthetic brush fibers with their actual colors:</p>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {brushHairTypes.map((hair, i) => (
+                  <div key={i} className="bg-white rounded-xl border border-rose-100 overflow-hidden">
+                    {/* Hair color swatch with realistic brush shape */}
+                    <div className="p-3 border-b border-rose-100 bg-gradient-to-b from-rose-50 to-white">
+                      <div className="flex items-center gap-3">
+                        {/* Brush illustration */}
+                        <svg viewBox="0 0 40 80" className="w-10 h-20 flex-shrink-0">
+                          {/* Ferrule (metal part) */}
+                          <rect x="12" y="30" width="16" height="12" fill="#C0C0C0" rx="1"/>
+                          <rect x="12" y="30" width="16" height="3" fill="#A0A0A0"/>
+                          {/* Handle */}
+                          <rect x="14" y="42" width="12" height="38" fill="#8B4513" rx="2"/>
+                          <rect x="14" y="42" width="3" height="38" fill="#A0522D" rx="1"/>
+                          {/* Brush hair/bristles */}
+                          <ellipse cx="20" cy="15" rx="8" ry="15" fill={hair.color}/>
+                          <ellipse cx="18" cy="15" rx="4" ry="14" fill={hair.color} opacity="0.7"/>
+                          {/* Tip highlight */}
+                          <ellipse cx="20" cy="5" rx="3" ry="4" fill={hair.color} style={{ filter: 'brightness(1.2)' }}/>
+                        </svg>
+
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-bold text-rose-900 text-sm">{hair.name}</h4>
+                          <p className="text-[10px] text-rose-600">{hair.origin}</p>
+                          <div className="flex items-center gap-2 mt-1">
+                            <div
+                              className="w-4 h-4 rounded-full border border-rose-200"
+                              style={{ backgroundColor: hair.color }}
+                              title={hair.colorName}
+                            />
+                            <span className="text-[10px] text-gray-500">{hair.colorName}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-3">
+                      <p className="text-xs text-gray-600 mb-2">{hair.description}</p>
+
+                      {/* Characteristics */}
+                      <div className="flex flex-wrap gap-1 mb-2">
+                        {hair.characteristics.slice(0, 3).map((char, ci) => (
+                          <span key={ci} className="text-[9px] px-2 py-0.5 bg-rose-100 text-rose-700 rounded-full">
+                            {char}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Best Media & Price */}
+                      <div className="flex items-center justify-between text-[10px] mb-2">
+                        <span className="text-gray-600">
+                          <span className="font-semibold">Best for:</span> {hair.bestMedia.slice(0, 2).join(', ')}
+                        </span>
+                        <span className="font-bold text-green-600">{hair.priceRange}</span>
+                      </div>
+
+                      {/* Famous Users */}
+                      {hair.famousUsers && (
+                        <p className="text-[10px] text-purple-600 italic border-t border-rose-100 pt-2 mt-2">
+                          ✨ Used by: {hair.famousUsers.join(', ')}
+                        </p>
+                      )}
+
+                      {/* Brands */}
+                      <p className="text-[10px] text-gray-500 mt-1">
+                        <span className="font-semibold">Brands:</span> {hair.brands.slice(0, 2).join(', ')}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Paint Media & Brands */}
+            <section className="bg-gradient-to-r from-violet-50 to-purple-50 rounded-2xl border border-violet-200 p-4 sm:p-6 print-card">
+              <h3 className="text-lg sm:text-xl font-bold text-violet-800 mb-4 flex items-center gap-2">
+                <span className="text-2xl">🎨</span> Paint Media & Brands
+              </h3>
+              <p className="text-xs sm:text-sm text-violet-700 mb-4">Professional and student grade paints by medium:</p>
+
+              <div className="space-y-6">
+                {Object.entries(paintMediaBrands).map(([medium, data]) => (
+                  <div key={medium} className="bg-white rounded-xl border border-violet-100 overflow-hidden">
+                    {/* Medium Header */}
+                    <div className="p-3 sm:p-4 bg-gradient-to-r from-violet-100 to-purple-100 border-b border-violet-200">
+                      <h4 className="font-bold text-violet-900 text-base sm:text-lg flex items-center gap-2">
+                        {medium === 'Watercolor' && '💧'}
+                        {medium === 'Oil' && '🖼️'}
+                        {medium === 'Acrylic' && '🎨'}
+                        {medium === 'Gouache' && '✨'}
+                        {medium}
+                      </h4>
+                      <p className="text-xs text-violet-700 mt-1">{data.description}</p>
+                      <div className="flex flex-wrap gap-1 mt-2">
+                        {data.characteristics.map((char, ci) => (
+                          <span key={ci} className="text-[9px] px-2 py-0.5 bg-white/50 text-violet-700 rounded-full">
+                            {char}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Brands Table */}
+                    <div className="p-3 sm:p-4">
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-xs">
+                          <thead>
+                            <tr className="text-left border-b border-violet-100">
+                              <th className="pb-2 font-bold text-violet-800">Brand</th>
+                              <th className="pb-2 font-bold text-violet-800 hidden sm:table-cell">Tier</th>
+                              <th className="pb-2 font-bold text-violet-800">Price</th>
+                              <th className="pb-2 font-bold text-violet-800 hidden sm:table-cell">Colors</th>
+                              <th className="pb-2 font-bold text-violet-800">Known For</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {data.brands.map((brand, bi) => (
+                              <tr key={bi} className="border-b border-violet-50 last:border-0">
+                                <td className="py-2 pr-2">
+                                  <span className="font-semibold text-gray-800">{brand.name}</span>
+                                  <span className="sm:hidden text-[10px] text-gray-500 block">{brand.tier}</span>
+                                </td>
+                                <td className="py-2 pr-2 hidden sm:table-cell">
+                                  <span className={`text-[10px] px-2 py-0.5 rounded-full ${
+                                    brand.tier === 'Professional' ? 'bg-amber-100 text-amber-700' :
+                                    brand.tier === 'Student' ? 'bg-blue-100 text-blue-700' :
+                                    'bg-gray-100 text-gray-700'
+                                  }`}>
+                                    {brand.tier}
+                                  </span>
+                                </td>
+                                <td className="py-2 pr-2">
+                                  <span className="text-green-600 font-bold">{brand.priceRange}</span>
+                                </td>
+                                <td className="py-2 pr-2 hidden sm:table-cell text-gray-600">
+                                  {brand.colorCount}
+                                </td>
+                                <td className="py-2 text-gray-500 text-[10px] sm:text-xs">
+                                  {brand.famous}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Paper GSM Reference */}
+            <section className="bg-gradient-to-r from-cyan-50 to-sky-50 rounded-2xl border border-cyan-200 p-4 sm:p-6 print-card">
+              <h3 className="text-lg sm:text-xl font-bold text-cyan-800 mb-4 flex items-center gap-2">
+                <span className="text-2xl">📄</span> Paper Weight Reference (GSM)
+              </h3>
+              <p className="text-xs sm:text-sm text-cyan-700 mb-4">GSM (grams per square meter) indicates paper thickness. Higher = thicker paper.</p>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {/* Weight categories */}
+                <div className="bg-white rounded-xl p-4 border border-cyan-100">
+                  <h4 className="font-bold text-cyan-800 mb-2 text-sm flex items-center gap-2">
+                    <span className="w-3 h-3 rounded bg-cyan-200"></span> Light (90-185 GSM)
+                  </h4>
+                  <ul className="text-xs text-gray-600 space-y-1">
+                    <li>• <span className="font-semibold">90 GSM:</span> Standard copy paper</li>
+                    <li>• <span className="font-semibold">120 GSM:</span> Quality stationery</li>
+                    <li>• <span className="font-semibold">185 GSM:</span> Light sketching</li>
+                  </ul>
+                  <p className="text-[10px] text-cyan-600 mt-2 pt-2 border-t border-cyan-100">
+                    Best for: Pencil, pen, light washes
+                  </p>
+                </div>
+
+                <div className="bg-white rounded-xl p-4 border border-cyan-100">
+                  <h4 className="font-bold text-cyan-800 mb-2 text-sm flex items-center gap-2">
+                    <span className="w-3 h-3 rounded bg-cyan-400"></span> Medium (200-300 GSM)
+                  </h4>
+                  <ul className="text-xs text-gray-600 space-y-1">
+                    <li>• <span className="font-semibold">200 GSM:</span> Mixed media light</li>
+                    <li>• <span className="font-semibold">240 GSM:</span> Marker paper</li>
+                    <li>• <span className="font-semibold">300 GSM (140lb):</span> Standard watercolor</li>
+                  </ul>
+                  <p className="text-[10px] text-cyan-600 mt-2 pt-2 border-t border-cyan-100">
+                    Best for: Watercolor, gouache, markers
+                  </p>
+                </div>
+
+                <div className="bg-white rounded-xl p-4 border border-cyan-100">
+                  <h4 className="font-bold text-cyan-800 mb-2 text-sm flex items-center gap-2">
+                    <span className="w-3 h-3 rounded bg-cyan-600"></span> Heavy (356-640 GSM)
+                  </h4>
+                  <ul className="text-xs text-gray-600 space-y-1">
+                    <li>• <span className="font-semibold">356 GSM (260lb):</span> Heavy watercolor</li>
+                    <li>• <span className="font-semibold">425 GSM (300lb):</span> No buckling</li>
+                    <li>• <span className="font-semibold">640 GSM:</span> Board-like, museum quality</li>
+                  </ul>
+                  <p className="text-[10px] text-cyan-600 mt-2 pt-2 border-t border-cyan-100">
+                    Best for: Wet techniques, multiple layers
+                  </p>
+                </div>
+              </div>
+
+              {/* Conversion chart */}
+              <div className="mt-4 bg-white rounded-xl p-4 border border-cyan-100">
+                <h4 className="font-bold text-cyan-800 mb-2 text-sm">GSM to LB Conversion</h4>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                  <div className="bg-cyan-50 rounded p-2 text-center">
+                    <span className="block font-bold text-cyan-800">90 lb</span>
+                    <span className="text-gray-600">= 185 GSM</span>
+                  </div>
+                  <div className="bg-cyan-50 rounded p-2 text-center">
+                    <span className="block font-bold text-cyan-800">140 lb</span>
+                    <span className="text-gray-600">= 300 GSM</span>
+                  </div>
+                  <div className="bg-cyan-50 rounded p-2 text-center">
+                    <span className="block font-bold text-cyan-800">260 lb</span>
+                    <span className="text-gray-600">= 356 GSM</span>
+                  </div>
+                  <div className="bg-cyan-50 rounded p-2 text-center">
+                    <span className="block font-bold text-cyan-800">300 lb</span>
+                    <span className="text-gray-600">= 640 GSM</span>
+                  </div>
+                </div>
+                <p className="text-[10px] text-gray-500 mt-2 italic">
+                  Note: US uses pounds (lb) measured per ream. UK/EU uses GSM (grams per square meter).
+                </p>
               </div>
             </section>
 
