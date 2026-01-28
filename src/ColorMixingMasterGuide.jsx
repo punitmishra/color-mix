@@ -710,8 +710,8 @@ const artistPalettes = [
     subtitle: "The Joy of Painting",
     description: "Bob's signature wet-on-wet oil painting palette for happy little trees and mountains",
     image: "🏔️",
-    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/600px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
-    referenceTitle: "Landscape painting style",
+    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Cole_Thomas_The_Oxbow_%28The_Connecticut_River_near_Northampton_1836%29.jpg/600px-Cole_Thomas_The_Oxbow_%28The_Connecticut_River_near_Northampton_1836%29.jpg",
+    referenceTitle: "The Oxbow - Thomas Cole (Landscape style)",
     colors: [
       { name: "Titanium White", hex: "#FFFFFF", code: "PW6", note: "Base for clouds, snow, highlights" },
       { name: "Phthalo Blue", hex: "#000F89", code: "PB15", note: "Sky, water - very strong!" },
@@ -881,8 +881,8 @@ const artistPalettes = [
     subtitle: "Anders Zorn's Limited Palette",
     description: "Only 4 colors! Proves you don't need many colors for beautiful paintings",
     image: "4️⃣",
-    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/1665_Girl_with_a_Pearl_Earring.jpg/440px-1665_Girl_with_a_Pearl_Earring.jpg",
-    referenceTitle: "Limited palette portrait example",
+    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/The_Night_Watch_-_HD.jpg/600px-The_Night_Watch_-_HD.jpg",
+    referenceTitle: "Night Watch - Rembrandt (Limited palette mastery)",
     colors: [
       { name: "Titanium White", hex: "#FFFFFF", code: "PW6", note: "Essential for tints and highlights" },
       { name: "Yellow Ochre", hex: "#CB9D06", code: "PY43", note: "Warm tones, skin, golden hues" },
@@ -902,8 +902,8 @@ const artistPalettes = [
     subtitle: "Ultimate Mixing Palette",
     description: "Two versions of each primary (warm and cool) for maximum color range",
     image: "🎨",
-    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg/600px-Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg",
-    referenceTitle: "Full color range painting",
+    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg/600px-A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg",
+    referenceTitle: "Sunday on La Grande Jatte - Seurat (Color theory)",
     colors: [
       { name: "Cadmium Yellow Light", hex: "#FFF700", code: "PY37", note: "Cool yellow (greenish)" },
       { name: "Cadmium Yellow Deep", hex: "#FFA500", code: "PY37", note: "Warm yellow (orangish)" },
