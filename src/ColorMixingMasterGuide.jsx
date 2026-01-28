@@ -2456,6 +2456,222 @@ export default function ColorMixingMasterGuide() {
               </div>
             </section>
 
+            {/* Visual Stroke Simulator - Colors on Papers */}
+            <section>
+              <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <span className="text-2xl">🎨</span> Visual Stroke Examples
+              </h3>
+              <p className="text-xs sm:text-sm text-gray-500 mb-4">See how brush strokes with different colors appear on various paper textures:</p>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                {/* Hot Press Paper */}
+                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
+                  <div className="p-3 bg-gray-100 border-b">
+                    <h4 className="font-bold text-gray-800 text-sm sm:text-base">Hot Press (Smooth)</h4>
+                    <p className="text-[10px] text-gray-500">Clean edges, vibrant colors</p>
+                  </div>
+                  <div className="p-4" style={{ background: 'linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%)' }}>
+                    <svg viewBox="0 0 300 150" className="w-full">
+                      {/* Round brush stroke - Blue */}
+                      <path d="M20,30 Q80,10 140,30 Q200,50 260,30" fill="none" stroke="#0047AB" strokeWidth="8" strokeLinecap="round" opacity="0.9"/>
+                      {/* Flat brush stroke - Red */}
+                      <path d="M20,60 L280,60" fill="none" stroke="#E30022" strokeWidth="16" strokeLinecap="butt" opacity="0.85"/>
+                      {/* Fine liner - Green */}
+                      <path d="M20,95 Q60,80 100,95 Q140,110 180,95 Q220,80 260,95" fill="none" stroke="#228B22" strokeWidth="2" strokeLinecap="round"/>
+                      {/* Fan brush texture - Yellow */}
+                      <g opacity="0.8">
+                        {[0,15,30,45,60,75,90,105,120].map((x, i) => (
+                          <line key={i} x1={40+x*2} y1="125" x2={45+x*2} y2="140" stroke="#FFD300" strokeWidth="1.5"/>
+                        ))}
+                      </g>
+                    </svg>
+                    <div className="flex gap-2 mt-2 text-[9px]">
+                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#0047AB'}}/> Round</span>
+                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#E30022'}}/> Flat</span>
+                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#228B22'}}/> Liner</span>
+                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#FFD300'}}/> Fan</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Cold Press Paper */}
+                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
+                  <div className="p-3 bg-gray-100 border-b">
+                    <h4 className="font-bold text-gray-800 text-sm sm:text-base">Cold Press (Medium Texture)</h4>
+                    <p className="text-[10px] text-gray-500">Slight texture, good absorption</p>
+                  </div>
+                  <div className="p-4" style={{ background: 'repeating-linear-gradient(45deg, #f8f8f8, #f8f8f8 2px, #f0f0f0 2px, #f0f0f0 4px)' }}>
+                    <svg viewBox="0 0 300 150" className="w-full">
+                      <defs>
+                        <filter id="coldpress">
+                          <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" result="noise"/>
+                          <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+                        </filter>
+                      </defs>
+                      {/* Round brush stroke - Purple */}
+                      <path d="M20,30 Q80,15 140,30 Q200,45 260,30" fill="none" stroke="#8B008B" strokeWidth="10" strokeLinecap="round" filter="url(#coldpress)" opacity="0.85"/>
+                      {/* Filbert stroke - Orange */}
+                      <ellipse cx="150" cy="70" rx="80" ry="15" fill="#FF7F00" opacity="0.75" filter="url(#coldpress)"/>
+                      {/* Dry brush effect - Brown */}
+                      <path d="M30,110 Q90,100 150,110 Q210,120 270,110" fill="none" stroke="#8B4513" strokeWidth="12" strokeLinecap="round" strokeDasharray="2,3" opacity="0.7"/>
+                      {/* Wash gradient */}
+                      <rect x="30" y="130" width="240" height="15" fill="url(#washGradient)" opacity="0.5" rx="2"/>
+                      <defs>
+                        <linearGradient id="washGradient">
+                          <stop offset="0%" stopColor="#4166F5" stopOpacity="0.8"/>
+                          <stop offset="100%" stopColor="#4166F5" stopOpacity="0.1"/>
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <div className="flex gap-2 mt-2 text-[9px]">
+                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#8B008B'}}/> Round</span>
+                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#FF7F00'}}/> Filbert</span>
+                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#8B4513'}}/> Dry</span>
+                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#4166F5'}}/> Wash</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Rough Paper */}
+                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
+                  <div className="p-3 bg-gray-100 border-b">
+                    <h4 className="font-bold text-gray-800 text-sm sm:text-base">Rough (Heavy Texture)</h4>
+                    <p className="text-[10px] text-gray-500">Dramatic texture, broken strokes</p>
+                  </div>
+                  <div className="p-4" style={{ background: 'repeating-conic-gradient(#f5f5f5 0% 25%, #e8e8e8 0% 50%) 50% / 6px 6px' }}>
+                    <svg viewBox="0 0 300 150" className="w-full">
+                      <defs>
+                        <filter id="rough">
+                          <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="3" result="noise"/>
+                          <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+                        </filter>
+                      </defs>
+                      {/* Heavy texture stroke - Teal */}
+                      <path d="M20,35 Q90,15 160,35 Q230,55 280,35" fill="none" stroke="#008B8B" strokeWidth="14" strokeLinecap="round" strokeDasharray="8,4" filter="url(#rough)" opacity="0.8"/>
+                      {/* Dry brush - Crimson */}
+                      <path d="M30,75 L270,75" fill="none" stroke="#DC143C" strokeWidth="10" strokeDasharray="4,6,2,8" opacity="0.7"/>
+                      {/* Granulation effect - Earth */}
+                      <g filter="url(#rough)" opacity="0.6">
+                        <circle cx="60" cy="115" r="12" fill="#826644"/>
+                        <circle cx="110" cy="120" r="10" fill="#8A3324"/>
+                        <circle cx="160" cy="112" r="14" fill="#D68A59"/>
+                        <circle cx="210" cy="118" r="11" fill="#664228"/>
+                        <circle cx="250" cy="115" r="9" fill="#826644"/>
+                      </g>
+                    </svg>
+                    <div className="flex gap-2 mt-2 text-[9px]">
+                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#008B8B'}}/> Texture</span>
+                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#DC143C'}}/> Dry</span>
+                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#826644'}}/> Granulation</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Canvas */}
+                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
+                  <div className="p-3 bg-gray-100 border-b">
+                    <h4 className="font-bold text-gray-800 text-sm sm:text-base">Canvas (Woven)</h4>
+                    <p className="text-[10px] text-gray-500">Bold impasto, visible texture</p>
+                  </div>
+                  <div className="p-4" style={{ background: 'repeating-linear-gradient(0deg, #f0f0f0, #f0f0f0 2px, #e5e5e5 2px, #e5e5e5 4px), repeating-linear-gradient(90deg, #f0f0f0, #f0f0f0 2px, #e5e5e5 2px, #e5e5e5 4px)' }}>
+                    <svg viewBox="0 0 300 150" className="w-full">
+                      {/* Thick impasto stroke - Cadmium Yellow */}
+                      <path d="M20,30 Q70,10 120,30 Q170,50 220,30 Q250,20 280,35" fill="none" stroke="#FFD300" strokeWidth="18" strokeLinecap="round" opacity="0.95"/>
+                      <path d="M25,32 Q75,12 125,32 Q175,52 225,32" fill="none" stroke="#FFC200" strokeWidth="6" strokeLinecap="round" opacity="0.4"/>
+                      {/* Palette knife - Blue */}
+                      <polygon points="40,70 120,60 130,80 50,90" fill="#0047AB" opacity="0.85"/>
+                      <polygon points="150,65 240,55 250,75 160,85" fill="#003153" opacity="0.8"/>
+                      {/* Heavy brush strokes - Van Gogh style */}
+                      <g>
+                        <path d="M30,115 Q50,100 70,115 Q90,130 110,115" fill="none" stroke="#FF7F00" strokeWidth="8" strokeLinecap="round"/>
+                        <path d="M120,110 Q140,95 160,110 Q180,125 200,110" fill="none" stroke="#E30022" strokeWidth="8" strokeLinecap="round"/>
+                        <path d="M210,115 Q230,100 250,115 Q270,130 280,120" fill="none" stroke="#8B008B" strokeWidth="8" strokeLinecap="round"/>
+                      </g>
+                    </svg>
+                    <div className="flex gap-2 mt-2 text-[9px]">
+                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#FFD300'}}/> Impasto</span>
+                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#0047AB'}}/> Knife</span>
+                      <span className="flex items-center gap-1"><span className="w-3 h-3 rounded-full" style={{background:'#FF7F00'}}/> Heavy</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Medium-Specific Brushes */}
+            <section className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl border border-emerald-200 p-4 sm:p-6 print-card">
+              <h3 className="text-lg sm:text-xl font-bold text-emerald-800 mb-4">Brushes by Medium</h3>
+              <p className="text-xs sm:text-sm text-emerald-700 mb-4">Choose the right brush material for your paint medium:</p>
+
+              <div className="grid sm:grid-cols-3 gap-4">
+                {/* Watercolor */}
+                <div className="bg-white rounded-xl p-4 border border-emerald-100">
+                  <h4 className="font-bold text-emerald-800 mb-2 flex items-center gap-2">
+                    <span>💧</span> Watercolor
+                  </h4>
+                  <div className="space-y-2 text-xs">
+                    <div className="flex items-start gap-2">
+                      <span className="text-emerald-500 font-bold">Best:</span>
+                      <span className="text-gray-700">Natural hair (Kolinsky sable, squirrel)</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-emerald-500 font-bold">Good:</span>
+                      <span className="text-gray-700">Synthetic sable blends</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-emerald-500 font-bold">Types:</span>
+                      <span className="text-gray-700">Round, Mop, Rigger</span>
+                    </div>
+                    <p className="text-[10px] text-gray-500 mt-2 pt-2 border-t">Holds water well, springs back to point</p>
+                  </div>
+                </div>
+
+                {/* Acrylic */}
+                <div className="bg-white rounded-xl p-4 border border-emerald-100">
+                  <h4 className="font-bold text-emerald-800 mb-2 flex items-center gap-2">
+                    <span>🎨</span> Acrylic
+                  </h4>
+                  <div className="space-y-2 text-xs">
+                    <div className="flex items-start gap-2">
+                      <span className="text-emerald-500 font-bold">Best:</span>
+                      <span className="text-gray-700">Synthetic (Taklon, Golden Taklon)</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-emerald-500 font-bold">Good:</span>
+                      <span className="text-gray-700">Hog bristle for texture</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-emerald-500 font-bold">Types:</span>
+                      <span className="text-gray-700">Flat, Filbert, Round, Fan</span>
+                    </div>
+                    <p className="text-[10px] text-gray-500 mt-2 pt-2 border-t">Durable, withstands acrylic's abrasiveness</p>
+                  </div>
+                </div>
+
+                {/* Oil */}
+                <div className="bg-white rounded-xl p-4 border border-emerald-100">
+                  <h4 className="font-bold text-emerald-800 mb-2 flex items-center gap-2">
+                    <span>🖼️</span> Oil
+                  </h4>
+                  <div className="space-y-2 text-xs">
+                    <div className="flex items-start gap-2">
+                      <span className="text-emerald-500 font-bold">Best:</span>
+                      <span className="text-gray-700">Hog bristle (Chungking)</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-emerald-500 font-bold">Good:</span>
+                      <span className="text-gray-700">Mongoose, badger for blending</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-emerald-500 font-bold">Types:</span>
+                      <span className="text-gray-700">Filbert, Flat, Bright, Fan</span>
+                    </div>
+                    <p className="text-[10px] text-gray-500 mt-2 pt-2 border-t">Stiff for thick paint, soft for glazing</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
             {/* Painting References */}
             <section>
               <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
