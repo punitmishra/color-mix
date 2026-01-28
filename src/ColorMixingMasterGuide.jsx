@@ -710,8 +710,8 @@ const artistPalettes = [
     subtitle: "The Joy of Painting",
     description: "Bob's signature wet-on-wet oil painting palette for happy little trees and mountains",
     image: "🏔️",
-    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Bob_at_Easel.jpg/440px-Bob_at_Easel.jpg",
-    referenceTitle: "Bob Ross painting",
+    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Caspar_David_Friedrich_-_Wanderer_above_the_sea_of_fog.jpg/440px-Caspar_David_Friedrich_-_Wanderer_above_the_sea_of_fog.jpg",
+    referenceTitle: "Mountain landscape style (Friedrich)",
     colors: [
       { name: "Titanium White", hex: "#FFFFFF", code: "PW6", note: "Base for clouds, snow, highlights" },
       { name: "Phthalo Blue", hex: "#000F89", code: "PB15", note: "Sky, water - very strong!" },
@@ -852,8 +852,8 @@ const artistPalettes = [
     subtitle: "American Modernist",
     description: "Bold, saturated colors for flowers, skulls, and desert landscapes",
     image: "🌺",
-    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Georgia_O%27Keeffe_-_Red_Canna_-_1919.jpg/440px-Georgia_O%27Keeffe_-_Red_Canna_-_1919.jpg",
-    referenceTitle: "Red Canna (1919)",
+    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Piet_Mondrian%2C_1908%2C_Chrysanthemum%2C_Gemeentemuseum_Den_Haag.jpg/440px-Piet_Mondrian%2C_1908%2C_Chrysanthemum%2C_Gemeentemuseum_Den_Haag.jpg",
+    referenceTitle: "Modernist flower style (Mondrian)",
     colors: [
       { name: "Titanium White", hex: "#FFFFFF", code: "PW6", note: "Skulls, clouds, highlights" },
       { name: "Cadmium Yellow Light", hex: "#FFF700", code: "PY37", note: "Bright flower centers" },
@@ -881,8 +881,8 @@ const artistPalettes = [
     subtitle: "Anders Zorn's Limited Palette",
     description: "Only 4 colors! Proves you don't need many colors for beautiful paintings",
     image: "4️⃣",
-    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Anders_Zorn_-_Midsummer_Dance_-_Google_Art_Project.jpg/600px-Anders_Zorn_-_Midsummer_Dance_-_Google_Art_Project.jpg",
-    referenceTitle: "Midsummer Dance (1897)",
+    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Edvard_Munch_-_Self-Portrait_-_Google_Art_Project_%28533070%29.jpg/440px-Edvard_Munch_-_Self-Portrait_-_Google_Art_Project_%28533070%29.jpg",
+    referenceTitle: "Limited palette portrait style",
     colors: [
       { name: "Titanium White", hex: "#FFFFFF", code: "PW6", note: "Essential for tints and highlights" },
       { name: "Yellow Ochre", hex: "#CB9D06", code: "PY43", note: "Warm tones, skin, golden hues" },
@@ -1345,48 +1345,85 @@ const brushHairTypes = [
 
 const brushReferenceImages = [
   {
-    name: "Artist's Brushes",
-    description: "Various artist brushes in a glass jar",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Paintbrushes.jpg/480px-Paintbrushes.jpg",
-    wikiLink: "https://commons.wikimedia.org/wiki/File:Paintbrushes.jpg",
+    name: "The Art of Painting - Vermeer",
+    description: "Famous painting showing an artist at work with brushes and easel",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Jan_Vermeer_-_The_Art_of_Painting_-_Google_Art_Project.jpg/440px-Jan_Vermeer_-_The_Art_of_Painting_-_Google_Art_Project.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Jan_Vermeer_-_The_Art_of_Painting_-_Google_Art_Project.jpg",
     license: "Public Domain"
   },
   {
-    name: "Watercolor Setup",
-    description: "Watercolor paints and brushes ready for painting",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Watercolor_painting_supplies.jpg/640px-Watercolor_painting_supplies.jpg",
-    wikiLink: "https://commons.wikimedia.org/wiki/File:Watercolor_painting_supplies.jpg",
-    license: "CC BY-SA 4.0"
-  },
-  {
-    name: "Oil Painter's Palette",
-    description: "Artist palette with oil paints and brushes",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Painter%27s_palette.jpg/640px-Painter%27s_palette.jpg",
-    wikiLink: "https://commons.wikimedia.org/wiki/File:Painter%27s_palette.jpg",
-    license: "CC BY-SA 3.0"
-  },
-  {
-    name: "Chinese Brush Painting",
-    description: "Traditional Chinese brushes and ink",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Chinese_writing_brushes.jpg/480px-Chinese_writing_brushes.jpg",
-    wikiLink: "https://commons.wikimedia.org/wiki/File:Chinese_writing_brushes.jpg",
-    license: "CC BY-SA 3.0"
-  },
-  {
-    name: "Artist at Work",
-    description: "Painter using brushes on canvas",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Rembrandt_The_Artist_in_his_studio.jpg/440px-Rembrandt_The_Artist_in_his_studio.jpg",
-    wikiLink: "https://commons.wikimedia.org/wiki/File:Rembrandt_The_Artist_in_his_studio.jpg",
+    name: "Self Portrait at Easel - Rembrandt",
+    description: "Master painter with brushes at his easel",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Rembrandt_Self-portrait_%28Kenwood%29.jpg/440px-Rembrandt_Self-portrait_%28Kenwood%29.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Rembrandt_Self-portrait_(Kenwood).jpg",
     license: "Public Domain"
   },
   {
-    name: "Paint Tubes & Palette",
-    description: "Oil paint tubes with artist palette",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Lascaux_artist_acrylic_colors.jpg/640px-Lascaux_artist_acrylic_colors.jpg",
-    wikiLink: "https://commons.wikimedia.org/wiki/File:Lascaux_artist_acrylic_colors.jpg",
-    license: "CC BY-SA 3.0"
+    name: "Artist's Studio - Courbet",
+    description: "Realistic depiction of painter's workshop",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Gustave_Courbet_-_The_Artist%27s_Studio_-_Google_Art_Project.jpg/640px-Gustave_Courbet_-_The_Artist%27s_Studio_-_Google_Art_Project.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Gustave_Courbet_-_The_Artist%27s_Studio_-_Google_Art_Project.jpg",
+    license: "Public Domain"
+  },
+  {
+    name: "Self Portrait - Van Gogh",
+    description: "Van Gogh's brushwork technique on display",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project.jpg/440px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project.jpg",
+    license: "Public Domain"
+  },
+  {
+    name: "Girl with a Pearl Earring",
+    description: "Vermeer's masterful brush technique",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/1665_Girl_with_a_Pearl_Earring.jpg/440px-1665_Girl_with_a_Pearl_Earring.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:1665_Girl_with_a_Pearl_Earring.jpg",
+    license: "Public Domain"
+  },
+  {
+    name: "Sunflowers - Van Gogh",
+    description: "Bold impasto brushwork example",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Vincent_Willem_van_Gogh_127.jpg/440px-Vincent_Willem_van_Gogh_127.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Vincent_Willem_van_Gogh_127.jpg",
+    license: "Public Domain"
   }
 ];
+
+// ==========================================
+// SHOP/PURCHASE LINKS (Non-affiliate)
+// ==========================================
+
+const shopLinks = {
+  brushes: {
+    amazon: "https://www.amazon.com/s?k=artist+paint+brushes",
+    blick: "https://www.dickblick.com/categories/brushes/",
+    jerrys: "https://www.jerrysartarama.com/brushes"
+  },
+  watercolor: {
+    amazon: "https://www.amazon.com/s?k=professional+watercolor+paints",
+    blick: "https://www.dickblick.com/categories/watercolor/",
+    danielSmith: "https://www.danielsmith.com/watercolors/"
+  },
+  oil: {
+    amazon: "https://www.amazon.com/s?k=professional+oil+paints",
+    blick: "https://www.dickblick.com/categories/oilpaints/",
+    gamblin: "https://gamblincolors.com/"
+  },
+  acrylic: {
+    amazon: "https://www.amazon.com/s?k=professional+acrylic+paints",
+    blick: "https://www.dickblick.com/categories/acrylics/",
+    golden: "https://www.goldenpaints.com/"
+  },
+  paper: {
+    amazon: "https://www.amazon.com/s?k=watercolor+paper",
+    blick: "https://www.dickblick.com/categories/paper/",
+    arches: "https://www.arches-papers.com/"
+  },
+  canvas: {
+    amazon: "https://www.amazon.com/s?k=artist+canvas",
+    blick: "https://www.dickblick.com/categories/canvas/",
+    fredrix: "https://www.fredrixartistcanvas.com/"
+  }
+};
 
 // ==========================================
 // PAINT MEDIA & BRANDS DATABASE

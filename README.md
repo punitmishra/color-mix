@@ -1,36 +1,66 @@
-# Color Mixing Master Guide
+# Palette Lab
 
-A comprehensive, interactive color mixing reference guide for artists. Built with React, Vite, and Tailwind CSS.
+<div align="center">
+
+**The Ultimate Color Mixing Reference for Artists**
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-blue?style=for-the-badge)](https://color-mix-three.vercel.app)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)](https://react.dev)
+[![Vite](https://img.shields.io/badge/Vite-7-646CFF?style=flat-square&logo=vite)](https://vitejs.dev)
+[![Tailwind](https://img.shields.io/badge/Tailwind-4-06B6D4?style=flat-square&logo=tailwindcss)](https://tailwindcss.com)
+
+*Master color theory, explore famous artist palettes, and discover the perfect paint mixing recipes.*
+
+</div>
+
+---
+
+## What is Palette Lab?
+
+Palette Lab is a comprehensive, interactive color mixing reference guide designed for artists of all skill levels. Whether you're a beginner learning color theory or a professional looking for specific pigment codes, this app has everything you need.
 
 **Live Demo:** https://color-mix-three.vercel.app
 
 ## Features
 
+### Color & Mixing
 - **250+ Color Pigments** - Professional artist pigments with Color Index codes (PY, PR, PB, etc.)
 - **80+ Mixing Recipes** - Learn how to mix greens, oranges, purples, browns, blacks, grays, and skin tones
-- **8 Famous Artist Palettes** - Bob Ross, Van Gogh, Monet, Vermeer, Rembrandt, O'Keeffe, Zorn, Split Primary
 - **Interactive Color Wheel** - Visual guide to primary, secondary, and tertiary colors
-- **Brush Types Guide** - 8 brush types with stroke previews and paper effects
-- **Paper Types Guide** - 6 paper types with texture samples and usage tips
-- **Painting References** - Links to Wikimedia Commons masterpiece images
 - **Warm vs Cool Colors** - Understand color temperature for better paintings
-- **Theme Palettes** - Pre-made palettes (Rainbow, Sunset, Ocean, Autumn, etc.)
-- **6 Paint Brand Databases** - Winsor & Newton, Golden, Liquitex, Daniel Smith, Gamblin, Holbein
-- **Activity Worksheets** - Printable worksheets for learning color mixing
 - **Color Detail Modal** - Click any color to see HEX, RGB, and HSL values
+
+### Artist Resources
+- **8 Famous Artist Palettes** - Bob Ross, Van Gogh, Monet, Vermeer, Rembrandt, O'Keeffe, Zorn, Split Primary
+- **Reference Paintings** - Public domain masterpiece images from Wikimedia Commons
+- **Paint Brand Comparison** - Compare pigment loads, prices, and quality across brands
+- **Shop Links** - Quick links to purchase supplies from Amazon, Blick, and brand websites
+
+### Materials Guide
+- **Brush Types** - 8 brush shapes with stroke previews and paper effects
+- **Brush Hair Types** - Kolinsky Sable, Hog Bristle, Synthetic & more with actual colors
+- **Paper Types** - 6 paper types with GSM reference and texture samples
+- **Canvas Guide** - Cotton, Linen, Polyester, Jute with weight options
+- **Paint Media Brands** - Watercolor, Oil, Acrylic, Gouache brand databases
+
+### Tools & Learning
+- **Theme Palettes** - Pre-made palettes (Rainbow, Sunset, Ocean, Autumn, etc.)
+- **Activity Worksheets** - Printable worksheets for learning color mixing
 - **Search & Filter** - Find colors by name, hex code, or pigment code
 - **Mobile Responsive** - Fully optimized for phones and tablets
 - **Print-Friendly** - All views are optimized for printing
 
 ## Views
 
-1. **Mixing Recipes** - Color wheel, quick reference, warm/cool guide, and all mixing recipes
-2. **Artist Palettes** - Famous artist palettes with painting tips and references
-3. **All Colors** - Browse 250+ colors organized by category (Yellows, Reds, Blues, etc.)
-4. **By Brand** - Find colors with exact product codes for major paint brands
-5. **Theme Palettes** - Pre-made color palettes for different themes and styles
-6. **Activity Sheet** - Interactive worksheets for kids and beginners
-7. **Brushes & Paper** - Guide to brush types, paper types, and how they work together
+| View | Description |
+|------|-------------|
+| **Mixing Recipes** | Color wheel, quick reference, warm/cool guide, and all mixing recipes |
+| **Artist Palettes** | Famous artist palettes with reference paintings and tips |
+| **All Colors** | Browse 250+ colors organized by category |
+| **By Brand** | Find colors with exact product codes for major paint brands |
+| **Theme Palettes** | Pre-made color palettes for different themes |
+| **Activity Sheet** | Interactive worksheets for kids and beginners |
+| **Brushes & Paper** | Complete guide to brush types, paper, canvas, and materials |
 
 ## Tech Stack
 
@@ -38,10 +68,15 @@ A comprehensive, interactive color mixing reference guide for artists. Built wit
 - **Vite 7** - Build tool
 - **Tailwind CSS v4** - Styling
 - **Vercel** - Deployment
+- **Vercel Analytics** - Usage tracking
 
-## Local Development
+## Quick Start
 
 ```bash
+# Clone the repository
+git clone https://github.com/punitmishra/color-mix.git
+cd color-mix
+
 # Install dependencies
 npm install
 
@@ -50,98 +85,91 @@ npm run dev
 
 # Build for production
 npm run build
-
-# Preview production build
-npm run preview
 ```
 
 ## Project Structure
 
 ```
-color-mix/
+palette-lab/
 ├── src/
-│   ├── App.jsx                    # Main app entry
-│   ├── ColorMixingMasterGuide.jsx # Main component with all features
+│   ├── App.jsx                    # Main app with Analytics
+│   ├── ColorMixingMasterGuide.jsx # Main component (all features)
 │   ├── index.css                  # Tailwind imports
 │   └── main.jsx                   # React entry point
 ├── public/
 │   └── vite.svg                   # Favicon
 ├── index.html                     # HTML template
 ├── package.json                   # Dependencies
-├── vite.config.js                 # Vite configuration
-├── tailwind.config.js             # Tailwind configuration
-├── postcss.config.js              # PostCSS configuration
-├── CLAUDE.md                      # AI assistant context
-└── README.md                      # This file
+└── vite.config.js                 # Vite configuration
 ```
 
-## Color Categories
+## Color Database
 
-- Yellows (25 colors)
-- Oranges (18 colors)
-- Reds (28 colors)
-- Pinks & Magentas (19 colors)
-- Violets & Purples (21 colors)
-- Blues (30 colors)
-- Greens (28 colors)
-- Earth Tones (24 colors)
-- Blacks & Grays (19 colors)
-- Whites (13 colors)
-
-## Mixing Recipe Categories
-
-- Primary to Secondary
-- Primary + Secondary to Tertiary
-- Greens (Yellow + Blue variations)
-- Oranges (Red + Yellow variations)
-- Purples & Violets (Blue + Red variations)
-- Browns (Complementary Mixes)
-- Chromatic Blacks (No Black Paint!)
-- Grays (Multiple Methods)
-- Skin Tones (Light to Dark)
-- Tints (Adding White)
-- Shades (Adding Black)
-
-## Brush Types
-
-- Round - Fine lines, details, lettering
-- Flat - Washes, bold strokes, sharp edges
-- Filbert - Blending, petals, organic shapes
-- Fan - Trees, grass, texture effects
-- Liner/Rigger - Fine lines, branches, signatures
-- Mop - Large washes, wet-on-wet
-- Angle/Shader - Sharp edges, shading
-- Dagger/Striper - Varied strokes, leaves
-
-## Paper Types
-
-- Hot Press Watercolor - Smooth, for detailed work
-- Cold Press Watercolor - Medium texture, most versatile
-- Rough Watercolor - Heavy texture, dramatic effects
-- Canvas - Oil and acrylic painting
-- Bristol Board - Illustration and markers
-- Mixed Media - Versatile for experimentation
+| Category | Count |
+|----------|-------|
+| Yellows | 25 |
+| Oranges | 18 |
+| Reds | 28 |
+| Pinks & Magentas | 19 |
+| Violets & Purples | 21 |
+| Blues | 30 |
+| Greens | 28 |
+| Earth Tones | 24 |
+| Blacks & Grays | 19 |
+| Whites | 13 |
+| **Total** | **250+** |
 
 ## Famous Artist Palettes
 
-- Bob Ross - Wet-on-wet oil landscapes
-- Vincent van Gogh - Bold Post-Impressionist colors
-- Claude Monet - Impressionist atmosphere
-- Johannes Vermeer - Dutch Golden Age luminosity
-- Rembrandt - Dramatic chiaroscuro
-- Georgia O'Keeffe - Bold Southwestern colors
-- Zorn Palette - Limited 4-color palette
-- Split Primary - Maximum color range
+| Artist | Style | Colors |
+|--------|-------|--------|
+| Bob Ross | Wet-on-wet landscapes | 12 |
+| Vincent van Gogh | Post-Impressionist | 12 |
+| Claude Monet | Impressionist | 11 |
+| Johannes Vermeer | Dutch Golden Age | 11 |
+| Rembrandt | Chiaroscuro | 11 |
+| Georgia O'Keeffe | Southwestern Modernist | 12 |
+| Anders Zorn | Limited palette | 4 |
+| Split Primary | Color theory | 8 |
+
+## Paint Brands Covered
+
+### Professional Grade
+- Daniel Smith, Winsor & Newton, Schmincke, Holbein
+- Old Holland, Michael Harding, Gamblin
+- Golden, Liquitex Professional
+
+### Student Grade
+- Cotman, Van Gogh, Winton
+- Liquitex Basics, Amsterdam
 
 ## Deployment
 
-The project is connected to GitHub and auto-deploys to Vercel on push to `main`.
+Auto-deploys to Vercel on push to `main`.
 
 ```bash
-# Deploy manually
+# Manual deploy
 vercel --prod
 ```
+
+## Contributing
+
+Contributions are welcome! Feel free to:
+- Add new color recipes
+- Suggest artist palettes
+- Report bugs
+- Improve documentation
 
 ## License
 
 ISC
+
+---
+
+<div align="center">
+
+**Made with paint and pixels**
+
+[View Live Demo](https://color-mix-three.vercel.app)
+
+</div>
