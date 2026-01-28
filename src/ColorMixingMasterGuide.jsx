@@ -909,6 +909,334 @@ const artistPalettes = [
 ];
 
 // ==========================================
+// BRUSH TYPES DATABASE
+// ==========================================
+
+const brushTypes = [
+  {
+    name: "Round",
+    icon: "●",
+    description: "Versatile brush with a pointed tip. Perfect for details, lines, and filling small areas.",
+    sizes: ["0 (detail)", "2 (small)", "6 (medium)", "10 (large)", "14 (wash)"],
+    bestFor: ["Fine lines", "Details", "Lettering", "Outlining", "Dots and stippling"],
+    strokePreview: "M10,50 Q50,10 90,50 Q130,90 170,50", // SVG path for wavy line
+    strokeWidth: "round",
+    paperEffects: {
+      "Hot Press": "Smooth, clean lines with sharp edges",
+      "Cold Press": "Slightly textured lines with soft edges",
+      "Rough": "Broken, textured strokes that show paper grain",
+      "Canvas": "Bold strokes with visible texture"
+    }
+  },
+  {
+    name: "Flat",
+    icon: "▬",
+    description: "Rectangular brush for bold strokes, washes, and sharp edges. Great for backgrounds.",
+    sizes: ["1/4\"", "1/2\"", "3/4\"", "1\"", "2\""],
+    bestFor: ["Washes", "Bold strokes", "Sharp edges", "Backgrounds", "Geometric shapes"],
+    strokePreview: "M10,30 L170,30 L170,70 L10,70 Z",
+    strokeWidth: "flat",
+    paperEffects: {
+      "Hot Press": "Even, smooth coverage with clean edges",
+      "Cold Press": "Textured washes with organic edges",
+      "Rough": "Dramatic dry brush effects",
+      "Canvas": "Heavy impasto strokes"
+    }
+  },
+  {
+    name: "Filbert",
+    icon: "◗",
+    description: "Oval-shaped brush combining flat and round qualities. Perfect for blending and organic shapes.",
+    sizes: ["2", "4", "6", "8", "12"],
+    bestFor: ["Blending", "Petals", "Leaves", "Portraits", "Organic shapes"],
+    strokePreview: "M10,50 Q40,20 90,50 Q140,80 170,50",
+    strokeWidth: "filbert",
+    paperEffects: {
+      "Hot Press": "Smooth gradients and soft blends",
+      "Cold Press": "Natural-looking organic textures",
+      "Rough": "Expressive, loose strokes",
+      "Canvas": "Soft blended areas"
+    }
+  },
+  {
+    name: "Fan",
+    icon: "🌿",
+    description: "Spread bristles for texture effects. Used for trees, grass, hair, and special effects.",
+    sizes: ["2 (small)", "4 (medium)", "6 (large)"],
+    bestFor: ["Trees & foliage", "Grass", "Hair", "Texture", "Feathering"],
+    strokePreview: "M20,70 L30,30 L50,50 L70,20 L90,45 L110,25 L130,50 L150,30 L160,70",
+    strokeWidth: "fan",
+    paperEffects: {
+      "Hot Press": "Delicate, precise texture marks",
+      "Cold Press": "Natural grass and foliage effects",
+      "Rough": "Wild, expressive textures",
+      "Canvas": "Bob Ross-style happy trees!"
+    }
+  },
+  {
+    name: "Liner/Rigger",
+    icon: "—",
+    description: "Very thin brush with long bristles. Perfect for fine lines, branches, and signatures.",
+    sizes: ["0 (extra fine)", "1 (fine)", "2 (medium)"],
+    bestFor: ["Fine lines", "Branches", "Grass blades", "Signatures", "Details"],
+    strokePreview: "M10,80 Q30,60 50,70 Q70,40 90,60 Q120,30 150,50 Q160,45 170,50",
+    strokeWidth: "liner",
+    paperEffects: {
+      "Hot Press": "Crisp, consistent fine lines",
+      "Cold Press": "Slightly broken lines with character",
+      "Rough": "Organic, varying line weights",
+      "Canvas": "Expressive linework"
+    }
+  },
+  {
+    name: "Mop",
+    icon: "○",
+    description: "Large, soft brush for washes and blending. Holds lots of water/paint.",
+    sizes: ["1/2\"", "3/4\"", "1\"", "1.5\""],
+    bestFor: ["Large washes", "Wet-on-wet", "Skies", "Backgrounds", "Softening edges"],
+    strokePreview: "M10,20 C40,80 80,20 110,70 C140,30 170,60 170,60",
+    strokeWidth: "mop",
+    paperEffects: {
+      "Hot Press": "Smooth, even washes",
+      "Cold Press": "Beautiful granulation effects",
+      "Rough": "Dramatic texture in washes",
+      "Canvas": "Smooth blending"
+    }
+  },
+  {
+    name: "Angle/Shader",
+    icon: "◢",
+    description: "Angled flat brush for precise edges and shading. Great for one-stroke techniques.",
+    sizes: ["1/4\"", "3/8\"", "1/2\"", "3/4\""],
+    bestFor: ["Sharp edges", "Corners", "Shading", "Lettering", "One-stroke flowers"],
+    strokePreview: "M10,70 L50,30 L170,30 L130,70 Z",
+    strokeWidth: "angle",
+    paperEffects: {
+      "Hot Press": "Crisp angles and clean corners",
+      "Cold Press": "Soft shading with texture",
+      "Rough": "Broken angular strokes",
+      "Canvas": "Bold angular marks"
+    }
+  },
+  {
+    name: "Dagger/Striper",
+    icon: "◣",
+    description: "Angled brush that tapers to a point. Creates varied stroke widths in one motion.",
+    sizes: ["1/4\"", "3/8\"", "1/2\""],
+    bestFor: ["Leaves", "Ribbons", "Varied lines", "Decorative work", "Calligraphy"],
+    strokePreview: "M10,60 Q50,30 90,60 Q130,90 170,40",
+    strokeWidth: "dagger",
+    paperEffects: {
+      "Hot Press": "Smooth varied strokes",
+      "Cold Press": "Natural leaf-like marks",
+      "Rough": "Organic, expressive marks",
+      "Canvas": "Bold decorative strokes"
+    }
+  },
+];
+
+// ==========================================
+// PAPER TYPES DATABASE
+// ==========================================
+
+const paperTypes = [
+  {
+    name: "Hot Press Watercolor",
+    texture: "Smooth",
+    icon: "📜",
+    description: "Smooth surface created by pressing paper through hot rollers. Best for detailed work.",
+    weight: "140lb (300gsm) - 300lb (640gsm)",
+    bestFor: ["Detailed illustrations", "Botanical art", "Pen & ink + wash", "Portraits", "Fine lines"],
+    notIdealFor: ["Wet-on-wet", "Heavy washes", "Texture effects"],
+    characteristics: [
+      "No visible texture",
+      "Paint dries quickly",
+      "Colors appear more vibrant",
+      "Shows brush marks clearly",
+      "Great for scanning/reproduction"
+    ]
+  },
+  {
+    name: "Cold Press Watercolor",
+    texture: "Medium",
+    icon: "📄",
+    description: "Most popular watercolor paper. Medium texture good for most techniques.",
+    weight: "140lb (300gsm) - 300lb (640gsm)",
+    bestFor: ["General watercolor", "Landscapes", "Portraits", "Mixed techniques", "Learning"],
+    notIdealFor: ["Very fine details", "Smooth gradients"],
+    characteristics: [
+      "Subtle tooth/texture",
+      "Holds water well",
+      "Good for wet-on-wet",
+      "Forgiving for beginners",
+      "Most versatile choice"
+    ]
+  },
+  {
+    name: "Rough Watercolor",
+    texture: "Heavy",
+    icon: "🏔️",
+    description: "Maximum texture for dramatic effects. Paper shows through strokes.",
+    weight: "140lb (300gsm) - 300lb (640gsm)",
+    bestFor: ["Expressive work", "Landscapes", "Texture effects", "Dry brush", "Impressionistic style"],
+    notIdealFor: ["Fine details", "Smooth washes", "Portraits"],
+    characteristics: [
+      "Deep valleys trap pigment",
+      "Creates granulation naturally",
+      "Paper texture shows through",
+      "Great for dry brush sparkle",
+      "Most dramatic effects"
+    ]
+  },
+  {
+    name: "Canvas",
+    texture: "Woven",
+    icon: "🖼️",
+    description: "Traditional surface for oil and acrylic. Woven texture adds depth.",
+    weight: "Cotton or Linen",
+    bestFor: ["Oil painting", "Acrylics", "Impasto techniques", "Large works", "Professional galleries"],
+    notIdealFor: ["Fine watercolor", "Detailed pencil work"],
+    characteristics: [
+      "Woven texture pattern",
+      "Must be primed (gesso)",
+      "Stretched on wooden bars",
+      "Very durable",
+      "Can be rolled for storage"
+    ]
+  },
+  {
+    name: "Bristol Board",
+    texture: "Smooth/Vellum",
+    icon: "📋",
+    description: "Heavy cardstock for illustration. Available smooth or with slight texture.",
+    weight: "100lb - 200lb",
+    bestFor: ["Illustration", "Markers", "Ink work", "Technical drawing", "Comics"],
+    notIdealFor: ["Heavy wet media", "Watercolor washes"],
+    characteristics: [
+      "Very smooth (plate) or slight tooth (vellum)",
+      "Doesn't buckle easily",
+      "Great for scanning",
+      "Bleed-proof for markers",
+      "Layers pencil well"
+    ]
+  },
+  {
+    name: "Mixed Media Paper",
+    texture: "Light-Medium",
+    icon: "🎭",
+    description: "Versatile paper that handles wet and dry media. Jack of all trades.",
+    weight: "90lb - 140lb",
+    bestFor: ["Mixed media", "Journaling", "Experimentation", "Collage", "Multiple techniques"],
+    notIdealFor: ["Heavy watercolor washes", "Professional final work"],
+    characteristics: [
+      "Handles light washes",
+      "Good for dry media",
+      "Affordable for practice",
+      "Light texture",
+      "Versatile but not specialist"
+    ]
+  },
+];
+
+// ==========================================
+// PAINTING REFERENCES (Creative Commons)
+// ==========================================
+
+const paintingReferences = {
+  "Bob Ross": [
+    {
+      title: "Mountain Summit",
+      type: "Landscape",
+      technique: "Wet-on-wet oil",
+      wikiLink: "https://commons.wikimedia.org/wiki/Category:Bob_Ross",
+      description: "Classic Bob Ross mountain scene with happy trees"
+    }
+  ],
+  "Vincent van Gogh": [
+    {
+      title: "The Starry Night",
+      year: "1889",
+      wikiLink: "https://commons.wikimedia.org/wiki/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+      description: "Swirling night sky over village, Museum of Modern Art"
+    },
+    {
+      title: "Sunflowers",
+      year: "1888",
+      wikiLink: "https://commons.wikimedia.org/wiki/File:Vincent_Willem_van_Gogh_127.jpg",
+      description: "Vibrant yellow sunflowers in a vase"
+    },
+    {
+      title: "Irises",
+      year: "1889",
+      wikiLink: "https://commons.wikimedia.org/wiki/File:Irises-Vincent_van_Gogh.jpg",
+      description: "Blue irises in a garden, J. Paul Getty Museum"
+    },
+    {
+      title: "Café Terrace at Night",
+      year: "1888",
+      wikiLink: "https://commons.wikimedia.org/wiki/File:Vincent_Willem_van_Gogh_-_Cafe_Terrace_at_Night_(Yorck).jpg",
+      description: "Evening café scene with starry sky"
+    }
+  ],
+  "Claude Monet": [
+    {
+      title: "Water Lilies",
+      year: "1906",
+      wikiLink: "https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Water_Lilies_-_1906,_Ryerson.jpg",
+      description: "Peaceful pond with floating water lilies"
+    },
+    {
+      title: "Impression, Sunrise",
+      year: "1872",
+      wikiLink: "https://commons.wikimedia.org/wiki/File:Monet_-_Impression,_Sunrise.jpg",
+      description: "The painting that named Impressionism"
+    },
+    {
+      title: "Woman with a Parasol",
+      year: "1875",
+      wikiLink: "https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Woman_with_a_Parasol_-_Madame_Monet_and_Her_Son_-_Google_Art_Project.jpg",
+      description: "Monet's wife and son in a breezy meadow"
+    }
+  ],
+  "Johannes Vermeer": [
+    {
+      title: "Girl with a Pearl Earring",
+      year: "1665",
+      wikiLink: "https://commons.wikimedia.org/wiki/File:Girl_with_a_Pearl_Earring.jpg",
+      description: "Iconic portrait with the famous pearl, Mauritshuis"
+    },
+    {
+      title: "The Milkmaid",
+      year: "1658",
+      wikiLink: "https://commons.wikimedia.org/wiki/File:Johannes_Vermeer_-_Het_melkmeisje_-_Google_Art_Project.jpg",
+      description: "Servant pouring milk, Rijksmuseum"
+    }
+  ],
+  "Rembrandt van Rijn": [
+    {
+      title: "The Night Watch",
+      year: "1642",
+      wikiLink: "https://commons.wikimedia.org/wiki/File:The_Night_Watch_-_HD.jpg",
+      description: "Dramatic militia group portrait, Rijksmuseum"
+    },
+    {
+      title: "Self-Portrait",
+      year: "1659",
+      wikiLink: "https://commons.wikimedia.org/wiki/File:Rembrandt_Harmensz._van_Rijn_135.jpg",
+      description: "Masterful self-portrait showing chiaroscuro technique"
+    }
+  ],
+  "Georgia O'Keeffe": [
+    {
+      title: "Jimson Weed",
+      year: "1936",
+      wikiLink: "https://commons.wikimedia.org/wiki/Category:Georgia_O%27Keeffe",
+      description: "Large-scale white flower painting"
+    }
+  ]
+};
+
+// ==========================================
 // HELPER FUNCTIONS
 // ==========================================
 
@@ -1637,6 +1965,7 @@ export default function ColorMixingMasterGuide() {
               { id: 'brands', label: 'Brands', fullLabel: 'By Brand' },
               { id: 'palettes', label: 'Palettes', fullLabel: 'Theme Palettes' },
               { id: 'activity', label: 'Activity', fullLabel: 'Activity Sheet' },
+              { id: 'techniques', label: 'Brushes', fullLabel: 'Brushes & Paper' },
             ].map(view => (
               <button key={view.id} onClick={() => setViewMode(view.id)}
                 className="px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all whitespace-nowrap flex-shrink-0"
@@ -1974,6 +2303,226 @@ export default function ColorMixingMasterGuide() {
                 ))}
               </div>
             </div>
+          </div>
+        )}
+
+        {/* ============ TECHNIQUES VIEW (BRUSHES & PAPER) ============ */}
+        {viewMode === 'techniques' && (
+          <div className="space-y-6 sm:space-y-8">
+            <div className="text-center mb-6 sm:mb-8 no-print">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Brushes & Paper Guide</h2>
+              <p className="text-sm sm:text-base text-gray-500">Learn how different brushes work on various paper types</p>
+            </div>
+
+            {/* Brush Types Section */}
+            <section>
+              <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <span className="text-2xl">🖌️</span> Brush Types
+              </h3>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {brushTypes.map((brush, i) => (
+                  <div key={i} className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card hover:shadow-lg transition-shadow">
+                    <div className="p-4 bg-gradient-to-r from-amber-50 to-orange-50 border-b">
+                      <div className="flex items-center gap-3">
+                        <span className="text-3xl">{brush.icon}</span>
+                        <div>
+                          <h4 className="text-base sm:text-lg font-bold text-gray-800">{brush.name}</h4>
+                          <p className="text-xs text-gray-500">{brush.sizes.slice(0, 3).join(", ")}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <p className="text-xs sm:text-sm text-gray-600 mb-3">{brush.description}</p>
+
+                      {/* Stroke Preview */}
+                      <div className="bg-gray-50 rounded-lg p-3 mb-3">
+                        <p className="text-[10px] text-gray-500 mb-2 font-medium">STROKE PREVIEW</p>
+                        <svg viewBox="0 0 180 100" className="w-full h-12">
+                          <path
+                            d={brush.strokePreview}
+                            fill="none"
+                            stroke="#1a1a1a"
+                            strokeWidth={brush.strokeWidth === 'liner' ? '2' : brush.strokeWidth === 'fan' ? '1' : '8'}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeDasharray={brush.strokeWidth === 'fan' ? '2,4' : 'none'}
+                          />
+                        </svg>
+                      </div>
+
+                      <div className="mb-3">
+                        <p className="text-[10px] text-gray-500 font-medium mb-1">BEST FOR:</p>
+                        <div className="flex flex-wrap gap-1">
+                          {brush.bestFor.slice(0, 4).map((use, j) => (
+                            <span key={j} className="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">{use}</span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Paper Types Section */}
+            <section>
+              <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <span className="text-2xl">📄</span> Paper Types
+              </h3>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {paperTypes.map((paper, i) => (
+                  <div key={i} className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card hover:shadow-lg transition-shadow">
+                    <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-b">
+                      <div className="flex items-center gap-3">
+                        <span className="text-3xl">{paper.icon}</span>
+                        <div>
+                          <h4 className="text-base sm:text-lg font-bold text-gray-800">{paper.name}</h4>
+                          <p className="text-xs text-gray-500">Texture: {paper.texture}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <p className="text-xs sm:text-sm text-gray-600 mb-3">{paper.description}</p>
+
+                      {/* Texture Preview */}
+                      <div className="rounded-lg p-3 mb-3 h-12" style={{
+                        background: paper.texture === 'Smooth'
+                          ? 'linear-gradient(135deg, #f8f8f8 0%, #f0f0f0 100%)'
+                          : paper.texture === 'Medium'
+                          ? 'repeating-linear-gradient(45deg, #f5f5f5, #f5f5f5 2px, #ebebeb 2px, #ebebeb 4px)'
+                          : paper.texture === 'Heavy'
+                          ? 'repeating-conic-gradient(#f0f0f0 0% 25%, #e8e8e8 0% 50%) 50% / 8px 8px'
+                          : paper.texture === 'Woven'
+                          ? 'repeating-linear-gradient(0deg, #f5f5f5, #f5f5f5 2px, #e8e8e8 2px, #e8e8e8 4px), repeating-linear-gradient(90deg, #f5f5f5, #f5f5f5 2px, #e8e8e8 2px, #e8e8e8 4px)'
+                          : 'linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%)'
+                      }}>
+                        <p className="text-[10px] text-gray-500 font-medium">TEXTURE SAMPLE</p>
+                      </div>
+
+                      <div className="mb-3">
+                        <p className="text-[10px] text-gray-500 font-medium mb-1">BEST FOR:</p>
+                        <div className="flex flex-wrap gap-1">
+                          {paper.bestFor.slice(0, 4).map((use, j) => (
+                            <span key={j} className="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">{use}</span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <p className="text-[10px] text-gray-500 font-medium mb-1">CHARACTERISTICS:</p>
+                        <ul className="text-[10px] text-gray-600 space-y-0.5">
+                          {paper.characteristics.slice(0, 3).map((char, j) => (
+                            <li key={j} className="flex items-start gap-1">
+                              <span className="text-blue-500">•</span>
+                              <span>{char}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Brush + Paper Combinations */}
+            <section className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl border border-purple-200 p-4 sm:p-6 print-card">
+              <h3 className="text-lg sm:text-xl font-bold text-purple-800 mb-4">Brush + Paper Effects</h3>
+              <p className="text-xs sm:text-sm text-purple-700 mb-4">See how different brushes behave on different paper types:</p>
+
+              <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+                <table className="w-full text-[10px] sm:text-xs">
+                  <thead>
+                    <tr className="border-b border-purple-200">
+                      <th className="text-left py-2 pr-2 font-bold text-purple-800">Brush</th>
+                      <th className="text-left py-2 px-2 font-bold text-purple-800">Hot Press</th>
+                      <th className="text-left py-2 px-2 font-bold text-purple-800">Cold Press</th>
+                      <th className="text-left py-2 px-2 font-bold text-purple-800">Rough</th>
+                      <th className="text-left py-2 pl-2 font-bold text-purple-800">Canvas</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {brushTypes.slice(0, 5).map((brush, i) => (
+                      <tr key={i} className="border-b border-purple-100">
+                        <td className="py-2 pr-2 font-semibold text-gray-800">{brush.icon} {brush.name}</td>
+                        <td className="py-2 px-2 text-gray-600">{brush.paperEffects["Hot Press"]}</td>
+                        <td className="py-2 px-2 text-gray-600">{brush.paperEffects["Cold Press"]}</td>
+                        <td className="py-2 px-2 text-gray-600">{brush.paperEffects["Rough"]}</td>
+                        <td className="py-2 pl-2 text-gray-600">{brush.paperEffects["Canvas"]}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            {/* Painting References */}
+            <section>
+              <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <span className="text-2xl">🎨</span> Famous Painting References
+              </h3>
+              <p className="text-xs sm:text-sm text-gray-500 mb-4">Study these masterpieces to learn from the masters. Links go to Wikimedia Commons (Creative Commons).</p>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                {Object.entries(paintingReferences).map(([artist, paintings]) => (
+                  <div key={artist} className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
+                    <div className="p-3 sm:p-4 bg-gradient-to-r from-gray-100 to-gray-50 border-b">
+                      <h4 className="text-base sm:text-lg font-bold text-gray-800">{artist}</h4>
+                    </div>
+                    <div className="p-3 sm:p-4">
+                      <div className="space-y-2">
+                        {paintings.map((painting, i) => (
+                          <a
+                            key={i}
+                            href={painting.wikiLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block p-2 rounded-lg bg-gray-50 hover:bg-blue-50 transition-colors group"
+                          >
+                            <div className="flex items-start gap-2">
+                              <span className="text-blue-500 group-hover:text-blue-600">🔗</span>
+                              <div className="min-w-0 flex-1">
+                                <p className="font-semibold text-xs sm:text-sm text-gray-800 group-hover:text-blue-700">
+                                  {painting.title} {painting.year && `(${painting.year})`}
+                                </p>
+                                <p className="text-[10px] sm:text-xs text-gray-500 truncate">{painting.description}</p>
+                              </div>
+                            </div>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Tips Section */}
+            <section className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl border border-green-200 p-4 sm:p-6 print-card">
+              <h3 className="text-lg sm:text-xl font-bold text-green-800 mb-4">Getting Started Tips</h3>
+              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
+                <div>
+                  <h4 className="font-bold text-green-700 mb-2 text-sm sm:text-base">Brush Care:</h4>
+                  <ul className="text-xs sm:text-sm text-green-900 space-y-1">
+                    <li>• Never leave brushes in water</li>
+                    <li>• Clean thoroughly after each session</li>
+                    <li>• Store bristles up or flat</li>
+                    <li>• Use brush soap for deep cleaning</li>
+                    <li>• Natural hair for watercolor, synthetic for acrylic</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-bold text-green-700 mb-2 text-sm sm:text-base">Paper Selection:</h4>
+                  <ul className="text-xs sm:text-sm text-green-900 space-y-1">
+                    <li>• Start with 140lb Cold Press</li>
+                    <li>• Tape edges to prevent buckling</li>
+                    <li>• Test paper with a wet wash first</li>
+                    <li>• Use heavier paper for wet techniques</li>
+                    <li>• Keep scraps for testing colors</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
           </div>
         )}
       </main>
