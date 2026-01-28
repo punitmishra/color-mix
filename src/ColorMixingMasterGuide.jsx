@@ -2343,8 +2343,10 @@ export default function ColorMixingMasterGuide() {
               { id: 'colors', label: 'Colors', fullLabel: 'All Colors' },
               { id: 'brands', label: 'Brands', fullLabel: 'By Brand' },
               { id: 'palettes', label: 'Palettes', fullLabel: 'Theme Palettes' },
+              { id: 'brushes', label: 'Brushes', fullLabel: 'Brush Guide' },
+              { id: 'paper', label: 'Paper', fullLabel: 'Paper & Canvas' },
+              { id: 'strokes', label: 'Strokes', fullLabel: 'Brush Strokes' },
               { id: 'activity', label: 'Activity', fullLabel: 'Activity Sheet' },
-              { id: 'techniques', label: 'Brushes', fullLabel: 'Brushes & Paper' },
             ].map(view => (
               <button key={view.id} onClick={() => setViewMode(view.id)}
                 className="px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all whitespace-nowrap flex-shrink-0"
@@ -2685,12 +2687,12 @@ export default function ColorMixingMasterGuide() {
           </div>
         )}
 
-        {/* ============ TECHNIQUES VIEW (BRUSHES & PAPER) ============ */}
-        {viewMode === 'techniques' && (
+        {/* ============ BRUSHES VIEW ============ */}
+        {viewMode === 'brushes' && (
           <div className="space-y-6 sm:space-y-8">
             <div className="text-center mb-6 sm:mb-8 no-print">
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Brushes & Paper Guide</h2>
-              <p className="text-sm sm:text-base text-gray-500">Learn how different brushes work on various paper types</p>
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Brush Guide</h2>
+              <p className="text-sm sm:text-base text-gray-500">Types of brushes, hair materials, and what they're best for</p>
             </div>
 
             {/* Real Brush Reference Images */}
@@ -2792,6 +2794,99 @@ export default function ColorMixingMasterGuide() {
               </div>
             </section>
 
+            {/* Brush Hair Types - moved to brushes view */}
+            <section className="bg-gradient-to-r from-rose-50 to-pink-50 rounded-2xl border border-rose-200 p-4 sm:p-6 print-card">
+              <h3 className="text-lg sm:text-xl font-bold text-rose-800 mb-4 flex items-center gap-2">
+                <span className="text-2xl">🖌️</span> Brush Hair Types
+              </h3>
+              <p className="text-xs sm:text-sm text-rose-700 mb-4">Natural and synthetic brush fibers with their actual colors:</p>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {brushHairTypes.map((hair, i) => (
+                  <div key={i} className="bg-white rounded-xl border border-rose-100 overflow-hidden">
+                    <div className="p-3 border-b border-rose-100 bg-gradient-to-b from-rose-50 to-white">
+                      <div className="flex items-center gap-3">
+                        <svg viewBox="0 0 40 80" className="w-10 h-20 flex-shrink-0">
+                          <rect x="12" y="30" width="16" height="12" fill="#C0C0C0" rx="1"/>
+                          <rect x="12" y="30" width="16" height="3" fill="#A0A0A0"/>
+                          <rect x="14" y="42" width="12" height="38" fill="#8B4513" rx="2"/>
+                          <rect x="14" y="42" width="3" height="38" fill="#A0522D" rx="1"/>
+                          <ellipse cx="20" cy="15" rx="8" ry="15" fill={hair.color}/>
+                          <ellipse cx="18" cy="15" rx="4" ry="14" fill={hair.color} opacity="0.7"/>
+                          <ellipse cx="20" cy="5" rx="3" ry="4" fill={hair.color} style={{ filter: 'brightness(1.2)' }}/>
+                        </svg>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-bold text-rose-900 text-sm">{hair.name}</h4>
+                          <p className="text-[10px] text-rose-600">{hair.origin}</p>
+                          <div className="flex items-center gap-2 mt-1">
+                            <div className="w-4 h-4 rounded-full border border-rose-200" style={{ backgroundColor: hair.color }} title={hair.colorName}/>
+                            <span className="text-[10px] text-gray-500">{hair.colorName}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-3">
+                      <p className="text-xs text-gray-600 mb-2">{hair.description}</p>
+                      <div className="flex flex-wrap gap-1 mb-2">
+                        {hair.characteristics.slice(0, 3).map((char, ci) => (
+                          <span key={ci} className="text-[9px] px-2 py-0.5 bg-rose-100 text-rose-700 rounded-full">{char}</span>
+                        ))}
+                      </div>
+                      <div className="flex items-center justify-between text-[10px] mb-2">
+                        <span className="text-gray-600"><span className="font-semibold">Best for:</span> {hair.bestMedia.slice(0, 2).join(', ')}</span>
+                        <span className="font-bold text-green-600">{hair.priceRange}</span>
+                      </div>
+                      {hair.famousUsers && (
+                        <p className="text-[10px] text-purple-600 italic border-t border-rose-100 pt-2 mt-2">Used by: {hair.famousUsers.join(', ')}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Brushes by Medium */}
+            <section className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl border border-emerald-200 p-4 sm:p-6 print-card">
+              <h3 className="text-lg sm:text-xl font-bold text-emerald-800 mb-4">Brushes by Medium</h3>
+              <p className="text-xs sm:text-sm text-emerald-700 mb-4">Choose the right brush material for your paint medium:</p>
+              <div className="grid sm:grid-cols-3 gap-4">
+                <div className="bg-white rounded-xl p-4 border border-emerald-100">
+                  <h4 className="font-bold text-emerald-800 mb-2 flex items-center gap-2"><span>💧</span> Watercolor</h4>
+                  <div className="space-y-2 text-xs">
+                    <div className="flex items-start gap-2"><span className="text-emerald-500 font-bold">Best:</span><span className="text-gray-700">Natural hair (Kolinsky sable, squirrel)</span></div>
+                    <div className="flex items-start gap-2"><span className="text-emerald-500 font-bold">Good:</span><span className="text-gray-700">Synthetic sable blends</span></div>
+                    <div className="flex items-start gap-2"><span className="text-emerald-500 font-bold">Types:</span><span className="text-gray-700">Round, Mop, Rigger</span></div>
+                  </div>
+                </div>
+                <div className="bg-white rounded-xl p-4 border border-emerald-100">
+                  <h4 className="font-bold text-emerald-800 mb-2 flex items-center gap-2"><span>🎨</span> Acrylic</h4>
+                  <div className="space-y-2 text-xs">
+                    <div className="flex items-start gap-2"><span className="text-emerald-500 font-bold">Best:</span><span className="text-gray-700">Synthetic (Taklon, Golden Taklon)</span></div>
+                    <div className="flex items-start gap-2"><span className="text-emerald-500 font-bold">Good:</span><span className="text-gray-700">Hog bristle for texture</span></div>
+                    <div className="flex items-start gap-2"><span className="text-emerald-500 font-bold">Types:</span><span className="text-gray-700">Flat, Filbert, Round, Fan</span></div>
+                  </div>
+                </div>
+                <div className="bg-white rounded-xl p-4 border border-emerald-100">
+                  <h4 className="font-bold text-emerald-800 mb-2 flex items-center gap-2"><span>🖼️</span> Oil</h4>
+                  <div className="space-y-2 text-xs">
+                    <div className="flex items-start gap-2"><span className="text-emerald-500 font-bold">Best:</span><span className="text-gray-700">Hog bristle (Chungking)</span></div>
+                    <div className="flex items-start gap-2"><span className="text-emerald-500 font-bold">Good:</span><span className="text-gray-700">Mongoose, badger for blending</span></div>
+                    <div className="flex items-start gap-2"><span className="text-emerald-500 font-bold">Types:</span><span className="text-gray-700">Filbert, Flat, Bright, Fan</span></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        )}
+
+        {/* ============ PAPER & CANVAS VIEW ============ */}
+        {viewMode === 'paper' && (
+          <div className="space-y-6 sm:space-y-8">
+            <div className="text-center mb-6 sm:mb-8 no-print">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Paper & Canvas Guide</h2>
+              <p className="text-sm sm:text-base text-gray-500">Paper types, canvas materials, and weight references</p>
+            </div>
+
             {/* Paper Types Section */}
             <section>
               <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
@@ -2883,6 +2978,110 @@ export default function ColorMixingMasterGuide() {
                 </table>
               </div>
             </section>
+
+            {/* Canvas & Cloth Types - in paper view */}
+            <section className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl border border-amber-200 p-4 sm:p-6 print-card">
+              <h3 className="text-lg sm:text-xl font-bold text-amber-800 mb-4 flex items-center gap-2">
+                <span className="text-2xl">🧵</span> Canvas & Cloth Types
+              </h3>
+              <p className="text-xs sm:text-sm text-amber-700 mb-4">Choose the right canvas material and weight for your painting:</p>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {canvasTypes.map((canvas, i) => (
+                  <div key={i} className="bg-white rounded-xl border border-amber-100 overflow-hidden">
+                    <div className="flex items-center gap-3 p-3 border-b border-amber-100">
+                      <div className="w-16 h-16 rounded-lg border-2 border-amber-200 shadow-inner flex-shrink-0" style={{
+                        backgroundColor: canvas.color,
+                        backgroundImage: canvas.name.includes('Jute')
+                          ? 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.1) 3px, rgba(0,0,0,0.1) 6px), repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,0.1) 3px, rgba(0,0,0,0.1) 6px)'
+                          : canvas.name.includes('Linen')
+                          ? 'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px)'
+                          : 'none'
+                      }}/>
+                      <div>
+                        <h4 className="font-bold text-amber-900 text-sm sm:text-base">{canvas.name}</h4>
+                        <p className="text-xs text-amber-600">{canvas.weave}</p>
+                      </div>
+                    </div>
+                    <div className="p-3">
+                      <p className="text-xs text-gray-600 mb-3">{canvas.description}</p>
+                      <div className="mb-3">
+                        <p className="text-[10px] font-bold text-amber-700 uppercase tracking-wide mb-1">Weight Options:</p>
+                        <div className="bg-amber-50 rounded-lg p-2">
+                          <div className="grid grid-cols-3 gap-1 text-[10px]">
+                            <span className="font-bold text-amber-800">Weight</span>
+                            <span className="font-bold text-amber-800">GSM</span>
+                            <span className="font-bold text-amber-800">Use</span>
+                            {canvas.weights.map((w, wi) => (
+                              <React.Fragment key={wi}>
+                                <span className="text-gray-700">{w.oz}</span>
+                                <span className="text-gray-700">{w.gsm}g/m²</span>
+                                <span className="text-gray-600 truncate">{w.use}</span>
+                              </React.Fragment>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap gap-1 mb-2">
+                        {canvas.characteristics.map((char, ci) => (
+                          <span key={ci} className="text-[9px] px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">{char}</span>
+                        ))}
+                      </div>
+                      <p className="text-[10px] text-gray-500"><span className="font-semibold">Brands:</span> {canvas.brands.join(', ')}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Paper GSM Reference - in paper view */}
+            <section className="bg-gradient-to-r from-cyan-50 to-sky-50 rounded-2xl border border-cyan-200 p-4 sm:p-6 print-card">
+              <h3 className="text-lg sm:text-xl font-bold text-cyan-800 mb-4 flex items-center gap-2">
+                <span className="text-2xl">📄</span> Paper Weight Reference (GSM)
+              </h3>
+              <p className="text-xs sm:text-sm text-cyan-700 mb-4">GSM (grams per square meter) indicates paper thickness. Higher = thicker paper.</p>
+              <div className="grid sm:grid-cols-3 gap-4">
+                <div className="bg-white rounded-xl p-4 border border-cyan-100">
+                  <h4 className="font-bold text-cyan-800 mb-2 text-sm flex items-center gap-2">
+                    <span className="w-3 h-3 rounded bg-cyan-200"></span> Light (90-185 GSM)
+                  </h4>
+                  <ul className="text-xs text-gray-600 space-y-1">
+                    <li>• <span className="font-semibold">90 GSM:</span> Copy paper</li>
+                    <li>• <span className="font-semibold">120 GSM:</span> Stationery</li>
+                    <li>• <span className="font-semibold">185 GSM:</span> Light sketching</li>
+                  </ul>
+                </div>
+                <div className="bg-white rounded-xl p-4 border border-cyan-100">
+                  <h4 className="font-bold text-cyan-800 mb-2 text-sm flex items-center gap-2">
+                    <span className="w-3 h-3 rounded bg-cyan-400"></span> Medium (200-300 GSM)
+                  </h4>
+                  <ul className="text-xs text-gray-600 space-y-1">
+                    <li>• <span className="font-semibold">200 GSM:</span> Mixed media</li>
+                    <li>• <span className="font-semibold">240 GSM:</span> Marker paper</li>
+                    <li>• <span className="font-semibold">300 GSM:</span> Standard watercolor</li>
+                  </ul>
+                </div>
+                <div className="bg-white rounded-xl p-4 border border-cyan-100">
+                  <h4 className="font-bold text-cyan-800 mb-2 text-sm flex items-center gap-2">
+                    <span className="w-3 h-3 rounded bg-cyan-600"></span> Heavy (356-640 GSM)
+                  </h4>
+                  <ul className="text-xs text-gray-600 space-y-1">
+                    <li>• <span className="font-semibold">356 GSM:</span> Heavy watercolor</li>
+                    <li>• <span className="font-semibold">425 GSM:</span> No buckling</li>
+                    <li>• <span className="font-semibold">640 GSM:</span> Museum quality</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+          </div>
+        )}
+
+        {/* ============ STROKES VIEW ============ */}
+        {viewMode === 'strokes' && (
+          <div className="space-y-6 sm:space-y-8">
+            <div className="text-center mb-6 sm:mb-8 no-print">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Brush Strokes & Techniques</h2>
+              <p className="text-sm sm:text-base text-gray-500">See how different brush hairs create unique stroke effects</p>
+            </div>
 
             {/* Realistic Brush Hair Strokes */}
             <section>
@@ -3239,536 +3438,6 @@ export default function ColorMixingMasterGuide() {
                 </div>
               </div>
             </section>
-
-            {/* Medium-Specific Brushes */}
-            <section className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl border border-emerald-200 p-4 sm:p-6 print-card">
-              <h3 className="text-lg sm:text-xl font-bold text-emerald-800 mb-4">Brushes by Medium</h3>
-              <p className="text-xs sm:text-sm text-emerald-700 mb-4">Choose the right brush material for your paint medium:</p>
-
-              <div className="grid sm:grid-cols-3 gap-4">
-                {/* Watercolor */}
-                <div className="bg-white rounded-xl p-4 border border-emerald-100">
-                  <h4 className="font-bold text-emerald-800 mb-2 flex items-center gap-2">
-                    <span>💧</span> Watercolor
-                  </h4>
-                  <div className="space-y-2 text-xs">
-                    <div className="flex items-start gap-2">
-                      <span className="text-emerald-500 font-bold">Best:</span>
-                      <span className="text-gray-700">Natural hair (Kolinsky sable, squirrel)</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-emerald-500 font-bold">Good:</span>
-                      <span className="text-gray-700">Synthetic sable blends</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-emerald-500 font-bold">Types:</span>
-                      <span className="text-gray-700">Round, Mop, Rigger</span>
-                    </div>
-                    <p className="text-[10px] text-gray-500 mt-2 pt-2 border-t">Holds water well, springs back to point</p>
-                  </div>
-                </div>
-
-                {/* Acrylic */}
-                <div className="bg-white rounded-xl p-4 border border-emerald-100">
-                  <h4 className="font-bold text-emerald-800 mb-2 flex items-center gap-2">
-                    <span>🎨</span> Acrylic
-                  </h4>
-                  <div className="space-y-2 text-xs">
-                    <div className="flex items-start gap-2">
-                      <span className="text-emerald-500 font-bold">Best:</span>
-                      <span className="text-gray-700">Synthetic (Taklon, Golden Taklon)</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-emerald-500 font-bold">Good:</span>
-                      <span className="text-gray-700">Hog bristle for texture</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-emerald-500 font-bold">Types:</span>
-                      <span className="text-gray-700">Flat, Filbert, Round, Fan</span>
-                    </div>
-                    <p className="text-[10px] text-gray-500 mt-2 pt-2 border-t">Durable, withstands acrylic's abrasiveness</p>
-                  </div>
-                </div>
-
-                {/* Oil */}
-                <div className="bg-white rounded-xl p-4 border border-emerald-100">
-                  <h4 className="font-bold text-emerald-800 mb-2 flex items-center gap-2">
-                    <span>🖼️</span> Oil
-                  </h4>
-                  <div className="space-y-2 text-xs">
-                    <div className="flex items-start gap-2">
-                      <span className="text-emerald-500 font-bold">Best:</span>
-                      <span className="text-gray-700">Hog bristle (Chungking)</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-emerald-500 font-bold">Good:</span>
-                      <span className="text-gray-700">Mongoose, badger for blending</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-emerald-500 font-bold">Types:</span>
-                      <span className="text-gray-700">Filbert, Flat, Bright, Fan</span>
-                    </div>
-                    <p className="text-[10px] text-gray-500 mt-2 pt-2 border-t">Stiff for thick paint, soft for glazing</p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* Canvas & Cloth Types */}
-            <section className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl border border-amber-200 p-4 sm:p-6 print-card">
-              <h3 className="text-lg sm:text-xl font-bold text-amber-800 mb-4 flex items-center gap-2">
-                <span className="text-2xl">🧵</span> Canvas & Cloth Types
-              </h3>
-              <p className="text-xs sm:text-sm text-amber-700 mb-4">Choose the right canvas material and weight for your painting:</p>
-
-              <div className="grid sm:grid-cols-2 gap-4">
-                {canvasTypes.map((canvas, i) => (
-                  <div key={i} className="bg-white rounded-xl border border-amber-100 overflow-hidden">
-                    {/* Canvas color swatch header */}
-                    <div className="flex items-center gap-3 p-3 border-b border-amber-100">
-                      <div
-                        className="w-16 h-16 rounded-lg border-2 border-amber-200 shadow-inner flex-shrink-0"
-                        style={{
-                          backgroundColor: canvas.color,
-                          backgroundImage: canvas.name.includes('Jute')
-                            ? 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.1) 3px, rgba(0,0,0,0.1) 6px), repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,0.1) 3px, rgba(0,0,0,0.1) 6px)'
-                            : canvas.name.includes('Linen')
-                            ? 'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px)'
-                            : 'none'
-                        }}
-                      />
-                      <div>
-                        <h4 className="font-bold text-amber-900 text-sm sm:text-base">{canvas.name}</h4>
-                        <p className="text-xs text-amber-600">{canvas.weave}</p>
-                      </div>
-                    </div>
-
-                    <div className="p-3">
-                      <p className="text-xs text-gray-600 mb-3">{canvas.description}</p>
-
-                      {/* GSM/Weight Table */}
-                      <div className="mb-3">
-                        <p className="text-[10px] font-bold text-amber-700 uppercase tracking-wide mb-1">Weight Options:</p>
-                        <div className="bg-amber-50 rounded-lg p-2">
-                          <div className="grid grid-cols-3 gap-1 text-[10px]">
-                            <span className="font-bold text-amber-800">Weight</span>
-                            <span className="font-bold text-amber-800">GSM</span>
-                            <span className="font-bold text-amber-800">Use</span>
-                            {canvas.weights.map((w, wi) => (
-                              <React.Fragment key={wi}>
-                                <span className="text-gray-700">{w.oz}</span>
-                                <span className="text-gray-700">{w.gsm}g/m²</span>
-                                <span className="text-gray-600 truncate">{w.use}</span>
-                              </React.Fragment>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Characteristics */}
-                      <div className="flex flex-wrap gap-1 mb-2">
-                        {canvas.characteristics.map((char, ci) => (
-                          <span key={ci} className="text-[9px] px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">
-                            {char}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Brands */}
-                      <p className="text-[10px] text-gray-500">
-                        <span className="font-semibold">Brands:</span> {canvas.brands.join(', ')}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Brush Hair Types */}
-            <section className="bg-gradient-to-r from-rose-50 to-pink-50 rounded-2xl border border-rose-200 p-4 sm:p-6 print-card">
-              <h3 className="text-lg sm:text-xl font-bold text-rose-800 mb-4 flex items-center gap-2">
-                <span className="text-2xl">🖌️</span> Brush Hair Types
-              </h3>
-              <p className="text-xs sm:text-sm text-rose-700 mb-4">Natural and synthetic brush fibers with their actual colors:</p>
-
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {brushHairTypes.map((hair, i) => (
-                  <div key={i} className="bg-white rounded-xl border border-rose-100 overflow-hidden">
-                    {/* Hair color swatch with realistic brush shape */}
-                    <div className="p-3 border-b border-rose-100 bg-gradient-to-b from-rose-50 to-white">
-                      <div className="flex items-center gap-3">
-                        {/* Brush illustration */}
-                        <svg viewBox="0 0 40 80" className="w-10 h-20 flex-shrink-0">
-                          {/* Ferrule (metal part) */}
-                          <rect x="12" y="30" width="16" height="12" fill="#C0C0C0" rx="1"/>
-                          <rect x="12" y="30" width="16" height="3" fill="#A0A0A0"/>
-                          {/* Handle */}
-                          <rect x="14" y="42" width="12" height="38" fill="#8B4513" rx="2"/>
-                          <rect x="14" y="42" width="3" height="38" fill="#A0522D" rx="1"/>
-                          {/* Brush hair/bristles */}
-                          <ellipse cx="20" cy="15" rx="8" ry="15" fill={hair.color}/>
-                          <ellipse cx="18" cy="15" rx="4" ry="14" fill={hair.color} opacity="0.7"/>
-                          {/* Tip highlight */}
-                          <ellipse cx="20" cy="5" rx="3" ry="4" fill={hair.color} style={{ filter: 'brightness(1.2)' }}/>
-                        </svg>
-
-                        <div className="flex-1 min-w-0">
-                          <h4 className="font-bold text-rose-900 text-sm">{hair.name}</h4>
-                          <p className="text-[10px] text-rose-600">{hair.origin}</p>
-                          <div className="flex items-center gap-2 mt-1">
-                            <div
-                              className="w-4 h-4 rounded-full border border-rose-200"
-                              style={{ backgroundColor: hair.color }}
-                              title={hair.colorName}
-                            />
-                            <span className="text-[10px] text-gray-500">{hair.colorName}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="p-3">
-                      <p className="text-xs text-gray-600 mb-2">{hair.description}</p>
-
-                      {/* Characteristics */}
-                      <div className="flex flex-wrap gap-1 mb-2">
-                        {hair.characteristics.slice(0, 3).map((char, ci) => (
-                          <span key={ci} className="text-[9px] px-2 py-0.5 bg-rose-100 text-rose-700 rounded-full">
-                            {char}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Best Media & Price */}
-                      <div className="flex items-center justify-between text-[10px] mb-2">
-                        <span className="text-gray-600">
-                          <span className="font-semibold">Best for:</span> {hair.bestMedia.slice(0, 2).join(', ')}
-                        </span>
-                        <span className="font-bold text-green-600">{hair.priceRange}</span>
-                      </div>
-
-                      {/* Famous Users */}
-                      {hair.famousUsers && (
-                        <p className="text-[10px] text-purple-600 italic border-t border-rose-100 pt-2 mt-2">
-                          ✨ Used by: {hair.famousUsers.join(', ')}
-                        </p>
-                      )}
-
-                      {/* Brands */}
-                      <p className="text-[10px] text-gray-500 mt-1">
-                        <span className="font-semibold">Brands:</span> {hair.brands.slice(0, 2).join(', ')}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Paint Media & Brands */}
-            <section className="bg-gradient-to-r from-violet-50 to-purple-50 rounded-2xl border border-violet-200 p-4 sm:p-6 print-card">
-              <h3 className="text-lg sm:text-xl font-bold text-violet-800 mb-4 flex items-center gap-2">
-                <span className="text-2xl">🎨</span> Paint Media & Brands
-              </h3>
-              <p className="text-xs sm:text-sm text-violet-700 mb-4">Professional and student grade paints by medium:</p>
-
-              <div className="space-y-6">
-                {Object.entries(paintMediaBrands).map(([medium, data]) => (
-                  <div key={medium} className="bg-white rounded-xl border border-violet-100 overflow-hidden">
-                    {/* Medium Header */}
-                    <div className="p-3 sm:p-4 bg-gradient-to-r from-violet-100 to-purple-100 border-b border-violet-200">
-                      <h4 className="font-bold text-violet-900 text-base sm:text-lg flex items-center gap-2">
-                        {medium === 'Watercolor' && '💧'}
-                        {medium === 'Oil' && '🖼️'}
-                        {medium === 'Acrylic' && '🎨'}
-                        {medium === 'Gouache' && '✨'}
-                        {medium}
-                      </h4>
-                      <p className="text-xs text-violet-700 mt-1">{data.description}</p>
-                      <div className="flex flex-wrap gap-1 mt-2">
-                        {data.characteristics.map((char, ci) => (
-                          <span key={ci} className="text-[9px] px-2 py-0.5 bg-white/50 text-violet-700 rounded-full">
-                            {char}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Brands Table */}
-                    <div className="p-3 sm:p-4">
-                      <div className="overflow-x-auto">
-                        <table className="w-full text-xs">
-                          <thead>
-                            <tr className="text-left border-b border-violet-100">
-                              <th className="pb-2 font-bold text-violet-800">Brand</th>
-                              <th className="pb-2 font-bold text-violet-800 hidden sm:table-cell">Tier</th>
-                              <th className="pb-2 font-bold text-violet-800">Price</th>
-                              <th className="pb-2 font-bold text-violet-800 hidden sm:table-cell">Colors</th>
-                              <th className="pb-2 font-bold text-violet-800">Known For</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {data.brands.map((brand, bi) => (
-                              <tr key={bi} className="border-b border-violet-50 last:border-0">
-                                <td className="py-2 pr-2">
-                                  <span className="font-semibold text-gray-800">{brand.name}</span>
-                                  <span className="sm:hidden text-[10px] text-gray-500 block">{brand.tier}</span>
-                                </td>
-                                <td className="py-2 pr-2 hidden sm:table-cell">
-                                  <span className={`text-[10px] px-2 py-0.5 rounded-full ${
-                                    brand.tier === 'Professional' ? 'bg-amber-100 text-amber-700' :
-                                    brand.tier === 'Student' ? 'bg-blue-100 text-blue-700' :
-                                    'bg-gray-100 text-gray-700'
-                                  }`}>
-                                    {brand.tier}
-                                  </span>
-                                </td>
-                                <td className="py-2 pr-2">
-                                  <span className="text-green-600 font-bold">{brand.priceRange}</span>
-                                </td>
-                                <td className="py-2 pr-2 hidden sm:table-cell text-gray-600">
-                                  {brand.colorCount}
-                                </td>
-                                <td className="py-2 text-gray-500 text-[10px] sm:text-xs">
-                                  {brand.famous}
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Brand Comparison Grid */}
-              <div className="mt-6 bg-white rounded-xl border border-violet-200 overflow-hidden">
-                <div className="p-3 sm:p-4 bg-gradient-to-r from-violet-200 to-purple-200 border-b border-violet-300">
-                  <h4 className="font-bold text-violet-900 text-sm sm:text-base">Brand Comparison Chart</h4>
-                  <p className="text-[10px] sm:text-xs text-violet-700">Compare paint brands at a glance</p>
-                </div>
-                <div className="p-3 sm:p-4 overflow-x-auto">
-                  <table className="w-full text-[10px] sm:text-xs min-w-[600px]">
-                    <thead>
-                      <tr className="bg-violet-50">
-                        <th className="p-2 text-left font-bold text-violet-800 border-b border-violet-200">Brand</th>
-                        <th className="p-2 text-center font-bold text-violet-800 border-b border-violet-200">Medium</th>
-                        <th className="p-2 text-center font-bold text-violet-800 border-b border-violet-200">Level</th>
-                        <th className="p-2 text-center font-bold text-violet-800 border-b border-violet-200">Price</th>
-                        <th className="p-2 text-center font-bold text-violet-800 border-b border-violet-200">Colors</th>
-                        <th className="p-2 text-center font-bold text-violet-800 border-b border-violet-200">Pigment Load</th>
-                        <th className="p-2 text-center font-bold text-violet-800 border-b border-violet-200">Best For</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {/* Professional Watercolors */}
-                      <tr className="border-b border-violet-50 hover:bg-violet-50/50">
-                        <td className="p-2 font-semibold">Daniel Smith</td>
-                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Watercolor</span></td>
-                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">Pro</span></td>
-                        <td className="p-2 text-center text-green-600 font-bold">$$$</td>
-                        <td className="p-2 text-center">250+</td>
-                        <td className="p-2 text-center">
-                          <div className="flex justify-center gap-0.5">
-                            {[1,2,3,4,5].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-500" />)}
-                          </div>
-                        </td>
-                        <td className="p-2 text-center text-gray-600">Unique minerals</td>
-                      </tr>
-                      <tr className="border-b border-violet-50 hover:bg-violet-50/50">
-                        <td className="p-2 font-semibold">Winsor & Newton</td>
-                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Watercolor</span></td>
-                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">Pro</span></td>
-                        <td className="p-2 text-center text-green-600 font-bold">$$$</td>
-                        <td className="p-2 text-center">108</td>
-                        <td className="p-2 text-center">
-                          <div className="flex justify-center gap-0.5">
-                            {[1,2,3,4].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-500" />)}
-                            <div className="w-2 h-2 rounded-full bg-violet-200" />
-                          </div>
-                        </td>
-                        <td className="p-2 text-center text-gray-600">Traditional quality</td>
-                      </tr>
-                      {/* Professional Oils */}
-                      <tr className="border-b border-violet-50 hover:bg-violet-50/50">
-                        <td className="p-2 font-semibold">Old Holland</td>
-                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">Oil</span></td>
-                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">Pro</span></td>
-                        <td className="p-2 text-center text-green-600 font-bold">$$$$$</td>
-                        <td className="p-2 text-center">168</td>
-                        <td className="p-2 text-center">
-                          <div className="flex justify-center gap-0.5">
-                            {[1,2,3,4,5].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-500" />)}
-                          </div>
-                        </td>
-                        <td className="p-2 text-center text-gray-600">Highest pigment</td>
-                      </tr>
-                      <tr className="border-b border-violet-50 hover:bg-violet-50/50">
-                        <td className="p-2 font-semibold">Gamblin</td>
-                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">Oil</span></td>
-                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">Pro</span></td>
-                        <td className="p-2 text-center text-green-600 font-bold">$$$</td>
-                        <td className="p-2 text-center">90</td>
-                        <td className="p-2 text-center">
-                          <div className="flex justify-center gap-0.5">
-                            {[1,2,3,4].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-500" />)}
-                            <div className="w-2 h-2 rounded-full bg-violet-200" />
-                          </div>
-                        </td>
-                        <td className="p-2 text-center text-gray-600">Consistent mixing</td>
-                      </tr>
-                      {/* Professional Acrylics */}
-                      <tr className="border-b border-violet-50 hover:bg-violet-50/50">
-                        <td className="p-2 font-semibold">Golden Heavy Body</td>
-                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-red-100 text-red-700 rounded-full">Acrylic</span></td>
-                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">Pro</span></td>
-                        <td className="p-2 text-center text-green-600 font-bold">$$$</td>
-                        <td className="p-2 text-center">90</td>
-                        <td className="p-2 text-center">
-                          <div className="flex justify-center gap-0.5">
-                            {[1,2,3,4,5].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-500" />)}
-                          </div>
-                        </td>
-                        <td className="p-2 text-center text-gray-600">Industry standard</td>
-                      </tr>
-                      <tr className="border-b border-violet-50 hover:bg-violet-50/50">
-                        <td className="p-2 font-semibold">Liquitex Professional</td>
-                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-red-100 text-red-700 rounded-full">Acrylic</span></td>
-                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">Pro</span></td>
-                        <td className="p-2 text-center text-green-600 font-bold">$$$</td>
-                        <td className="p-2 text-center">100</td>
-                        <td className="p-2 text-center">
-                          <div className="flex justify-center gap-0.5">
-                            {[1,2,3,4].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-500" />)}
-                            <div className="w-2 h-2 rounded-full bg-violet-200" />
-                          </div>
-                        </td>
-                        <td className="p-2 text-center text-gray-600">First acrylic brand</td>
-                      </tr>
-                      {/* Student grades */}
-                      <tr className="border-b border-violet-50 hover:bg-violet-50/50 bg-gray-50/50">
-                        <td className="p-2 font-semibold">Cotman</td>
-                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Watercolor</span></td>
-                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Student</span></td>
-                        <td className="p-2 text-center text-green-600 font-bold">$</td>
-                        <td className="p-2 text-center">40</td>
-                        <td className="p-2 text-center">
-                          <div className="flex justify-center gap-0.5">
-                            {[1,2,3].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-500" />)}
-                            {[1,2].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-200" />)}
-                          </div>
-                        </td>
-                        <td className="p-2 text-center text-gray-600">Best student WC</td>
-                      </tr>
-                      <tr className="hover:bg-violet-50/50 bg-gray-50/50">
-                        <td className="p-2 font-semibold">Liquitex Basics</td>
-                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-red-100 text-red-700 rounded-full">Acrylic</span></td>
-                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Student</span></td>
-                        <td className="p-2 text-center text-green-600 font-bold">$</td>
-                        <td className="p-2 text-center">48</td>
-                        <td className="p-2 text-center">
-                          <div className="flex justify-center gap-0.5">
-                            {[1,2,3].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-500" />)}
-                            {[1,2].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-200" />)}
-                          </div>
-                        </td>
-                        <td className="p-2 text-center text-gray-600">Best student acrylic</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div className="p-3 bg-violet-50 border-t border-violet-200">
-                  <div className="flex flex-wrap items-center gap-4 text-[10px] text-violet-700">
-                    <span className="flex items-center gap-1">
-                      <span className="font-semibold">Pigment Load:</span>
-                      <div className="flex gap-0.5">{[1,2,3,4,5].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-500" />)}</div>
-                      = Highest
-                    </span>
-                    <span><span className="font-semibold">$</span> = Budget | <span className="font-semibold">$$$</span> = Mid | <span className="font-semibold">$$$$$</span> = Premium</span>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* Paper GSM Reference */}
-            <section className="bg-gradient-to-r from-cyan-50 to-sky-50 rounded-2xl border border-cyan-200 p-4 sm:p-6 print-card">
-              <h3 className="text-lg sm:text-xl font-bold text-cyan-800 mb-4 flex items-center gap-2">
-                <span className="text-2xl">📄</span> Paper Weight Reference (GSM)
-              </h3>
-              <p className="text-xs sm:text-sm text-cyan-700 mb-4">GSM (grams per square meter) indicates paper thickness. Higher = thicker paper.</p>
-
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {/* Weight categories */}
-                <div className="bg-white rounded-xl p-4 border border-cyan-100">
-                  <h4 className="font-bold text-cyan-800 mb-2 text-sm flex items-center gap-2">
-                    <span className="w-3 h-3 rounded bg-cyan-200"></span> Light (90-185 GSM)
-                  </h4>
-                  <ul className="text-xs text-gray-600 space-y-1">
-                    <li>• <span className="font-semibold">90 GSM:</span> Standard copy paper</li>
-                    <li>• <span className="font-semibold">120 GSM:</span> Quality stationery</li>
-                    <li>• <span className="font-semibold">185 GSM:</span> Light sketching</li>
-                  </ul>
-                  <p className="text-[10px] text-cyan-600 mt-2 pt-2 border-t border-cyan-100">
-                    Best for: Pencil, pen, light washes
-                  </p>
-                </div>
-
-                <div className="bg-white rounded-xl p-4 border border-cyan-100">
-                  <h4 className="font-bold text-cyan-800 mb-2 text-sm flex items-center gap-2">
-                    <span className="w-3 h-3 rounded bg-cyan-400"></span> Medium (200-300 GSM)
-                  </h4>
-                  <ul className="text-xs text-gray-600 space-y-1">
-                    <li>• <span className="font-semibold">200 GSM:</span> Mixed media light</li>
-                    <li>• <span className="font-semibold">240 GSM:</span> Marker paper</li>
-                    <li>• <span className="font-semibold">300 GSM (140lb):</span> Standard watercolor</li>
-                  </ul>
-                  <p className="text-[10px] text-cyan-600 mt-2 pt-2 border-t border-cyan-100">
-                    Best for: Watercolor, gouache, markers
-                  </p>
-                </div>
-
-                <div className="bg-white rounded-xl p-4 border border-cyan-100">
-                  <h4 className="font-bold text-cyan-800 mb-2 text-sm flex items-center gap-2">
-                    <span className="w-3 h-3 rounded bg-cyan-600"></span> Heavy (356-640 GSM)
-                  </h4>
-                  <ul className="text-xs text-gray-600 space-y-1">
-                    <li>• <span className="font-semibold">356 GSM (260lb):</span> Heavy watercolor</li>
-                    <li>• <span className="font-semibold">425 GSM (300lb):</span> No buckling</li>
-                    <li>• <span className="font-semibold">640 GSM:</span> Board-like, museum quality</li>
-                  </ul>
-                  <p className="text-[10px] text-cyan-600 mt-2 pt-2 border-t border-cyan-100">
-                    Best for: Wet techniques, multiple layers
-                  </p>
-                </div>
-              </div>
-
-              {/* Conversion chart */}
-              <div className="mt-4 bg-white rounded-xl p-4 border border-cyan-100">
-                <h4 className="font-bold text-cyan-800 mb-2 text-sm">GSM to LB Conversion</h4>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-                  <div className="bg-cyan-50 rounded p-2 text-center">
-                    <span className="block font-bold text-cyan-800">90 lb</span>
-                    <span className="text-gray-600">= 185 GSM</span>
-                  </div>
-                  <div className="bg-cyan-50 rounded p-2 text-center">
-                    <span className="block font-bold text-cyan-800">140 lb</span>
-                    <span className="text-gray-600">= 300 GSM</span>
-                  </div>
-                  <div className="bg-cyan-50 rounded p-2 text-center">
-                    <span className="block font-bold text-cyan-800">260 lb</span>
-                    <span className="text-gray-600">= 356 GSM</span>
-                  </div>
-                  <div className="bg-cyan-50 rounded p-2 text-center">
-                    <span className="block font-bold text-cyan-800">300 lb</span>
-                    <span className="text-gray-600">= 640 GSM</span>
-                  </div>
-                </div>
-                <p className="text-[10px] text-gray-500 mt-2 italic">
-                  Note: US uses pounds (lb) measured per ream. UK/EU uses GSM (grams per square meter).
-                </p>
-              </div>
-            </section>
-
             {/* Painting References */}
             <section>
               <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
