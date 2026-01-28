@@ -1037,12 +1037,37 @@ export default function ColorMixingMasterGuide() {
           body {
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
+            font-size: 12pt !important;
           }
           .no-print { display: none !important; }
-          .print-card { break-inside: avoid; page-break-inside: avoid; margin-bottom: 16px; }
+          .print-card { break-inside: avoid; page-break-inside: avoid; margin-bottom: 20px; }
           .page-break-inside-avoid { break-inside: avoid; }
           .print-always-show { display: grid !important; }
           .no-print-toggle { pointer-events: none; }
+
+          /* Larger fonts for print */
+          h1 { font-size: 24pt !important; }
+          h2 { font-size: 18pt !important; }
+          h3 { font-size: 14pt !important; }
+          h4 { font-size: 12pt !important; }
+          p, span, li { font-size: 11pt !important; }
+
+          /* Color swatch names */
+          .print-color-name { font-size: 10pt !important; }
+
+          /* Mixing recipe labels */
+          .print-mix-label { font-size: 10pt !important; }
+
+          /* Make tiny text readable */
+          .text-\\[7px\\], .text-\\[8px\\], .text-\\[9px\\], .text-\\[10px\\] {
+            font-size: 9pt !important;
+          }
+          .text-xs { font-size: 10pt !important; }
+          .text-sm { font-size: 11pt !important; }
+          .text-base { font-size: 12pt !important; }
+          .text-lg { font-size: 14pt !important; }
+          .text-xl { font-size: 16pt !important; }
+          .text-2xl { font-size: 18pt !important; }
         }
       `}</style>
 
