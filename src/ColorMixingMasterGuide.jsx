@@ -710,6 +710,8 @@ const artistPalettes = [
     subtitle: "The Joy of Painting",
     description: "Bob's signature wet-on-wet oil painting palette for happy little trees and mountains",
     image: "🏔️",
+    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Bob_at_Easel.jpg/440px-Bob_at_Easel.jpg",
+    referenceTitle: "Bob Ross painting",
     colors: [
       { name: "Titanium White", hex: "#FFFFFF", code: "PW6", note: "Base for clouds, snow, highlights" },
       { name: "Phthalo Blue", hex: "#000F89", code: "PB15", note: "Sky, water - very strong!" },
@@ -737,6 +739,8 @@ const artistPalettes = [
     subtitle: "Post-Impressionist Master",
     description: "Bold, expressive colors used in Starry Night, Sunflowers, and Irises",
     image: "🌻",
+    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/600px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+    referenceTitle: "The Starry Night (1889)",
     colors: [
       { name: "Chrome Yellow", hex: "#FFC200", code: "PY34", note: "Sunflowers, stars, wheat" },
       { name: "Cadmium Yellow", hex: "#FFD300", code: "PY37", note: "Bright yellow areas" },
@@ -764,6 +768,8 @@ const artistPalettes = [
     subtitle: "Father of Impressionism",
     description: "Soft, atmospheric colors for water lilies, haystacks, and gardens",
     image: "🌸",
+    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg/600px-Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg",
+    referenceTitle: "Water Lilies (1906)",
     colors: [
       { name: "Lead White", hex: "#FFFAFA", code: "PW1", note: "Clouds, highlights, mixing" },
       { name: "Chrome Yellow", hex: "#FFC200", code: "PY34", note: "Sunlight, flowers" },
@@ -790,6 +796,8 @@ const artistPalettes = [
     subtitle: "Dutch Golden Age Master",
     description: "Rich, luminous colors for Girl with a Pearl Earring and interiors",
     image: "👩‍🎨",
+    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/1665_Girl_with_a_Pearl_Earring.jpg/440px-1665_Girl_with_a_Pearl_Earring.jpg",
+    referenceTitle: "Girl with a Pearl Earring (1665)",
     colors: [
       { name: "Lead White", hex: "#FFFAFA", code: "PW1", note: "Collars, pearls, light" },
       { name: "Yellow Ochre", hex: "#CB9D06", code: "PY43", note: "Skin, walls, warmth" },
@@ -816,6 +824,8 @@ const artistPalettes = [
     subtitle: "Master of Light and Shadow",
     description: "Dramatic chiaroscuro palette for portraits and biblical scenes",
     image: "🕯️",
+    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Rembrandt_van_Rijn_-_Self-Portrait_-_Google_Art_Project.jpg/440px-Rembrandt_van_Rijn_-_Self-Portrait_-_Google_Art_Project.jpg",
+    referenceTitle: "Self Portrait (1659)",
     colors: [
       { name: "Lead White", hex: "#FFFAFA", code: "PW1", note: "Highlights, ruffs, pearls" },
       { name: "Yellow Ochre", hex: "#CB9D06", code: "PY43", note: "Skin base, golden light" },
@@ -842,6 +852,8 @@ const artistPalettes = [
     subtitle: "American Modernist",
     description: "Bold, saturated colors for flowers, skulls, and desert landscapes",
     image: "🌺",
+    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Georgia_O%27Keeffe_-_Red_Canna_-_1919.jpg/440px-Georgia_O%27Keeffe_-_Red_Canna_-_1919.jpg",
+    referenceTitle: "Red Canna (1919)",
     colors: [
       { name: "Titanium White", hex: "#FFFFFF", code: "PW6", note: "Skulls, clouds, highlights" },
       { name: "Cadmium Yellow Light", hex: "#FFF700", code: "PY37", note: "Bright flower centers" },
@@ -869,6 +881,8 @@ const artistPalettes = [
     subtitle: "Anders Zorn's Limited Palette",
     description: "Only 4 colors! Proves you don't need many colors for beautiful paintings",
     image: "4️⃣",
+    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Anders_Zorn_-_Midsummer_Dance_-_Google_Art_Project.jpg/600px-Anders_Zorn_-_Midsummer_Dance_-_Google_Art_Project.jpg",
+    referenceTitle: "Midsummer Dance (1897)",
     colors: [
       { name: "Titanium White", hex: "#FFFFFF", code: "PW6", note: "Essential for tints and highlights" },
       { name: "Yellow Ochre", hex: "#CB9D06", code: "PY43", note: "Warm tones, skin, golden hues" },
@@ -888,6 +902,8 @@ const artistPalettes = [
     subtitle: "Ultimate Mixing Palette",
     description: "Two versions of each primary (warm and cool) for maximum color range",
     image: "🎨",
+    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Boutet_1708_color_circles.jpg/440px-Boutet_1708_color_circles.jpg",
+    referenceTitle: "Color Wheel Theory (Boutet 1708)",
     colors: [
       { name: "Cadmium Yellow Light", hex: "#FFF700", code: "PY37", note: "Cool yellow (greenish)" },
       { name: "Cadmium Yellow Deep", hex: "#FFA500", code: "PY37", note: "Warm yellow (orangish)" },
@@ -1329,45 +1345,45 @@ const brushHairTypes = [
 
 const brushReferenceImages = [
   {
-    name: "Artist Paint Brushes Collection",
-    description: "Various brush shapes and sizes for painting",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Paint_Brushes.jpg/640px-Paint_Brushes.jpg",
-    wikiLink: "https://commons.wikimedia.org/wiki/File:Paint_Brushes.jpg",
-    license: "CC BY-SA 3.0"
+    name: "Artist's Brushes",
+    description: "Various artist brushes in a glass jar",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Paintbrushes.jpg/480px-Paintbrushes.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Paintbrushes.jpg",
+    license: "Public Domain"
   },
   {
-    name: "Watercolor Brush Set",
-    description: "Round brushes ideal for watercolor painting",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Watercolor_brushes.jpg/640px-Watercolor_brushes.jpg",
-    wikiLink: "https://commons.wikimedia.org/wiki/File:Watercolor_brushes.jpg",
+    name: "Watercolor Setup",
+    description: "Watercolor paints and brushes ready for painting",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Watercolor_painting_supplies.jpg/640px-Watercolor_painting_supplies.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Watercolor_painting_supplies.jpg",
     license: "CC BY-SA 4.0"
   },
   {
-    name: "Oil Painting Brushes",
-    description: "Flat and filbert brushes for oil painting",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Oil_painting_brushes.jpg/640px-Oil_painting_brushes.jpg",
-    wikiLink: "https://commons.wikimedia.org/wiki/File:Oil_painting_brushes.jpg",
+    name: "Oil Painter's Palette",
+    description: "Artist palette with oil paints and brushes",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Painter%27s_palette.jpg/640px-Painter%27s_palette.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Painter%27s_palette.jpg",
     license: "CC BY-SA 3.0"
   },
   {
-    name: "Chinese Calligraphy Brushes",
-    description: "Traditional brushes with bamboo handles",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Chinese_calligraphy_brushes.jpg/640px-Chinese_calligraphy_brushes.jpg",
-    wikiLink: "https://commons.wikimedia.org/wiki/File:Chinese_calligraphy_brushes.jpg",
+    name: "Chinese Brush Painting",
+    description: "Traditional Chinese brushes and ink",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Chinese_writing_brushes.jpg/480px-Chinese_writing_brushes.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Chinese_writing_brushes.jpg",
     license: "CC BY-SA 3.0"
   },
   {
-    name: "Fan Brush",
-    description: "Specialty brush for texture effects, foliage, and blending",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Fan_brush.jpg/640px-Fan_brush.jpg",
-    wikiLink: "https://commons.wikimedia.org/wiki/File:Fan_brush.jpg",
-    license: "CC BY-SA 4.0"
+    name: "Artist at Work",
+    description: "Painter using brushes on canvas",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Rembrandt_The_Artist_in_his_studio.jpg/440px-Rembrandt_The_Artist_in_his_studio.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Rembrandt_The_Artist_in_his_studio.jpg",
+    license: "Public Domain"
   },
   {
-    name: "Palette Knives",
-    description: "Metal tools for mixing paint and impasto techniques",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Palette_knives.jpg/640px-Palette_knives.jpg",
-    wikiLink: "https://commons.wikimedia.org/wiki/File:Palette_knives.jpg",
+    name: "Paint Tubes & Palette",
+    description: "Oil paint tubes with artist palette",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Lascaux_artist_acrylic_colors.jpg/640px-Lascaux_artist_acrylic_colors.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Lascaux_artist_acrylic_colors.jpg",
     license: "CC BY-SA 3.0"
   }
 ];
@@ -1740,30 +1756,50 @@ function MixRow({ mix, compact = false }) {
 function ArtistPaletteCard({ palette, onSelect }) {
   return (
     <div
-      className="p-4 sm:p-5 rounded-2xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-lg active:scale-[0.99] transition-all cursor-pointer print-card"
+      className="rounded-2xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-lg active:scale-[0.99] transition-all cursor-pointer print-card overflow-hidden"
       onClick={() => onSelect && onSelect(palette)}
     >
-      <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
-        <span className="text-3xl sm:text-4xl">{palette.image}</span>
-        <div className="min-w-0">
-          <h3 className="text-base sm:text-lg font-bold text-gray-800">{palette.name}</h3>
-          <p className="text-xs sm:text-sm text-gray-500">{palette.subtitle}</p>
-        </div>
-      </div>
-      <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4 line-clamp-2">{palette.description}</p>
-
-      {/* Color strip preview */}
-      <div className="flex h-8 sm:h-10 rounded-lg overflow-hidden shadow-inner mb-2 sm:mb-3">
-        {palette.colors.slice(0, 8).map((c, i) => (
-          <div
-            key={i}
-            className="flex-1"
-            style={{ backgroundColor: c.hex, border: c.hex === '#FFFFFF' ? '1px solid #e5e7eb' : 'none' }}
-            title={c.name}
+      {/* Reference Image */}
+      {palette.referenceImage && (
+        <div className="aspect-[16/9] bg-gray-100 overflow-hidden">
+          <img
+            src={palette.referenceImage}
+            alt={palette.referenceTitle || palette.name}
+            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+            onError={(e) => {
+              e.target.style.display = 'none';
+            }}
           />
-        ))}
+        </div>
+      )}
+
+      <div className="p-4 sm:p-5">
+        <div className="flex items-start gap-3 sm:gap-4 mb-2">
+          <span className="text-2xl sm:text-3xl">{palette.image}</span>
+          <div className="min-w-0">
+            <h3 className="text-base sm:text-lg font-bold text-gray-800">{palette.name}</h3>
+            <p className="text-xs sm:text-sm text-gray-500">{palette.subtitle}</p>
+          </div>
+        </div>
+        {palette.referenceTitle && (
+          <p className="text-[10px] text-gray-400 italic mb-2">Reference: {palette.referenceTitle}</p>
+        )}
+        <p className="text-xs sm:text-sm text-gray-600 mb-3">{palette.description}</p>
+
+        {/* Color strip preview */}
+        <div className="flex h-8 sm:h-10 rounded-lg overflow-hidden shadow-inner mb-2 sm:mb-3">
+          {palette.colors.slice(0, 8).map((c, i) => (
+            <div
+              key={i}
+              className="flex-1"
+              style={{ backgroundColor: c.hex, border: c.hex === '#FFFFFF' ? '1px solid #e5e7eb' : 'none' }}
+              title={c.name}
+            />
+          ))}
+        </div>
+        <p className="text-[10px] sm:text-xs text-gray-400">{palette.colors.length} colors - Tap to see full palette</p>
       </div>
-      <p className="text-[10px] sm:text-xs text-gray-400">{palette.colors.length} colors - Tap to see full palette</p>
     </div>
   );
 }
@@ -1791,6 +1827,25 @@ function ArtistPaletteModal({ palette, onClose }) {
 
         {/* Drag handle for mobile */}
         <div className="sm:hidden w-10 h-1 bg-gray-300 rounded-full mx-auto mt-3" />
+
+        {/* Reference Image Banner */}
+        {palette.referenceImage && (
+          <div className="relative h-48 sm:h-64 bg-gray-900 overflow-hidden">
+            <img
+              src={palette.referenceImage}
+              alt={palette.referenceTitle || palette.name}
+              className="w-full h-full object-cover opacity-90"
+              loading="lazy"
+              onError={(e) => {
+                e.target.parentElement.style.display = 'none';
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+            <div className="absolute bottom-3 left-4 right-4 text-white">
+              <p className="text-xs sm:text-sm opacity-80">{palette.referenceTitle}</p>
+            </div>
+          </div>
+        )}
 
         {/* Header */}
         <div className="p-4 sm:p-8 bg-gradient-to-r from-gray-100 to-gray-50 border-b">
@@ -3447,6 +3502,154 @@ export default function ColorMixingMasterGuide() {
                     </div>
                   </div>
                 ))}
+              </div>
+
+              {/* Brand Comparison Grid */}
+              <div className="mt-6 bg-white rounded-xl border border-violet-200 overflow-hidden">
+                <div className="p-3 sm:p-4 bg-gradient-to-r from-violet-200 to-purple-200 border-b border-violet-300">
+                  <h4 className="font-bold text-violet-900 text-sm sm:text-base">Brand Comparison Chart</h4>
+                  <p className="text-[10px] sm:text-xs text-violet-700">Compare paint brands at a glance</p>
+                </div>
+                <div className="p-3 sm:p-4 overflow-x-auto">
+                  <table className="w-full text-[10px] sm:text-xs min-w-[600px]">
+                    <thead>
+                      <tr className="bg-violet-50">
+                        <th className="p-2 text-left font-bold text-violet-800 border-b border-violet-200">Brand</th>
+                        <th className="p-2 text-center font-bold text-violet-800 border-b border-violet-200">Medium</th>
+                        <th className="p-2 text-center font-bold text-violet-800 border-b border-violet-200">Level</th>
+                        <th className="p-2 text-center font-bold text-violet-800 border-b border-violet-200">Price</th>
+                        <th className="p-2 text-center font-bold text-violet-800 border-b border-violet-200">Colors</th>
+                        <th className="p-2 text-center font-bold text-violet-800 border-b border-violet-200">Pigment Load</th>
+                        <th className="p-2 text-center font-bold text-violet-800 border-b border-violet-200">Best For</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {/* Professional Watercolors */}
+                      <tr className="border-b border-violet-50 hover:bg-violet-50/50">
+                        <td className="p-2 font-semibold">Daniel Smith</td>
+                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Watercolor</span></td>
+                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">Pro</span></td>
+                        <td className="p-2 text-center text-green-600 font-bold">$$$</td>
+                        <td className="p-2 text-center">250+</td>
+                        <td className="p-2 text-center">
+                          <div className="flex justify-center gap-0.5">
+                            {[1,2,3,4,5].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-500" />)}
+                          </div>
+                        </td>
+                        <td className="p-2 text-center text-gray-600">Unique minerals</td>
+                      </tr>
+                      <tr className="border-b border-violet-50 hover:bg-violet-50/50">
+                        <td className="p-2 font-semibold">Winsor & Newton</td>
+                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Watercolor</span></td>
+                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">Pro</span></td>
+                        <td className="p-2 text-center text-green-600 font-bold">$$$</td>
+                        <td className="p-2 text-center">108</td>
+                        <td className="p-2 text-center">
+                          <div className="flex justify-center gap-0.5">
+                            {[1,2,3,4].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-500" />)}
+                            <div className="w-2 h-2 rounded-full bg-violet-200" />
+                          </div>
+                        </td>
+                        <td className="p-2 text-center text-gray-600">Traditional quality</td>
+                      </tr>
+                      {/* Professional Oils */}
+                      <tr className="border-b border-violet-50 hover:bg-violet-50/50">
+                        <td className="p-2 font-semibold">Old Holland</td>
+                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">Oil</span></td>
+                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">Pro</span></td>
+                        <td className="p-2 text-center text-green-600 font-bold">$$$$$</td>
+                        <td className="p-2 text-center">168</td>
+                        <td className="p-2 text-center">
+                          <div className="flex justify-center gap-0.5">
+                            {[1,2,3,4,5].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-500" />)}
+                          </div>
+                        </td>
+                        <td className="p-2 text-center text-gray-600">Highest pigment</td>
+                      </tr>
+                      <tr className="border-b border-violet-50 hover:bg-violet-50/50">
+                        <td className="p-2 font-semibold">Gamblin</td>
+                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">Oil</span></td>
+                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">Pro</span></td>
+                        <td className="p-2 text-center text-green-600 font-bold">$$$</td>
+                        <td className="p-2 text-center">90</td>
+                        <td className="p-2 text-center">
+                          <div className="flex justify-center gap-0.5">
+                            {[1,2,3,4].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-500" />)}
+                            <div className="w-2 h-2 rounded-full bg-violet-200" />
+                          </div>
+                        </td>
+                        <td className="p-2 text-center text-gray-600">Consistent mixing</td>
+                      </tr>
+                      {/* Professional Acrylics */}
+                      <tr className="border-b border-violet-50 hover:bg-violet-50/50">
+                        <td className="p-2 font-semibold">Golden Heavy Body</td>
+                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-red-100 text-red-700 rounded-full">Acrylic</span></td>
+                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">Pro</span></td>
+                        <td className="p-2 text-center text-green-600 font-bold">$$$</td>
+                        <td className="p-2 text-center">90</td>
+                        <td className="p-2 text-center">
+                          <div className="flex justify-center gap-0.5">
+                            {[1,2,3,4,5].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-500" />)}
+                          </div>
+                        </td>
+                        <td className="p-2 text-center text-gray-600">Industry standard</td>
+                      </tr>
+                      <tr className="border-b border-violet-50 hover:bg-violet-50/50">
+                        <td className="p-2 font-semibold">Liquitex Professional</td>
+                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-red-100 text-red-700 rounded-full">Acrylic</span></td>
+                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">Pro</span></td>
+                        <td className="p-2 text-center text-green-600 font-bold">$$$</td>
+                        <td className="p-2 text-center">100</td>
+                        <td className="p-2 text-center">
+                          <div className="flex justify-center gap-0.5">
+                            {[1,2,3,4].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-500" />)}
+                            <div className="w-2 h-2 rounded-full bg-violet-200" />
+                          </div>
+                        </td>
+                        <td className="p-2 text-center text-gray-600">First acrylic brand</td>
+                      </tr>
+                      {/* Student grades */}
+                      <tr className="border-b border-violet-50 hover:bg-violet-50/50 bg-gray-50/50">
+                        <td className="p-2 font-semibold">Cotman</td>
+                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Watercolor</span></td>
+                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Student</span></td>
+                        <td className="p-2 text-center text-green-600 font-bold">$</td>
+                        <td className="p-2 text-center">40</td>
+                        <td className="p-2 text-center">
+                          <div className="flex justify-center gap-0.5">
+                            {[1,2,3].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-500" />)}
+                            {[1,2].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-200" />)}
+                          </div>
+                        </td>
+                        <td className="p-2 text-center text-gray-600">Best student WC</td>
+                      </tr>
+                      <tr className="hover:bg-violet-50/50 bg-gray-50/50">
+                        <td className="p-2 font-semibold">Liquitex Basics</td>
+                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-red-100 text-red-700 rounded-full">Acrylic</span></td>
+                        <td className="p-2 text-center"><span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Student</span></td>
+                        <td className="p-2 text-center text-green-600 font-bold">$</td>
+                        <td className="p-2 text-center">48</td>
+                        <td className="p-2 text-center">
+                          <div className="flex justify-center gap-0.5">
+                            {[1,2,3].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-500" />)}
+                            {[1,2].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-200" />)}
+                          </div>
+                        </td>
+                        <td className="p-2 text-center text-gray-600">Best student acrylic</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="p-3 bg-violet-50 border-t border-violet-200">
+                  <div className="flex flex-wrap items-center gap-4 text-[10px] text-violet-700">
+                    <span className="flex items-center gap-1">
+                      <span className="font-semibold">Pigment Load:</span>
+                      <div className="flex gap-0.5">{[1,2,3,4,5].map(i => <div key={i} className="w-2 h-2 rounded-full bg-violet-500" />)}</div>
+                      = Highest
+                    </span>
+                    <span><span className="font-semibold">$</span> = Budget | <span className="font-semibold">$$$</span> = Mid | <span className="font-semibold">$$$$$</span> = Premium</span>
+                  </div>
+                </div>
               </div>
             </section>
 
