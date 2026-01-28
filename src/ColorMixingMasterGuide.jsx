@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 
 // ==========================================
 // COMPREHENSIVE COLOR DATABASE
@@ -710,8 +710,8 @@ const artistPalettes = [
     subtitle: "The Joy of Painting",
     description: "Bob's signature wet-on-wet oil painting palette for happy little trees and mountains",
     image: "🏔️",
-    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Cole_Thomas_The_Oxbow_%28The_Connecticut_River_near_Northampton_1836%29.jpg/600px-Cole_Thomas_The_Oxbow_%28The_Connecticut_River_near_Northampton_1836%29.jpg",
-    referenceTitle: "The Oxbow - Thomas Cole (Landscape style)",
+    referenceImage: "https://images.metmuseum.org/CRDImages/ad/original/DT82.jpg",
+    referenceTitle: "The Rocky Mountains - Albert Bierstadt (Landscape style)",
     colors: [
       { name: "Titanium White", hex: "#FFFFFF", code: "PW6", note: "Base for clouds, snow, highlights" },
       { name: "Phthalo Blue", hex: "#000F89", code: "PB15", note: "Sky, water - very strong!" },
@@ -1646,6 +1646,920 @@ function ColorSwatch({ color, onClick, size = 'normal' }) {
       {color.code && (
         <p className="text-[7px] sm:text-[8px] font-mono text-gray-400">{color.code}</p>
       )}
+    </div>
+  );
+}
+
+// ==========================================
+// REALISTIC BRUSH STROKE CANVAS COMPONENT
+// Autodesk SketchBook-style bristle simulation
+// ==========================================
+
+function RealisticBrushDemo({ brushType, color = '#2c5aa0', width = 400, height = 150 }) {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    // Set canvas size with device pixel ratio for crisp rendering
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.scale(dpr, dpr);
+
+    // Clear canvas with paper texture
+    ctx.fillStyle = '#faf8f5';
+    ctx.fillRect(0, 0, width, height);
+
+    // Add subtle paper texture
+    addPaperTexture(ctx, width, height);
+
+    // Draw the brush stroke based on type
+    switch (brushType) {
+      case 'round-sable':
+        drawSableBrush(ctx, width, height, color);
+        break;
+      case 'flat-hog':
+        drawHogBristleBrush(ctx, width, height, color);
+        break;
+      case 'filbert':
+        drawFilbertBrush(ctx, width, height, color);
+        break;
+      case 'fan':
+        drawFanBrush(ctx, width, height, color);
+        break;
+      case 'rigger':
+        drawRiggerBrush(ctx, width, height, color);
+        break;
+      case 'palette-knife':
+        drawPaletteKnife(ctx, width, height, color);
+        break;
+      case 'watercolor-wash':
+        drawWatercolorWash(ctx, width, height, color);
+        break;
+      case 'dry-brush':
+        drawDryBrush(ctx, width, height, color);
+        break;
+      default:
+        drawSableBrush(ctx, width, height, color);
+    }
+  }, [brushType, color, width, height]);
+
+  // Add paper texture overlay
+  function addPaperTexture(ctx, w, h) {
+    const imageData = ctx.getImageData(0, 0, w, h);
+    const data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+      const noise = (Math.random() - 0.5) * 8;
+      data[i] = Math.max(0, Math.min(255, data[i] + noise));
+      data[i + 1] = Math.max(0, Math.min(255, data[i + 1] + noise));
+      data[i + 2] = Math.max(0, Math.min(255, data[i + 2] + noise));
+    }
+    ctx.putImageData(imageData, 0, 0);
+  }
+
+  // Parse hex color to RGB
+  function hexToRgbLocal(hex) {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : { r: 44, g: 90, b: 160 };
+  }
+
+  // Vary color brightness for bristle effect
+  function varyColor(hex, variance) {
+    const rgb = hexToRgbLocal(hex);
+    const factor = 1 + (Math.random() - 0.5) * variance;
+    return `rgb(${Math.max(0, Math.min(255, Math.round(rgb.r * factor)))},
+                ${Math.max(0, Math.min(255, Math.round(rgb.g * factor)))},
+                ${Math.max(0, Math.min(255, Math.round(rgb.b * factor)))})`;
+  }
+
+  // Kolinsky Sable - Fine watercolor brush with pointed tip
+  function drawSableBrush(ctx, w, h, baseColor) {
+    const startX = 30;
+    const endX = w - 30;
+    const centerY = h / 2;
+    const bristleCount = 25;
+
+    // Create bristles array
+    const bristles = [];
+    for (let i = 0; i < bristleCount; i++) {
+      bristles.push({
+        offset: (Math.random() - 0.5) * 12,
+        thickness: 0.5 + Math.random() * 1.5,
+        color: varyColor(baseColor, 0.15),
+        opacity: 0.4 + Math.random() * 0.4
+      });
+    }
+
+    // Draw curved stroke with pressure variation
+    bristles.forEach(bristle => {
+      ctx.beginPath();
+      ctx.strokeStyle = bristle.color;
+      ctx.lineWidth = bristle.thickness;
+      ctx.globalAlpha = bristle.opacity;
+      ctx.lineCap = 'round';
+
+      // Bezier curve with pressure tapering
+      const cp1x = startX + (endX - startX) * 0.3;
+      const cp1y = centerY - 20 + bristle.offset;
+      const cp2x = startX + (endX - startX) * 0.7;
+      const cp2y = centerY + 15 + bristle.offset * 0.5;
+
+      ctx.moveTo(startX, centerY + bristle.offset * 0.3);
+      ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, endX, centerY + bristle.offset * 0.2);
+      ctx.stroke();
+    });
+
+    ctx.globalAlpha = 1;
+
+    // Add wet edge effect
+    ctx.beginPath();
+    ctx.strokeStyle = varyColor(baseColor, 0.3);
+    ctx.lineWidth = 0.5;
+    ctx.globalAlpha = 0.3;
+    const edgeOffset = 8;
+    ctx.moveTo(startX, centerY + edgeOffset);
+    ctx.bezierCurveTo(startX + 100, centerY - 15 + edgeOffset, endX - 100, centerY + 20 + edgeOffset, endX, centerY + edgeOffset);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  }
+
+  // Hog Bristle - Stiff brush with visible brushmarks
+  function drawHogBristleBrush(ctx, w, h, baseColor) {
+    const startX = 30;
+    const endX = w - 30;
+    const centerY = h / 2;
+    const bristleCount = 40;
+    const brushWidth = 30;
+
+    // Draw thick impasto strokes
+    for (let i = 0; i < bristleCount; i++) {
+      const yOffset = (i / bristleCount - 0.5) * brushWidth;
+      const thickness = 2 + Math.random() * 3;
+
+      ctx.beginPath();
+      ctx.strokeStyle = varyColor(baseColor, 0.25);
+      ctx.lineWidth = thickness;
+      ctx.globalAlpha = 0.6 + Math.random() * 0.3;
+      ctx.lineCap = 'square';
+
+      // Slightly wavy line to simulate bristle texture
+      ctx.moveTo(startX, centerY + yOffset);
+      for (let x = startX; x <= endX; x += 15) {
+        const wobble = (Math.random() - 0.5) * 4;
+        ctx.lineTo(x, centerY + yOffset + wobble);
+      }
+      ctx.stroke();
+    }
+
+    // Add texture/impasto highlights
+    ctx.globalAlpha = 0.3;
+    for (let i = 0; i < 20; i++) {
+      const x = startX + Math.random() * (endX - startX);
+      const y = centerY + (Math.random() - 0.5) * brushWidth;
+      ctx.beginPath();
+      ctx.fillStyle = '#fff';
+      ctx.arc(x, y, 1 + Math.random() * 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // Filbert - Rounded edge brush for blending
+  function drawFilbertBrush(ctx, w, h, baseColor) {
+    const startX = 40;
+    const endX = w - 40;
+    const centerY = h / 2;
+
+    // Draw gradient stroke with soft edges
+    const gradient = ctx.createLinearGradient(startX, centerY - 20, startX, centerY + 20);
+    const rgb = hexToRgbLocal(baseColor);
+    gradient.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.2)`);
+    gradient.addColorStop(0.3, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.7)`);
+    gradient.addColorStop(0.7, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.7)`);
+    gradient.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.2)`);
+
+    // Main stroke body
+    ctx.beginPath();
+    ctx.fillStyle = gradient;
+    ctx.moveTo(startX, centerY);
+    ctx.bezierCurveTo(startX + 50, centerY - 25, endX - 50, centerY - 20, endX, centerY);
+    ctx.bezierCurveTo(endX - 50, centerY + 20, startX + 50, centerY + 25, startX, centerY);
+    ctx.fill();
+
+    // Add subtle bristle marks
+    for (let i = 0; i < 15; i++) {
+      ctx.beginPath();
+      ctx.strokeStyle = varyColor(baseColor, 0.2);
+      ctx.lineWidth = 0.5;
+      ctx.globalAlpha = 0.3;
+      const y = centerY + (Math.random() - 0.5) * 30;
+      ctx.moveTo(startX + 20, y);
+      ctx.lineTo(endX - 20, y + (Math.random() - 0.5) * 10);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // Fan Brush - For textures and foliage
+  function drawFanBrush(ctx, w, h, baseColor) {
+    const centerX = w / 2;
+    const centerY = h / 2 + 20;
+    const fanWidth = 120;
+    const bristleCount = 30;
+
+    for (let i = 0; i < bristleCount; i++) {
+      const angle = (i / bristleCount - 0.5) * Math.PI * 0.4;
+      const length = 50 + Math.random() * 30;
+
+      ctx.beginPath();
+      ctx.strokeStyle = varyColor(baseColor, 0.3);
+      ctx.lineWidth = 1 + Math.random() * 1.5;
+      ctx.globalAlpha = 0.5 + Math.random() * 0.4;
+      ctx.lineCap = 'round';
+
+      const startX = centerX + Math.cos(angle) * 20;
+      const startY = centerY;
+      const endX = centerX + Math.cos(angle) * length;
+      const endY = centerY - Math.sin(Math.abs(angle)) * length * 0.5;
+
+      ctx.moveTo(startX, startY);
+      ctx.lineTo(endX, endY);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // Rigger/Liner - Fine lines
+  function drawRiggerBrush(ctx, w, h, baseColor) {
+    const startX = 30;
+    const endX = w - 30;
+    const centerY = h / 2;
+
+    ctx.beginPath();
+    ctx.strokeStyle = baseColor;
+    ctx.lineWidth = 1.5;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    // Draw a flowing calligraphic line
+    ctx.moveTo(startX, centerY + 10);
+    ctx.quadraticCurveTo(startX + 60, centerY - 30, startX + 120, centerY);
+    ctx.quadraticCurveTo(startX + 180, centerY + 25, startX + 240, centerY - 5);
+    ctx.quadraticCurveTo(endX - 60, centerY - 25, endX, centerY + 5);
+    ctx.stroke();
+
+    // Add some fine detail strokes
+    ctx.lineWidth = 0.8;
+    ctx.globalAlpha = 0.7;
+    ctx.beginPath();
+    ctx.moveTo(startX + 80, centerY + 30);
+    ctx.quadraticCurveTo(startX + 100, centerY + 50, startX + 130, centerY + 35);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  }
+
+  // Palette Knife - Bold textured strokes
+  function drawPaletteKnife(ctx, w, h, baseColor) {
+    const startX = 40;
+    const endX = w - 40;
+    const centerY = h / 2;
+    const knifeHeight = 35;
+
+    // Main paint mass
+    ctx.beginPath();
+    const gradient = ctx.createLinearGradient(startX, centerY - knifeHeight/2, startX, centerY + knifeHeight/2);
+    const rgb = hexToRgbLocal(baseColor);
+    gradient.addColorStop(0, `rgba(${Math.min(255, rgb.r + 40)}, ${Math.min(255, rgb.g + 40)}, ${Math.min(255, rgb.b + 40)}, 0.9)`);
+    gradient.addColorStop(0.5, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 1)`);
+    gradient.addColorStop(1, `rgba(${Math.max(0, rgb.r - 30)}, ${Math.max(0, rgb.g - 30)}, ${Math.max(0, rgb.b - 30)}, 0.9)`);
+
+    ctx.fillStyle = gradient;
+    ctx.moveTo(startX, centerY);
+    ctx.lineTo(startX + 20, centerY - knifeHeight/2);
+    ctx.lineTo(endX - 20, centerY - knifeHeight/2 + 5);
+    ctx.lineTo(endX, centerY + 5);
+    ctx.lineTo(endX - 20, centerY + knifeHeight/2);
+    ctx.lineTo(startX + 20, centerY + knifeHeight/2 - 5);
+    ctx.closePath();
+    ctx.fill();
+
+    // Add impasto texture
+    for (let i = 0; i < 25; i++) {
+      ctx.beginPath();
+      ctx.fillStyle = i % 2 === 0 ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.1)';
+      const x = startX + 30 + Math.random() * (endX - startX - 60);
+      const y = centerY + (Math.random() - 0.5) * knifeHeight * 0.7;
+      ctx.ellipse(x, y, 3 + Math.random() * 5, 1 + Math.random() * 2, Math.random() * Math.PI, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // Watercolor Wash - Soft transparent layers
+  function drawWatercolorWash(ctx, w, h, baseColor) {
+    const rgb = hexToRgbLocal(baseColor);
+
+    // Multiple transparent layers
+    for (let layer = 0; layer < 5; layer++) {
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.15)`;
+
+      const offsetX = (Math.random() - 0.5) * 20;
+      const offsetY = (Math.random() - 0.5) * 10;
+      const startX = 30 + offsetX;
+      const endX = w - 30 + offsetX;
+      const centerY = h / 2 + offsetY;
+
+      ctx.moveTo(startX, centerY);
+      ctx.bezierCurveTo(
+        startX + 80, centerY - 30 + Math.random() * 20,
+        endX - 80, centerY + 30 - Math.random() * 20,
+        endX, centerY
+      );
+      ctx.bezierCurveTo(
+        endX - 80, centerY + 40 + Math.random() * 10,
+        startX + 80, centerY + 35 - Math.random() * 10,
+        startX, centerY
+      );
+      ctx.fill();
+    }
+
+    // Add wet edge bloom
+    ctx.beginPath();
+    const gradient = ctx.createRadialGradient(w * 0.7, h * 0.4, 5, w * 0.7, h * 0.4, 40);
+    gradient.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.4)`);
+    gradient.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
+    ctx.fillStyle = gradient;
+    ctx.arc(w * 0.7, h * 0.4, 40, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Dry Brush - Textured broken strokes
+  function drawDryBrush(ctx, w, h, baseColor) {
+    const startX = 30;
+    const endX = w - 30;
+    const centerY = h / 2;
+    const brushWidth = 25;
+
+    // Draw many thin broken strokes
+    for (let i = 0; i < 50; i++) {
+      const yOffset = (Math.random() - 0.5) * brushWidth;
+
+      ctx.beginPath();
+      ctx.strokeStyle = varyColor(baseColor, 0.25);
+      ctx.lineWidth = 0.5 + Math.random() * 2;
+      ctx.globalAlpha = Math.random() * 0.7;
+      ctx.lineCap = 'round';
+
+      // Broken, sketchy line
+      let x = startX + Math.random() * 50;
+      ctx.moveTo(x, centerY + yOffset);
+      while (x < endX - 50) {
+        const segmentLength = 10 + Math.random() * 40;
+        x += segmentLength;
+        if (Math.random() > 0.3) { // 70% chance to draw
+          ctx.lineTo(x, centerY + yOffset + (Math.random() - 0.5) * 8);
+        } else {
+          ctx.moveTo(x, centerY + yOffset + (Math.random() - 0.5) * 8);
+        }
+      }
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{ width: `${width}px`, height: `${height}px`, borderRadius: '8px' }}
+      className="border border-gray-200"
+    />
+  );
+}
+
+// ==========================================
+// INTERACTIVE BRUSH CANVAS - Live Drawing
+// Autodesk SketchBook-style interactive painting
+// ==========================================
+
+function InteractiveBrushCanvas() {
+  const canvasRef = useRef(null);
+  const [isDrawing, setIsDrawing] = useState(false);
+  const [brushType, setBrushType] = useState('round-sable');
+  const [brushSize, setBrushSize] = useState(12);
+  const [brushColor, setBrushColor] = useState('#2A52BE');
+  const [brushOpacity, setBrushOpacity] = useState(0.8);
+  const [history, setHistory] = useState([]);
+  const lastPoint = useRef(null);
+  const bristles = useRef([]);
+
+  // Initialize canvas
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+    clearCanvas();
+  }, []);
+
+  // Generate bristles for current brush
+  const generateBristles = (size) => {
+    const count = Math.floor(size * 2);
+    return Array.from({ length: count }, () => ({
+      offset: (Math.random() - 0.5) * size,
+      thickness: 0.3 + Math.random() * 1.2,
+      colorVar: 0.85 + Math.random() * 0.3,
+      opacity: 0.3 + Math.random() * 0.5
+    }));
+  };
+
+  // Parse hex to RGB
+  const hexToRgb = (hex) => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : { r: 42, g: 82, b: 190 };
+  };
+
+  // Clear canvas with paper texture
+  const clearCanvas = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const rect = canvas.getBoundingClientRect();
+
+    // Save current state for undo
+    saveState();
+
+    // Paper background
+    ctx.fillStyle = '#faf8f5';
+    ctx.fillRect(0, 0, rect.width, rect.height);
+
+    // Add subtle paper texture
+    const imageData = ctx.getImageData(0, 0, rect.width, rect.height);
+    const data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+      const noise = (Math.random() - 0.5) * 6;
+      data[i] = Math.max(0, Math.min(255, data[i] + noise));
+      data[i + 1] = Math.max(0, Math.min(255, data[i + 1] + noise));
+      data[i + 2] = Math.max(0, Math.min(255, data[i + 2] + noise));
+    }
+    ctx.putImageData(imageData, 0, 0);
+  };
+
+  // Save canvas state for undo
+  const saveState = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const imageData = canvas.toDataURL();
+    setHistory(prev => [...prev.slice(-10), imageData]);
+  };
+
+  // Undo last action
+  const undo = () => {
+    if (history.length === 0) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const lastState = history[history.length - 1];
+    const img = new Image();
+    img.onload = () => {
+      const rect = canvas.getBoundingClientRect();
+      ctx.clearRect(0, 0, rect.width, rect.height);
+      ctx.drawImage(img, 0, 0, rect.width, rect.height);
+    };
+    img.src = lastState;
+    setHistory(prev => prev.slice(0, -1));
+  };
+
+  // Get pointer position
+  const getPointerPos = (e) => {
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    return {
+      x: clientX - rect.left,
+      y: clientY - rect.top,
+      pressure: e.pressure || 0.5
+    };
+  };
+
+  // Draw brush stroke segment
+  const drawStroke = (from, to, pressure) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const rgb = hexToRgb(brushColor);
+
+    switch (brushType) {
+      case 'round-sable':
+        drawSableStroke(ctx, from, to, pressure, rgb);
+        break;
+      case 'flat-hog':
+        drawHogStroke(ctx, from, to, pressure, rgb);
+        break;
+      case 'filbert':
+        drawFilbertStroke(ctx, from, to, pressure, rgb);
+        break;
+      case 'fan':
+        drawFanStroke(ctx, from, to, pressure, rgb);
+        break;
+      case 'rigger':
+        drawRiggerStroke(ctx, from, to, pressure, rgb);
+        break;
+      case 'palette-knife':
+        drawKnifeStroke(ctx, from, to, pressure, rgb);
+        break;
+      case 'watercolor':
+        drawWatercolorStroke(ctx, from, to, pressure, rgb);
+        break;
+      case 'dry-brush':
+        drawDryBrushStroke(ctx, from, to, pressure, rgb);
+        break;
+      default:
+        drawSableStroke(ctx, from, to, pressure, rgb);
+    }
+  };
+
+  // Kolinsky Sable - smooth flowing strokes
+  const drawSableStroke = (ctx, from, to, pressure, rgb) => {
+    const size = brushSize * pressure;
+    bristles.current.forEach(bristle => {
+      ctx.beginPath();
+      ctx.strokeStyle = `rgba(${Math.round(rgb.r * bristle.colorVar)}, ${Math.round(rgb.g * bristle.colorVar)}, ${Math.round(rgb.b * bristle.colorVar)}, ${brushOpacity * bristle.opacity})`;
+      ctx.lineWidth = bristle.thickness * pressure;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      const angle = Math.atan2(to.y - from.y, to.x - from.x);
+      const perpAngle = angle + Math.PI / 2;
+      const offset = bristle.offset * size / brushSize;
+
+      ctx.moveTo(
+        from.x + Math.cos(perpAngle) * offset,
+        from.y + Math.sin(perpAngle) * offset
+      );
+      ctx.lineTo(
+        to.x + Math.cos(perpAngle) * offset,
+        to.y + Math.sin(perpAngle) * offset
+      );
+      ctx.stroke();
+    });
+  };
+
+  // Hog Bristle - textured impasto strokes
+  const drawHogStroke = (ctx, from, to, pressure, rgb) => {
+    const size = brushSize * pressure * 1.5;
+    const bristleCount = Math.floor(size * 1.5);
+
+    for (let i = 0; i < bristleCount; i++) {
+      const offset = (i / bristleCount - 0.5) * size;
+      const thickness = 1 + Math.random() * 2;
+      const colorVar = 0.8 + Math.random() * 0.4;
+
+      ctx.beginPath();
+      ctx.strokeStyle = `rgba(${Math.round(rgb.r * colorVar)}, ${Math.round(rgb.g * colorVar)}, ${Math.round(rgb.b * colorVar)}, ${brushOpacity * 0.7})`;
+      ctx.lineWidth = thickness;
+      ctx.lineCap = 'square';
+
+      const angle = Math.atan2(to.y - from.y, to.x - from.x);
+      const perpAngle = angle + Math.PI / 2;
+      const wobble = (Math.random() - 0.5) * 3;
+
+      ctx.moveTo(
+        from.x + Math.cos(perpAngle) * offset,
+        from.y + Math.sin(perpAngle) * offset
+      );
+      ctx.lineTo(
+        to.x + Math.cos(perpAngle) * offset + wobble,
+        to.y + Math.sin(perpAngle) * offset + wobble
+      );
+      ctx.stroke();
+    }
+  };
+
+  // Filbert - soft blending strokes
+  const drawFilbertStroke = (ctx, from, to, pressure, rgb) => {
+    const size = brushSize * pressure;
+    const gradient = ctx.createRadialGradient(to.x, to.y, 0, to.x, to.y, size);
+    gradient.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${brushOpacity * 0.6})`);
+    gradient.addColorStop(0.5, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${brushOpacity * 0.3})`);
+    gradient.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
+
+    ctx.beginPath();
+    ctx.fillStyle = gradient;
+    ctx.arc(to.x, to.y, size, 0, Math.PI * 2);
+    ctx.fill();
+  };
+
+  // Fan Brush - spread texture
+  const drawFanStroke = (ctx, from, to, pressure, rgb) => {
+    const size = brushSize * pressure;
+    const angle = Math.atan2(to.y - from.y, to.x - from.x);
+    const fanAngle = Math.PI * 0.4;
+    const bristleCount = 15;
+
+    for (let i = 0; i < bristleCount; i++) {
+      const bristleAngle = angle - fanAngle / 2 + (i / bristleCount) * fanAngle;
+      const length = size * (0.5 + Math.random() * 0.5);
+      const colorVar = 0.85 + Math.random() * 0.3;
+
+      ctx.beginPath();
+      ctx.strokeStyle = `rgba(${Math.round(rgb.r * colorVar)}, ${Math.round(rgb.g * colorVar)}, ${Math.round(rgb.b * colorVar)}, ${brushOpacity * 0.5})`;
+      ctx.lineWidth = 1 + Math.random();
+      ctx.lineCap = 'round';
+
+      ctx.moveTo(to.x, to.y);
+      ctx.lineTo(
+        to.x + Math.cos(bristleAngle) * length,
+        to.y + Math.sin(bristleAngle) * length
+      );
+      ctx.stroke();
+    }
+  };
+
+  // Rigger - fine detail lines
+  const drawRiggerStroke = (ctx, from, to, pressure, rgb) => {
+    ctx.beginPath();
+    ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${brushOpacity})`;
+    ctx.lineWidth = Math.max(0.5, brushSize * 0.15 * pressure);
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.moveTo(from.x, from.y);
+    ctx.lineTo(to.x, to.y);
+    ctx.stroke();
+  };
+
+  // Palette Knife - bold textured
+  const drawKnifeStroke = (ctx, from, to, pressure, rgb) => {
+    const size = brushSize * pressure * 2;
+    const angle = Math.atan2(to.y - from.y, to.x - from.x);
+    const perpAngle = angle + Math.PI / 2;
+
+    // Main paint mass
+    ctx.beginPath();
+    const gradient = ctx.createLinearGradient(
+      to.x + Math.cos(perpAngle) * size / 2,
+      to.y + Math.sin(perpAngle) * size / 2,
+      to.x - Math.cos(perpAngle) * size / 2,
+      to.y - Math.sin(perpAngle) * size / 2
+    );
+    gradient.addColorStop(0, `rgba(${Math.min(255, rgb.r + 30)}, ${Math.min(255, rgb.g + 30)}, ${Math.min(255, rgb.b + 30)}, ${brushOpacity})`);
+    gradient.addColorStop(0.5, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${brushOpacity})`);
+    gradient.addColorStop(1, `rgba(${Math.max(0, rgb.r - 30)}, ${Math.max(0, rgb.g - 30)}, ${Math.max(0, rgb.b - 30)}, ${brushOpacity})`);
+
+    ctx.fillStyle = gradient;
+    ctx.moveTo(from.x + Math.cos(perpAngle) * size / 2, from.y + Math.sin(perpAngle) * size / 2);
+    ctx.lineTo(to.x + Math.cos(perpAngle) * size / 2, to.y + Math.sin(perpAngle) * size / 2);
+    ctx.lineTo(to.x - Math.cos(perpAngle) * size / 2, to.y - Math.sin(perpAngle) * size / 2);
+    ctx.lineTo(from.x - Math.cos(perpAngle) * size / 2, from.y - Math.sin(perpAngle) * size / 2);
+    ctx.closePath();
+    ctx.fill();
+  };
+
+  // Watercolor - transparent layers
+  const drawWatercolorStroke = (ctx, from, to, pressure, rgb) => {
+    const size = brushSize * pressure * 1.2;
+
+    // Multiple transparent layers
+    for (let layer = 0; layer < 3; layer++) {
+      const offsetX = (Math.random() - 0.5) * 4;
+      const offsetY = (Math.random() - 0.5) * 4;
+
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${brushOpacity * 0.15})`;
+      ctx.arc(to.x + offsetX, to.y + offsetY, size * (0.8 + layer * 0.2), 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Wet edge
+    ctx.beginPath();
+    const gradient = ctx.createRadialGradient(to.x, to.y, size * 0.5, to.x, to.y, size * 1.2);
+    gradient.addColorStop(0, 'transparent');
+    gradient.addColorStop(0.7, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${brushOpacity * 0.1})`);
+    gradient.addColorStop(1, 'transparent');
+    ctx.fillStyle = gradient;
+    ctx.arc(to.x, to.y, size * 1.2, 0, Math.PI * 2);
+    ctx.fill();
+  };
+
+  // Dry Brush - broken texture
+  const drawDryBrushStroke = (ctx, from, to, pressure, rgb) => {
+    const size = brushSize * pressure;
+    const bristleCount = Math.floor(size * 2);
+
+    for (let i = 0; i < bristleCount; i++) {
+      if (Math.random() > 0.6) continue; // Skip some bristles for dry effect
+
+      const offset = (Math.random() - 0.5) * size;
+      const colorVar = 0.7 + Math.random() * 0.5;
+
+      ctx.beginPath();
+      ctx.strokeStyle = `rgba(${Math.round(rgb.r * colorVar)}, ${Math.round(rgb.g * colorVar)}, ${Math.round(rgb.b * colorVar)}, ${brushOpacity * Math.random() * 0.7})`;
+      ctx.lineWidth = 0.5 + Math.random() * 1.5;
+      ctx.lineCap = 'round';
+
+      const angle = Math.atan2(to.y - from.y, to.x - from.x);
+      const perpAngle = angle + Math.PI / 2;
+
+      ctx.moveTo(
+        from.x + Math.cos(perpAngle) * offset,
+        from.y + Math.sin(perpAngle) * offset
+      );
+      ctx.lineTo(
+        to.x + Math.cos(perpAngle) * offset + (Math.random() - 0.5) * 3,
+        to.y + Math.sin(perpAngle) * offset + (Math.random() - 0.5) * 3
+      );
+      ctx.stroke();
+    }
+  };
+
+  // Event handlers
+  const handleStart = (e) => {
+    e.preventDefault();
+    saveState();
+    setIsDrawing(true);
+    bristles.current = generateBristles(brushSize);
+    lastPoint.current = getPointerPos(e);
+  };
+
+  const handleMove = (e) => {
+    if (!isDrawing) return;
+    e.preventDefault();
+    const currentPoint = getPointerPos(e);
+    if (lastPoint.current) {
+      drawStroke(lastPoint.current, currentPoint, currentPoint.pressure);
+    }
+    lastPoint.current = currentPoint;
+  };
+
+  const handleEnd = () => {
+    setIsDrawing(false);
+    lastPoint.current = null;
+  };
+
+  // Brush presets with colors
+  const brushPresets = [
+    { id: 'round-sable', name: 'Sable', icon: '🖌️', desc: 'Smooth watercolor' },
+    { id: 'flat-hog', name: 'Hog', icon: '🎨', desc: 'Thick impasto' },
+    { id: 'filbert', name: 'Filbert', icon: '🔵', desc: 'Soft blending' },
+    { id: 'fan', name: 'Fan', icon: '🌿', desc: 'Texture & foliage' },
+    { id: 'rigger', name: 'Rigger', icon: '✒️', desc: 'Fine details' },
+    { id: 'palette-knife', name: 'Knife', icon: '🔪', desc: 'Bold strokes' },
+    { id: 'watercolor', name: 'Wash', icon: '💧', desc: 'Transparent' },
+    { id: 'dry-brush', name: 'Dry', icon: '🏜️', desc: 'Broken texture' },
+  ];
+
+  const colorPresets = [
+    '#2A52BE', '#DC143C', '#228B22', '#FFD700', '#8B4513',
+    '#FF6347', '#4B0082', '#FF8C00', '#2F4F4F', '#000000'
+  ];
+
+  return (
+    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+      {/* Toolbar */}
+      <div className="p-3 sm:p-4 bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 border-b space-y-3">
+        {/* Brush Type Selection */}
+        <div className="flex flex-wrap gap-1.5 sm:gap-2">
+          {brushPresets.map(preset => (
+            <button
+              key={preset.id}
+              onClick={() => setBrushType(preset.id)}
+              className={`px-2 py-1.5 sm:px-3 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+                brushType === preset.id
+                  ? 'bg-indigo-600 text-white shadow-md scale-105'
+                  : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+              }`}
+              title={preset.desc}
+            >
+              <span className="mr-1">{preset.icon}</span>
+              <span className="hidden sm:inline">{preset.name}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Color & Size Controls */}
+        <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+          {/* Color Presets */}
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs text-gray-500 mr-1">Color:</span>
+            {colorPresets.map(color => (
+              <button
+                key={color}
+                onClick={() => setBrushColor(color)}
+                className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 transition-transform hover:scale-110 ${
+                  brushColor === color ? 'border-gray-800 scale-110' : 'border-white shadow'
+                }`}
+                style={{ backgroundColor: color }}
+              />
+            ))}
+            <input
+              type="color"
+              value={brushColor}
+              onChange={(e) => setBrushColor(e.target.value)}
+              className="w-6 h-6 sm:w-7 sm:h-7 rounded cursor-pointer"
+            />
+          </div>
+
+          {/* Size Slider */}
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-gray-500">Size:</span>
+            <input
+              type="range"
+              min="2"
+              max="40"
+              value={brushSize}
+              onChange={(e) => setBrushSize(Number(e.target.value))}
+              className="w-20 sm:w-24"
+            />
+            <span className="text-xs text-gray-600 w-6">{brushSize}</span>
+          </div>
+
+          {/* Opacity Slider */}
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-gray-500">Opacity:</span>
+            <input
+              type="range"
+              min="10"
+              max="100"
+              value={brushOpacity * 100}
+              onChange={(e) => setBrushOpacity(Number(e.target.value) / 100)}
+              className="w-16 sm:w-20"
+            />
+            <span className="text-xs text-gray-600 w-8">{Math.round(brushOpacity * 100)}%</span>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-2 ml-auto">
+            <button
+              onClick={undo}
+              disabled={history.length === 0}
+              className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 disabled:opacity-40 text-gray-700 rounded-lg text-xs sm:text-sm font-medium transition-colors"
+            >
+              ↶ Undo
+            </button>
+            <button
+              onClick={clearCanvas}
+              className="px-3 py-1.5 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg text-xs sm:text-sm font-medium transition-colors"
+            >
+              Clear
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Canvas */}
+      <div className="relative">
+        <canvas
+          ref={canvasRef}
+          className="w-full touch-none cursor-crosshair"
+          style={{ height: '400px' }}
+          onMouseDown={handleStart}
+          onMouseMove={handleMove}
+          onMouseUp={handleEnd}
+          onMouseLeave={handleEnd}
+          onTouchStart={handleStart}
+          onTouchMove={handleMove}
+          onTouchEnd={handleEnd}
+        />
+
+        {/* Brush Preview */}
+        <div className="absolute bottom-3 right-3 bg-white/90 backdrop-blur rounded-lg px-3 py-2 shadow-lg border">
+          <div className="flex items-center gap-2">
+            <div
+              className="rounded-full border border-gray-300"
+              style={{
+                width: Math.min(brushSize, 30),
+                height: Math.min(brushSize, 30),
+                backgroundColor: brushColor,
+                opacity: brushOpacity
+              }}
+            />
+            <div className="text-xs text-gray-600">
+              <div className="font-medium">{brushPresets.find(b => b.id === brushType)?.name}</div>
+              <div className="text-gray-400">{brushPresets.find(b => b.id === brushType)?.desc}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Tips */}
+      <div className="p-3 bg-gray-50 border-t text-xs text-gray-500">
+        <span className="font-medium">Tip:</span> Try different brushes! Sable for watercolor effects, Hog for oil textures, Fan for foliage, Knife for bold impasto.
+      </div>
     </div>
   );
 }
@@ -3079,16 +3993,131 @@ export default function ColorMixingMasterGuide() {
         {viewMode === 'strokes' && (
           <div className="space-y-6 sm:space-y-8">
             <div className="text-center mb-6 sm:mb-8 no-print">
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Brush Strokes & Techniques</h2>
-              <p className="text-sm sm:text-base text-gray-500">See how different brush hairs create unique stroke effects</p>
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Brush Strokes Studio</h2>
+              <p className="text-sm sm:text-base text-gray-500">Try brushes live, explore stroke techniques, and learn from the masters</p>
             </div>
 
-            {/* Realistic Brush Hair Strokes */}
+            {/* Live Interactive Brush Canvas */}
+            <section className="mb-8 no-print">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <span className="text-2xl">🎨</span> Try It Live
+                <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-normal ml-2">Interactive</span>
+              </h3>
+              <p className="text-xs sm:text-sm text-gray-500 mb-4">
+                Paint with realistic brushes! Select a brush type, pick a color, and draw on the canvas below.
+              </p>
+              <InteractiveBrushCanvas />
+            </section>
+
+            {/* Canvas-based Realistic Brush Simulations - Autodesk SketchBook Style */}
+            <section className="mb-8">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <span className="text-2xl">✨</span> Brush Stroke Samples
+              </h3>
+              <p className="text-xs sm:text-sm text-gray-500 mb-4">
+                See how each brush type creates unique strokes. Canvas-based bristle simulation for realistic paint behavior.
+              </p>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                {/* Kolinsky Sable */}
+                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
+                  <div className="p-3 bg-gradient-to-r from-amber-50 to-yellow-50 border-b">
+                    <h4 className="font-bold text-gray-800 text-sm">Kolinsky Sable</h4>
+                    <p className="text-[10px] text-gray-500">Fine watercolor - smooth flowing strokes</p>
+                  </div>
+                  <div className="p-3 flex justify-center">
+                    <RealisticBrushDemo brushType="round-sable" color="#2A52BE" width={340} height={120} />
+                  </div>
+                </div>
+
+                {/* Hog Bristle */}
+                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
+                  <div className="p-3 bg-gradient-to-r from-orange-50 to-red-50 border-b">
+                    <h4 className="font-bold text-gray-800 text-sm">Hog Bristle</h4>
+                    <p className="text-[10px] text-gray-500">Oil impasto - thick textured strokes</p>
+                  </div>
+                  <div className="p-3 flex justify-center">
+                    <RealisticBrushDemo brushType="flat-hog" color="#8B4513" width={340} height={120} />
+                  </div>
+                </div>
+
+                {/* Filbert */}
+                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
+                  <div className="p-3 bg-gradient-to-r from-purple-50 to-pink-50 border-b">
+                    <h4 className="font-bold text-gray-800 text-sm">Filbert</h4>
+                    <p className="text-[10px] text-gray-500">Soft blending - rounded edge strokes</p>
+                  </div>
+                  <div className="p-3 flex justify-center">
+                    <RealisticBrushDemo brushType="filbert" color="#8B008B" width={340} height={120} />
+                  </div>
+                </div>
+
+                {/* Fan Brush */}
+                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
+                  <div className="p-3 bg-gradient-to-r from-green-50 to-teal-50 border-b">
+                    <h4 className="font-bold text-gray-800 text-sm">Fan Brush</h4>
+                    <p className="text-[10px] text-gray-500">Textures & foliage - spread bristle effect</p>
+                  </div>
+                  <div className="p-3 flex justify-center">
+                    <RealisticBrushDemo brushType="fan" color="#228B22" width={340} height={120} />
+                  </div>
+                </div>
+
+                {/* Rigger/Liner */}
+                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
+                  <div className="p-3 bg-gradient-to-r from-blue-50 to-indigo-50 border-b">
+                    <h4 className="font-bold text-gray-800 text-sm">Rigger / Liner</h4>
+                    <p className="text-[10px] text-gray-500">Fine details - calligraphic lines</p>
+                  </div>
+                  <div className="p-3 flex justify-center">
+                    <RealisticBrushDemo brushType="rigger" color="#1034A6" width={340} height={120} />
+                  </div>
+                </div>
+
+                {/* Palette Knife */}
+                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
+                  <div className="p-3 bg-gradient-to-r from-yellow-50 to-orange-50 border-b">
+                    <h4 className="font-bold text-gray-800 text-sm">Palette Knife</h4>
+                    <p className="text-[10px] text-gray-500">Bold texture - thick paint application</p>
+                  </div>
+                  <div className="p-3 flex justify-center">
+                    <RealisticBrushDemo brushType="palette-knife" color="#DAA520" width={340} height={120} />
+                  </div>
+                </div>
+
+                {/* Watercolor Wash */}
+                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
+                  <div className="p-3 bg-gradient-to-r from-cyan-50 to-blue-50 border-b">
+                    <h4 className="font-bold text-gray-800 text-sm">Watercolor Wash</h4>
+                    <p className="text-[10px] text-gray-500">Transparent layers - wet bloom effect</p>
+                  </div>
+                  <div className="p-3 flex justify-center">
+                    <RealisticBrushDemo brushType="watercolor-wash" color="#4682B4" width={340} height={120} />
+                  </div>
+                </div>
+
+                {/* Dry Brush */}
+                <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
+                  <div className="p-3 bg-gradient-to-r from-stone-100 to-gray-100 border-b">
+                    <h4 className="font-bold text-gray-800 text-sm">Dry Brush</h4>
+                    <p className="text-[10px] text-gray-500">Broken texture - rough canvas effect</p>
+                  </div>
+                  <div className="p-3 flex justify-center">
+                    <RealisticBrushDemo brushType="dry-brush" color="#5D3A1A" width={340} height={120} />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Detailed SVG Brush Stroke Diagrams - Print Friendly */}
             <section>
               <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <span className="text-2xl">🖌️</span> Brush Hair & Stroke Effects
+                <span className="text-2xl">📚</span> Detailed Stroke Diagrams
+                <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-normal ml-2">Print-friendly</span>
               </h3>
-              <p className="text-xs sm:text-sm text-gray-500 mb-4">See how different brush hair types create unique stroke characteristics:</p>
+              <p className="text-xs sm:text-sm text-gray-500 mb-4">
+                Comprehensive diagrams showing brush hair characteristics and stroke effects. Perfect for printing and reference.
+              </p>
 
               <div className="space-y-6">
                 {/* Kolinsky Sable - Watercolor */}
