@@ -710,8 +710,8 @@ const artistPalettes = [
     subtitle: "The Joy of Painting",
     description: "Bob's signature wet-on-wet oil painting palette for happy little trees and mountains",
     image: "🏔️",
-    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Caspar_David_Friedrich_-_Wanderer_above_the_sea_of_fog.jpg/440px-Caspar_David_Friedrich_-_Wanderer_above_the_sea_of_fog.jpg",
-    referenceTitle: "Mountain landscape style (Friedrich)",
+    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/600px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+    referenceTitle: "Landscape painting style",
     colors: [
       { name: "Titanium White", hex: "#FFFFFF", code: "PW6", note: "Base for clouds, snow, highlights" },
       { name: "Phthalo Blue", hex: "#000F89", code: "PB15", note: "Sky, water - very strong!" },
@@ -852,8 +852,8 @@ const artistPalettes = [
     subtitle: "American Modernist",
     description: "Bold, saturated colors for flowers, skulls, and desert landscapes",
     image: "🌺",
-    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Piet_Mondrian%2C_1908%2C_Chrysanthemum%2C_Gemeentemuseum_Den_Haag.jpg/440px-Piet_Mondrian%2C_1908%2C_Chrysanthemum%2C_Gemeentemuseum_Den_Haag.jpg",
-    referenceTitle: "Modernist flower style (Mondrian)",
+    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Vincent_Willem_van_Gogh_127.jpg/440px-Vincent_Willem_van_Gogh_127.jpg",
+    referenceTitle: "Bold flower painting style",
     colors: [
       { name: "Titanium White", hex: "#FFFFFF", code: "PW6", note: "Skulls, clouds, highlights" },
       { name: "Cadmium Yellow Light", hex: "#FFF700", code: "PY37", note: "Bright flower centers" },
@@ -881,8 +881,8 @@ const artistPalettes = [
     subtitle: "Anders Zorn's Limited Palette",
     description: "Only 4 colors! Proves you don't need many colors for beautiful paintings",
     image: "4️⃣",
-    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Edvard_Munch_-_Self-Portrait_-_Google_Art_Project_%28533070%29.jpg/440px-Edvard_Munch_-_Self-Portrait_-_Google_Art_Project_%28533070%29.jpg",
-    referenceTitle: "Limited palette portrait style",
+    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/1665_Girl_with_a_Pearl_Earring.jpg/440px-1665_Girl_with_a_Pearl_Earring.jpg",
+    referenceTitle: "Limited palette portrait example",
     colors: [
       { name: "Titanium White", hex: "#FFFFFF", code: "PW6", note: "Essential for tints and highlights" },
       { name: "Yellow Ochre", hex: "#CB9D06", code: "PY43", note: "Warm tones, skin, golden hues" },
@@ -902,8 +902,8 @@ const artistPalettes = [
     subtitle: "Ultimate Mixing Palette",
     description: "Two versions of each primary (warm and cool) for maximum color range",
     image: "🎨",
-    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Boutet_1708_color_circles.jpg/440px-Boutet_1708_color_circles.jpg",
-    referenceTitle: "Color Wheel Theory (Boutet 1708)",
+    referenceImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg/600px-Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg",
+    referenceTitle: "Full color range painting",
     colors: [
       { name: "Cadmium Yellow Light", hex: "#FFF700", code: "PY37", note: "Cool yellow (greenish)" },
       { name: "Cadmium Yellow Deep", hex: "#FFA500", code: "PY37", note: "Warm yellow (orangish)" },
@@ -1345,38 +1345,38 @@ const brushHairTypes = [
 
 const brushReferenceImages = [
   {
-    name: "The Art of Painting - Vermeer",
-    description: "Famous painting showing an artist at work with brushes and easel",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Jan_Vermeer_-_The_Art_of_Painting_-_Google_Art_Project.jpg/440px-Jan_Vermeer_-_The_Art_of_Painting_-_Google_Art_Project.jpg",
-    wikiLink: "https://commons.wikimedia.org/wiki/File:Jan_Vermeer_-_The_Art_of_Painting_-_Google_Art_Project.jpg",
+    name: "The Starry Night - Van Gogh",
+    description: "Iconic swirling brushwork and impasto technique",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/600px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
     license: "Public Domain"
   },
   {
-    name: "Self Portrait at Easel - Rembrandt",
-    description: "Master painter with brushes at his easel",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Rembrandt_Self-portrait_%28Kenwood%29.jpg/440px-Rembrandt_Self-portrait_%28Kenwood%29.jpg",
-    wikiLink: "https://commons.wikimedia.org/wiki/File:Rembrandt_Self-portrait_(Kenwood).jpg",
+    name: "The Night Watch - Rembrandt",
+    description: "Masterful use of light, shadow and detail",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/The_Night_Watch_-_HD.jpg/600px-The_Night_Watch_-_HD.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:The_Night_Watch_-_HD.jpg",
     license: "Public Domain"
   },
   {
-    name: "Artist's Studio - Courbet",
-    description: "Realistic depiction of painter's workshop",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Gustave_Courbet_-_The_Artist%27s_Studio_-_Google_Art_Project.jpg/640px-Gustave_Courbet_-_The_Artist%27s_Studio_-_Google_Art_Project.jpg",
-    wikiLink: "https://commons.wikimedia.org/wiki/File:Gustave_Courbet_-_The_Artist%27s_Studio_-_Google_Art_Project.jpg",
+    name: "Mona Lisa - Da Vinci",
+    description: "Sfumato technique and subtle blending",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/400px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg",
     license: "Public Domain"
   },
   {
-    name: "Self Portrait - Van Gogh",
-    description: "Van Gogh's brushwork technique on display",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project.jpg/440px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project.jpg",
-    wikiLink: "https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project.jpg",
-    license: "Public Domain"
-  },
-  {
-    name: "Girl with a Pearl Earring",
-    description: "Vermeer's masterful brush technique",
+    name: "Girl with a Pearl Earring - Vermeer",
+    description: "Soft lighting and delicate brushwork",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/1665_Girl_with_a_Pearl_Earring.jpg/440px-1665_Girl_with_a_Pearl_Earring.jpg",
     wikiLink: "https://commons.wikimedia.org/wiki/File:1665_Girl_with_a_Pearl_Earring.jpg",
+    license: "Public Domain"
+  },
+  {
+    name: "Water Lilies - Monet",
+    description: "Impressionist broken color technique",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg/600px-Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Water_Lilies_-_1906,_Ryerson.jpg",
     license: "Public Domain"
   },
   {
