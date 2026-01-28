@@ -953,30 +953,30 @@ function rgbToHsl(r, g, b) {
 // Color Swatch with always-visible name
 function ColorSwatch({ color, onClick, size = 'normal' }) {
   const textColor = getContrastColor(color.hex);
-  const sizeClass = size === 'small' ? 'w-16 h-14' : size === 'large' ? 'w-24 h-20' : 'w-20 h-16';
+  const sizeClass = size === 'small' ? 'w-14 h-12 sm:w-16 sm:h-14' : size === 'large' ? 'w-20 h-16 sm:w-24 sm:h-20' : 'w-16 h-14 sm:w-20 sm:h-16';
   const isWhite = color.hex.toUpperCase() === '#FFFFFF' || color.hex.toUpperCase() === '#FFFAFA' || color.hex.toUpperCase() === '#FFFFF0';
 
   return (
     <div
-      className="flex flex-col items-center cursor-pointer group"
+      className="flex flex-col items-center cursor-pointer group min-w-0"
       onClick={() => onClick && onClick(color)}
     >
       <div
-        className={`${sizeClass} rounded-lg shadow-md flex items-end justify-center pb-1 transition-transform group-hover:scale-105`}
+        className={`${sizeClass} rounded-lg shadow-md flex items-end justify-center pb-1 transition-transform group-hover:scale-105 active:scale-95`}
         style={{
           backgroundColor: color.hex,
           border: isWhite ? '1px solid #e5e7eb' : 'none'
         }}
       >
-        <span className="text-[7px] font-mono opacity-60" style={{ color: textColor }}>
+        <span className="text-[6px] sm:text-[7px] font-mono opacity-60" style={{ color: textColor }}>
           {color.hex}
         </span>
       </div>
-      <p className="text-[10px] font-medium text-center mt-1.5 leading-tight max-w-20 text-gray-800">
+      <p className="text-[9px] sm:text-[10px] font-medium text-center mt-1 sm:mt-1.5 leading-tight max-w-16 sm:max-w-20 text-gray-800 truncate w-full">
         {color.name}
       </p>
       {color.code && (
-        <p className="text-[8px] font-mono text-gray-400">{color.code}</p>
+        <p className="text-[7px] sm:text-[8px] font-mono text-gray-400">{color.code}</p>
       )}
     </div>
   );
@@ -992,27 +992,29 @@ function ColorDetailModal({ color, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4"
       onClick={onClose}
       style={{ backgroundColor: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(8px)' }}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-md rounded-3xl overflow-hidden shadow-2xl"
+        className="relative w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-2xl max-h-[90vh] sm:max-h-none"
         style={{ backgroundColor: color.hex, boxShadow: `0 40px 80px ${color.hex}88` }}
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-transform hover:scale-110 z-10"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 rounded-full flex items-center justify-center transition-transform hover:scale-110 active:scale-95 z-10"
           style={{ backgroundColor: `${textColor}22`, color: textColor }}
         >
           ✕
         </button>
-        <div className="aspect-square w-full" />
-        <div className="p-8" style={{ color: textColor }}>
-          <h2 className="text-3xl font-light mb-2">{color.name}</h2>
-          {color.code && <p className="text-sm opacity-60 mb-6">Pigment: {color.code}</p>}
-          <div className="space-y-3 text-sm font-mono">
+        {/* Drag handle for mobile */}
+        <div className="sm:hidden w-10 h-1 bg-current opacity-30 rounded-full mx-auto mt-3" style={{ color: textColor }} />
+        <div className="aspect-video sm:aspect-square w-full" />
+        <div className="p-6 sm:p-8" style={{ color: textColor }}>
+          <h2 className="text-2xl sm:text-3xl font-light mb-2">{color.name}</h2>
+          {color.code && <p className="text-sm opacity-60 mb-4 sm:mb-6">Pigment: {color.code}</p>}
+          <div className="space-y-2 sm:space-y-3 text-sm font-mono">
             <div className="flex justify-between py-2 border-b" style={{ borderColor: `${textColor}22` }}>
               <span className="opacity-60">HEX</span>
               <span>{color.hex}</span>
@@ -1028,7 +1030,7 @@ function ColorDetailModal({ color, onClose }) {
           </div>
           <button
             onClick={() => navigator.clipboard.writeText(color.hex)}
-            className="mt-6 w-full py-3 rounded-xl font-medium transition-transform hover:scale-105"
+            className="mt-4 sm:mt-6 w-full py-3 rounded-xl font-medium transition-transform hover:scale-105 active:scale-95"
             style={{ backgroundColor: `${textColor}15`, color: textColor }}
           >
             Copy HEX
@@ -1045,73 +1047,73 @@ function MixRow({ mix, compact = false }) {
 
   if (compact) {
     return (
-      <div className="flex items-center gap-1.5 p-2 bg-white rounded-lg border border-gray-100">
+      <div className="flex items-center gap-1 sm:gap-1.5 p-2 bg-white rounded-lg border border-gray-100">
         <div className="flex flex-col items-center">
-          <div className="w-8 h-8 rounded shadow-sm" style={{ backgroundColor: mix.hex1 }} />
-          <span className="text-[7px] mt-0.5 text-center max-w-10 leading-tight text-gray-600">{mix.ingredients[0]}</span>
+          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded shadow-sm" style={{ backgroundColor: mix.hex1 }} />
+          <span className="text-[6px] sm:text-[7px] mt-0.5 text-center max-w-8 sm:max-w-10 leading-tight text-gray-600 truncate">{mix.ingredients[0]}</span>
         </div>
-        <span className="text-gray-400 text-xs">+</span>
+        <span className="text-gray-400 text-[10px] sm:text-xs">+</span>
         <div className="flex flex-col items-center">
-          <div className="w-8 h-8 rounded shadow-sm" style={{ backgroundColor: mix.hex2 }} />
-          <span className="text-[7px] mt-0.5 text-center max-w-10 leading-tight text-gray-600">{mix.ingredients[1]}</span>
+          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded shadow-sm" style={{ backgroundColor: mix.hex2 }} />
+          <span className="text-[6px] sm:text-[7px] mt-0.5 text-center max-w-8 sm:max-w-10 leading-tight text-gray-600 truncate">{mix.ingredients[1]}</span>
         </div>
         {hasThird && (
           <>
-            <span className="text-gray-400 text-xs">+</span>
+            <span className="text-gray-400 text-[10px] sm:text-xs">+</span>
             <div className="flex flex-col items-center">
-              <div className="w-8 h-8 rounded shadow-sm" style={{ backgroundColor: mix.hex3 }} />
-              <span className="text-[7px] mt-0.5 text-center max-w-10 leading-tight text-gray-600">{mix.ingredients[2]}</span>
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded shadow-sm" style={{ backgroundColor: mix.hex3 }} />
+              <span className="text-[6px] sm:text-[7px] mt-0.5 text-center max-w-8 sm:max-w-10 leading-tight text-gray-600 truncate">{mix.ingredients[2]}</span>
             </div>
           </>
         )}
-        <span className="text-gray-400 text-xs">=</span>
+        <span className="text-gray-400 text-[10px] sm:text-xs">=</span>
         <div className="flex flex-col items-center">
-          <div className="w-10 h-10 rounded-lg shadow ring-2 ring-gray-200" style={{ backgroundColor: mix.hexResult }} />
-          <span className="text-[8px] mt-0.5 font-medium text-center max-w-12 leading-tight text-gray-800">{mix.result}</span>
-          {mix.ratio && <span className="text-[7px] text-blue-600 font-medium">{mix.ratio}</span>}
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg shadow ring-2 ring-gray-200" style={{ backgroundColor: mix.hexResult }} />
+          <span className="text-[7px] sm:text-[8px] mt-0.5 font-medium text-center max-w-10 sm:max-w-12 leading-tight text-gray-800 truncate">{mix.result}</span>
+          {mix.ratio && <span className="text-[6px] sm:text-[7px] text-blue-600 font-medium">{mix.ratio}</span>}
         </div>
       </div>
     );
   }
 
   return (
-    <div className="p-3 bg-white rounded-xl border border-gray-100 shadow-sm">
-      <div className="flex items-center gap-2">
-        <div className="flex flex-col items-center">
-          <div className="w-12 h-12 rounded-lg shadow" style={{ backgroundColor: mix.hex1 }} />
-          <span className="text-[9px] mt-1 text-center max-w-14 leading-tight text-gray-600">{mix.ingredients[0]}</span>
+    <div className="p-2 sm:p-3 bg-white rounded-xl border border-gray-100 shadow-sm">
+      <div className="flex items-center gap-1.5 sm:gap-2">
+        <div className="flex flex-col items-center min-w-0">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg shadow flex-shrink-0" style={{ backgroundColor: mix.hex1 }} />
+          <span className="text-[8px] sm:text-[9px] mt-1 text-center max-w-12 sm:max-w-14 leading-tight text-gray-600 truncate w-full">{mix.ingredients[0]}</span>
         </div>
-        <span className="text-xl text-gray-300 font-light">+</span>
-        <div className="flex flex-col items-center">
-          <div className="w-12 h-12 rounded-lg shadow" style={{ backgroundColor: mix.hex2 }} />
-          <span className="text-[9px] mt-1 text-center max-w-14 leading-tight text-gray-600">{mix.ingredients[1]}</span>
+        <span className="text-lg sm:text-xl text-gray-300 font-light flex-shrink-0">+</span>
+        <div className="flex flex-col items-center min-w-0">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg shadow flex-shrink-0" style={{ backgroundColor: mix.hex2 }} />
+          <span className="text-[8px] sm:text-[9px] mt-1 text-center max-w-12 sm:max-w-14 leading-tight text-gray-600 truncate w-full">{mix.ingredients[1]}</span>
         </div>
         {hasThird && (
           <>
-            <span className="text-xl text-gray-300 font-light">+</span>
-            <div className="flex flex-col items-center">
-              <div className="w-12 h-12 rounded-lg shadow" style={{ backgroundColor: mix.hex3 }} />
-              <span className="text-[9px] mt-1 text-center max-w-14 leading-tight text-gray-600">{mix.ingredients[2]}</span>
+            <span className="text-lg sm:text-xl text-gray-300 font-light flex-shrink-0">+</span>
+            <div className="flex flex-col items-center min-w-0">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg shadow flex-shrink-0" style={{ backgroundColor: mix.hex3 }} />
+              <span className="text-[8px] sm:text-[9px] mt-1 text-center max-w-12 sm:max-w-14 leading-tight text-gray-600 truncate w-full">{mix.ingredients[2]}</span>
             </div>
           </>
         )}
-        <span className="text-xl text-gray-300 font-light">=</span>
-        <div className="flex flex-col items-center">
-          <div className="w-14 h-14 rounded-xl shadow-lg ring-2 ring-gray-200" style={{ backgroundColor: mix.hexResult }} />
-          <span className="text-[10px] mt-1 font-semibold text-center max-w-16 leading-tight text-gray-800">{mix.result}</span>
-          <span className="text-[8px] font-mono text-gray-400">{mix.hexResult}</span>
+        <span className="text-lg sm:text-xl text-gray-300 font-light flex-shrink-0">=</span>
+        <div className="flex flex-col items-center min-w-0">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl shadow-lg ring-2 ring-gray-200 flex-shrink-0" style={{ backgroundColor: mix.hexResult }} />
+          <span className="text-[9px] sm:text-[10px] mt-1 font-semibold text-center max-w-14 sm:max-w-16 leading-tight text-gray-800 truncate w-full">{mix.result}</span>
+          <span className="text-[7px] sm:text-[8px] font-mono text-gray-400">{mix.hexResult}</span>
         </div>
       </div>
       {/* Ratio and Tip */}
       {(mix.ratio || mix.tip) && (
-        <div className="mt-2 pt-2 border-t border-gray-100 flex items-center gap-3">
+        <div className="mt-2 pt-2 border-t border-gray-100 flex flex-wrap items-center gap-2 sm:gap-3">
           {mix.ratio && (
-            <span className="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-semibold">
+            <span className="text-[9px] sm:text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-semibold flex-shrink-0">
               Ratio: {mix.ratio}
             </span>
           )}
           {mix.tip && (
-            <span className="text-[9px] text-gray-500 italic">{mix.tip}</span>
+            <span className="text-[8px] sm:text-[9px] text-gray-500 italic">{mix.tip}</span>
           )}
         </div>
       )}
@@ -1123,20 +1125,20 @@ function MixRow({ mix, compact = false }) {
 function ArtistPaletteCard({ palette, onSelect }) {
   return (
     <div
-      className="p-5 rounded-2xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-lg transition-all cursor-pointer print-card"
+      className="p-4 sm:p-5 rounded-2xl bg-white border border-gray-200 hover:border-blue-300 hover:shadow-lg active:scale-[0.99] transition-all cursor-pointer print-card"
       onClick={() => onSelect && onSelect(palette)}
     >
-      <div className="flex items-start gap-4 mb-4">
-        <span className="text-4xl">{palette.image}</span>
-        <div>
-          <h3 className="text-lg font-bold text-gray-800">{palette.name}</h3>
-          <p className="text-sm text-gray-500">{palette.subtitle}</p>
+      <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
+        <span className="text-3xl sm:text-4xl">{palette.image}</span>
+        <div className="min-w-0">
+          <h3 className="text-base sm:text-lg font-bold text-gray-800">{palette.name}</h3>
+          <p className="text-xs sm:text-sm text-gray-500">{palette.subtitle}</p>
         </div>
       </div>
-      <p className="text-sm text-gray-600 mb-4">{palette.description}</p>
+      <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4 line-clamp-2">{palette.description}</p>
 
       {/* Color strip preview */}
-      <div className="flex h-10 rounded-lg overflow-hidden shadow-inner mb-3">
+      <div className="flex h-8 sm:h-10 rounded-lg overflow-hidden shadow-inner mb-2 sm:mb-3">
         {palette.colors.slice(0, 8).map((c, i) => (
           <div
             key={i}
@@ -1146,7 +1148,7 @@ function ArtistPaletteCard({ palette, onSelect }) {
           />
         ))}
       </div>
-      <p className="text-xs text-gray-400">{palette.colors.length} colors - Click to see full palette</p>
+      <p className="text-[10px] sm:text-xs text-gray-400">{palette.colors.length} colors - Tap to see full palette</p>
     </div>
   );
 }
@@ -1157,44 +1159,47 @@ function ArtistPaletteModal({ palette, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto"
       onClick={onClose}
       style={{ backgroundColor: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(8px)' }}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl my-8"
+        className="relative w-full sm:max-w-4xl bg-white rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-2xl max-h-[95vh] sm:max-h-[90vh] sm:my-8 overflow-y-auto"
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors z-10"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 active:bg-gray-300 transition-colors z-10"
         >
           ✕
         </button>
 
+        {/* Drag handle for mobile */}
+        <div className="sm:hidden w-10 h-1 bg-gray-300 rounded-full mx-auto mt-3" />
+
         {/* Header */}
-        <div className="p-8 bg-gradient-to-r from-gray-100 to-gray-50 border-b">
-          <div className="flex items-center gap-4">
-            <span className="text-5xl">{palette.image}</span>
-            <div>
-              <h2 className="text-3xl font-bold text-gray-800">{palette.name}</h2>
-              <p className="text-lg text-gray-500">{palette.subtitle}</p>
+        <div className="p-4 sm:p-8 bg-gradient-to-r from-gray-100 to-gray-50 border-b">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <span className="text-4xl sm:text-5xl">{palette.image}</span>
+            <div className="min-w-0">
+              <h2 className="text-xl sm:text-3xl font-bold text-gray-800">{palette.name}</h2>
+              <p className="text-sm sm:text-lg text-gray-500">{palette.subtitle}</p>
             </div>
           </div>
-          <p className="mt-4 text-gray-600">{palette.description}</p>
+          <p className="mt-3 sm:mt-4 text-sm sm:text-base text-gray-600">{palette.description}</p>
         </div>
 
         {/* Colors Grid */}
-        <div className="p-8">
-          <h3 className="text-xl font-bold text-gray-800 mb-4">Palette Colors</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="p-4 sm:p-8">
+          <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4">Palette Colors</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
             {palette.colors.map((color, i) => (
               <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-gray-50">
                 <div
-                  className="w-12 h-12 rounded-lg shadow flex-shrink-0"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg shadow flex-shrink-0"
                   style={{ backgroundColor: color.hex, border: color.hex === '#FFFFFF' ? '1px solid #ddd' : 'none' }}
                 />
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="font-semibold text-sm text-gray-800 truncate">{color.name}</p>
                   <p className="text-xs font-mono text-gray-400">{color.hex}</p>
                   {color.code && <p className="text-xs text-gray-400">{color.code}</p>}
@@ -1206,11 +1211,11 @@ function ArtistPaletteModal({ palette, onClose }) {
 
           {/* Tips */}
           {palette.tips && palette.tips.length > 0 && (
-            <div className="mt-8 p-6 bg-yellow-50 rounded-xl border border-yellow-200">
-              <h3 className="text-lg font-bold text-yellow-800 mb-3">Painting Tips</h3>
+            <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-yellow-50 rounded-xl border border-yellow-200">
+              <h3 className="text-base sm:text-lg font-bold text-yellow-800 mb-2 sm:mb-3">Painting Tips</h3>
               <ul className="space-y-2">
                 {palette.tips.map((tip, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-yellow-900">
+                  <li key={i} className="flex items-start gap-2 text-xs sm:text-sm text-yellow-900">
                     <span className="text-yellow-600">•</span>
                     <span>{tip}</span>
                   </li>
@@ -1229,25 +1234,25 @@ function MixingCategory({ category, data, defaultOpen = false }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <div className="mb-6 print-card">
+    <div className="mb-4 sm:mb-6 print-card">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl border border-gray-200 hover:border-gray-300 transition-all no-print-toggle"
+        className="w-full flex items-center justify-between p-3 sm:p-4 bg-gradient-to-r from-gray-50 to-white rounded-xl border border-gray-200 hover:border-gray-300 active:bg-gray-50 transition-all no-print-toggle"
       >
-        <div className="text-left">
-          <h3 className="text-lg font-bold text-gray-800">{category}</h3>
-          <p className="text-sm text-gray-500">{data.description}</p>
+        <div className="text-left min-w-0 flex-1">
+          <h3 className="text-base sm:text-lg font-bold text-gray-800">{category}</h3>
+          <p className="text-xs sm:text-sm text-gray-500 truncate">{data.description}</p>
         </div>
-        <div className="flex items-center gap-3">
-          <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">
-            {data.mixes.length} mixes
+        <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0 ml-2">
+          <span className="text-[10px] sm:text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">
+            {data.mixes.length}
           </span>
-          <span className="text-xl text-gray-400 no-print">{isOpen ? '−' : '+'}</span>
+          <span className="text-lg sm:text-xl text-gray-400 no-print">{isOpen ? '−' : '+'}</span>
         </div>
       </button>
 
-      <div className={`mt-3 grid gap-3 ${isOpen ? 'block' : 'hidden'} print-always-show`}
-        style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))' }}>
+      <div className={`mt-2 sm:mt-3 grid gap-2 sm:gap-3 ${isOpen ? 'grid' : 'hidden'} print-always-show`}
+        style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}>
         {data.mixes.map((mix, i) => (
           <MixRow key={i} mix={mix} />
         ))}
@@ -1282,11 +1287,11 @@ function PrintableGrid() {
 // Color Wheel Visual
 function ColorWheelSection() {
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-6 print-card">
-      <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">The Color Wheel - Your Mixing Guide</h3>
+    <div className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-6 print-card">
+      <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4 text-center">The Color Wheel - Your Mixing Guide</h3>
 
-      <div className="flex flex-col md:flex-row gap-8 items-center justify-center">
-        <svg viewBox="0 0 300 300" className="w-64 h-64">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 items-center justify-center">
+        <svg viewBox="0 0 300 300" className="w-48 h-48 sm:w-64 sm:h-64 flex-shrink-0">
           {[
             { color: "#E30022", angle: 0, label: "Red" },
             { color: "#FF4500", angle: 30, label: "R-O" },
@@ -1326,36 +1331,36 @@ function ColorWheelSection() {
           <text x="150" y="160" textAnchor="middle" fontSize="11" fill="#666" fontWeight="bold">WHEEL</text>
         </svg>
 
-        <div className="space-y-4">
-          <div className="p-4 bg-red-50 rounded-xl border border-red-200">
-            <h4 className="font-bold text-red-800 mb-2">Primary Colors</h4>
-            <div className="flex gap-2">
+        <div className="space-y-3 sm:space-y-4 w-full sm:w-auto">
+          <div className="p-3 sm:p-4 bg-red-50 rounded-xl border border-red-200">
+            <h4 className="font-bold text-red-800 mb-2 text-sm sm:text-base">Primary Colors</h4>
+            <div className="flex gap-2 justify-center sm:justify-start">
               {[{ name: "Red", hex: "#E30022" }, { name: "Yellow", hex: "#FFD300" }, { name: "Blue", hex: "#0047AB" }].map(c => (
                 <div key={c.name} className="flex flex-col items-center">
-                  <div className="w-10 h-10 rounded-lg shadow" style={{ backgroundColor: c.hex }} />
-                  <span className="text-xs mt-1">{c.name}</span>
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg shadow" style={{ backgroundColor: c.hex }} />
+                  <span className="text-[10px] sm:text-xs mt-1">{c.name}</span>
                 </div>
               ))}
             </div>
-            <p className="text-xs text-red-600 mt-2">Cannot be mixed - must buy these!</p>
+            <p className="text-[10px] sm:text-xs text-red-600 mt-2 text-center sm:text-left">Cannot be mixed - must buy these!</p>
           </div>
 
-          <div className="p-4 bg-green-50 rounded-xl border border-green-200">
-            <h4 className="font-bold text-green-800 mb-2">Secondary Colors</h4>
-            <div className="flex gap-2">
+          <div className="p-3 sm:p-4 bg-green-50 rounded-xl border border-green-200">
+            <h4 className="font-bold text-green-800 mb-2 text-sm sm:text-base">Secondary Colors</h4>
+            <div className="flex gap-2 justify-center sm:justify-start">
               {[{ name: "Orange", hex: "#FF7F00" }, { name: "Green", hex: "#32CD32" }, { name: "Violet", hex: "#8B008B" }].map(c => (
                 <div key={c.name} className="flex flex-col items-center">
-                  <div className="w-10 h-10 rounded-lg shadow" style={{ backgroundColor: c.hex }} />
-                  <span className="text-xs mt-1">{c.name}</span>
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg shadow" style={{ backgroundColor: c.hex }} />
+                  <span className="text-[10px] sm:text-xs mt-1">{c.name}</span>
                 </div>
               ))}
             </div>
-            <p className="text-xs text-green-600 mt-2">Mix 2 primaries!</p>
+            <p className="text-[10px] sm:text-xs text-green-600 mt-2 text-center sm:text-left">Mix 2 primaries!</p>
           </div>
 
-          <div className="p-4 bg-purple-50 rounded-xl border border-purple-200">
-            <h4 className="font-bold text-purple-800 mb-2">Complementary = Opposites</h4>
-            <p className="text-xs text-purple-600">Colors across from each other make brown/black when mixed!</p>
+          <div className="p-3 sm:p-4 bg-purple-50 rounded-xl border border-purple-200">
+            <h4 className="font-bold text-purple-800 mb-2 text-sm sm:text-base">Complementary = Opposites</h4>
+            <p className="text-[10px] sm:text-xs text-purple-600 text-center sm:text-left">Colors across from each other make brown/black when mixed!</p>
           </div>
         </div>
       </div>
@@ -1419,16 +1424,16 @@ function QuickReferenceCard() {
   ];
 
   return (
-    <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl border-2 border-yellow-300 p-6 print-card">
-      <h3 className="text-xl font-bold text-yellow-800 mb-4 text-center">Quick Reference - Common Mixes</h3>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+    <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-2xl border-2 border-yellow-300 p-4 sm:p-6 print-card">
+      <h3 className="text-lg sm:text-xl font-bold text-yellow-800 mb-3 sm:mb-4 text-center">Quick Reference - Common Mixes</h3>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
         {quickMixes.map((item, i) => (
-          <div key={i} className="bg-white rounded-lg p-3 shadow-sm border border-yellow-200">
+          <div key={i} className="bg-white rounded-lg p-2 sm:p-3 shadow-sm border border-yellow-200">
             <div className="flex items-center gap-2 mb-1">
-              <div className="w-6 h-6 rounded shadow" style={{ backgroundColor: item.hex }} />
-              <span className="font-semibold text-sm text-gray-800">{item.need}</span>
+              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded shadow flex-shrink-0" style={{ backgroundColor: item.hex }} />
+              <span className="font-semibold text-xs sm:text-sm text-gray-800 truncate">{item.need}</span>
             </div>
-            <p className="text-xs text-gray-500">{item.mix}</p>
+            <p className="text-[10px] sm:text-xs text-gray-500">{item.mix}</p>
           </div>
         ))}
       </div>
@@ -1439,16 +1444,16 @@ function QuickReferenceCard() {
 // Palette Card
 function PaletteCard({ palette }) {
   return (
-    <div className="p-5 rounded-xl bg-white border border-gray-200 print-card">
-      <h3 className="text-base font-semibold text-gray-800 mb-3">{palette.name}</h3>
-      <div className="flex gap-1">
+    <div className="p-4 sm:p-5 rounded-xl bg-white border border-gray-200 print-card">
+      <h3 className="text-sm sm:text-base font-semibold text-gray-800 mb-2 sm:mb-3">{palette.name}</h3>
+      <div className="flex gap-0.5 sm:gap-1">
         {palette.colors.map((c, i) => (
-          <div key={i} className="flex-1 flex flex-col items-center">
+          <div key={i} className="flex-1 flex flex-col items-center min-w-0">
             <div
-              className="w-full h-14 rounded-lg shadow first:rounded-l-xl last:rounded-r-xl"
+              className="w-full h-10 sm:h-14 rounded-lg shadow first:rounded-l-xl last:rounded-r-xl"
               style={{ backgroundColor: c.hex, border: c.hex === '#FFFFFF' ? '1px solid #ddd' : 'none' }}
             />
-            <span className="text-[8px] mt-1 text-center leading-tight text-gray-600">{c.name}</span>
+            <span className="text-[6px] sm:text-[8px] mt-0.5 sm:mt-1 text-center leading-tight text-gray-600 truncate w-full">{c.name}</span>
           </div>
         ))}
       </div>
@@ -1459,52 +1464,52 @@ function PaletteCard({ palette }) {
 // Activity Worksheet
 function ActivityWorksheet() {
   return (
-    <div className="p-6 rounded-xl bg-white border border-gray-200 print-card">
-      <h3 className="text-xl font-bold text-gray-800 mb-2 text-center">Color Mixing Activity Sheet</h3>
-      <p className="text-center text-gray-500 mb-6">Fill in the circles with the color you think you'll get!</p>
+    <div className="p-4 sm:p-6 rounded-xl bg-white border border-gray-200 print-card">
+      <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2 text-center">Color Mixing Activity Sheet</h3>
+      <p className="text-center text-xs sm:text-base text-gray-500 mb-4 sm:mb-6">Fill in the circles with the color you think you'll get!</p>
 
-      <div className="grid grid-cols-2 gap-8">
-        <div className="flex items-center justify-center gap-2">
-          <div className="w-14 h-14 rounded-full shadow" style={{ backgroundColor: '#FFD300' }} />
-          <span className="text-2xl text-gray-400">+</span>
-          <div className="w-14 h-14 rounded-full shadow" style={{ backgroundColor: '#0047AB' }} />
-          <span className="text-2xl text-gray-400">=</span>
-          <div className="w-16 h-16 rounded-full border-4 border-dashed border-gray-300" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
+        <div className="flex items-center justify-center gap-1.5 sm:gap-2">
+          <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full shadow" style={{ backgroundColor: '#FFD300' }} />
+          <span className="text-xl sm:text-2xl text-gray-400">+</span>
+          <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full shadow" style={{ backgroundColor: '#0047AB' }} />
+          <span className="text-xl sm:text-2xl text-gray-400">=</span>
+          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full border-4 border-dashed border-gray-300" />
         </div>
 
-        <div className="flex items-center justify-center gap-2">
-          <div className="w-14 h-14 rounded-full shadow" style={{ backgroundColor: '#E30022' }} />
-          <span className="text-2xl text-gray-400">+</span>
-          <div className="w-14 h-14 rounded-full shadow" style={{ backgroundColor: '#FFD300' }} />
-          <span className="text-2xl text-gray-400">=</span>
-          <div className="w-16 h-16 rounded-full border-4 border-dashed border-gray-300" />
+        <div className="flex items-center justify-center gap-1.5 sm:gap-2">
+          <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full shadow" style={{ backgroundColor: '#E30022' }} />
+          <span className="text-xl sm:text-2xl text-gray-400">+</span>
+          <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full shadow" style={{ backgroundColor: '#FFD300' }} />
+          <span className="text-xl sm:text-2xl text-gray-400">=</span>
+          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full border-4 border-dashed border-gray-300" />
         </div>
 
-        <div className="flex items-center justify-center gap-2">
-          <div className="w-14 h-14 rounded-full shadow" style={{ backgroundColor: '#0047AB' }} />
-          <span className="text-2xl text-gray-400">+</span>
-          <div className="w-14 h-14 rounded-full shadow" style={{ backgroundColor: '#E30022' }} />
-          <span className="text-2xl text-gray-400">=</span>
-          <div className="w-16 h-16 rounded-full border-4 border-dashed border-gray-300" />
+        <div className="flex items-center justify-center gap-1.5 sm:gap-2">
+          <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full shadow" style={{ backgroundColor: '#0047AB' }} />
+          <span className="text-xl sm:text-2xl text-gray-400">+</span>
+          <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full shadow" style={{ backgroundColor: '#E30022' }} />
+          <span className="text-xl sm:text-2xl text-gray-400">=</span>
+          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full border-4 border-dashed border-gray-300" />
         </div>
 
-        <div className="flex items-center justify-center gap-2">
-          <div className="w-14 h-14 rounded-full shadow" style={{ backgroundColor: '#E30022' }} />
-          <span className="text-2xl text-gray-400">+</span>
-          <div className="w-14 h-14 rounded-full shadow" style={{ backgroundColor: '#FFFFFF', border: '2px solid #ddd' }} />
-          <span className="text-2xl text-gray-400">=</span>
-          <div className="w-16 h-16 rounded-full border-4 border-dashed border-gray-300" />
+        <div className="flex items-center justify-center gap-1.5 sm:gap-2">
+          <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full shadow" style={{ backgroundColor: '#E30022' }} />
+          <span className="text-xl sm:text-2xl text-gray-400">+</span>
+          <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full shadow" style={{ backgroundColor: '#FFFFFF', border: '2px solid #ddd' }} />
+          <span className="text-xl sm:text-2xl text-gray-400">=</span>
+          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full border-4 border-dashed border-gray-300" />
         </div>
       </div>
 
-      <div className="mt-8 p-4 bg-gray-50 rounded-lg">
-        <h4 className="font-medium text-gray-700 mb-2">Challenge: What two colors make BROWN?</h4>
-        <div className="flex items-center justify-center gap-2">
-          <div className="w-14 h-14 rounded-full border-4 border-dashed border-gray-300" />
-          <span className="text-2xl text-gray-400">+</span>
-          <div className="w-14 h-14 rounded-full border-4 border-dashed border-gray-300" />
-          <span className="text-2xl text-gray-400">=</span>
-          <div className="w-16 h-16 rounded-full shadow" style={{ backgroundColor: '#8B4513' }} />
+      <div className="mt-6 sm:mt-8 p-3 sm:p-4 bg-gray-50 rounded-lg">
+        <h4 className="font-medium text-sm sm:text-base text-gray-700 mb-2 text-center">Challenge: What two colors make BROWN?</h4>
+        <div className="flex items-center justify-center gap-1.5 sm:gap-2">
+          <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full border-4 border-dashed border-gray-300" />
+          <span className="text-xl sm:text-2xl text-gray-400">+</span>
+          <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full border-4 border-dashed border-gray-300" />
+          <span className="text-xl sm:text-2xl text-gray-400">=</span>
+          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full shadow" style={{ backgroundColor: '#8B4513' }} />
         </div>
       </div>
     </div>
@@ -1597,57 +1602,58 @@ export default function ColorMixingMasterGuide() {
 
       {/* Header */}
       <header className="sticky top-0 z-40 bg-white shadow-sm no-print">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between mb-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3 sm:mb-4">
             <div>
-              <h1 className="text-2xl font-extrabold text-gray-800">
+              <h1 className="text-xl sm:text-2xl font-extrabold text-gray-800">
                 Complete Color Mixing Guide
               </h1>
-              <p className="text-sm text-gray-500">
-                {totalPigments} pigments • {totalMixes} mixing recipes • Printable charts
+              <p className="text-xs sm:text-sm text-gray-500">
+                {totalPigments} pigments • {totalMixes} recipes
               </p>
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => setExpandAll(!expandAll)}
-                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-colors"
+                className="px-3 sm:px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-medium hover:bg-gray-200 transition-colors"
               >
-                {expandAll ? 'Collapse All' : 'Expand All'}
+                {expandAll ? 'Collapse' : 'Expand'}
               </button>
               <button
                 onClick={handlePrint}
-                className="px-5 py-2 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-colors flex items-center gap-2"
+                className="px-4 sm:px-5 py-2 bg-blue-600 text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors flex items-center gap-2"
               >
-                Print Guide
+                Print
               </button>
             </div>
           </div>
 
-          {/* View Toggle */}
-          <div className="flex gap-1 p-1 rounded-xl bg-gray-100 w-fit overflow-x-auto hide-scrollbar">
+          {/* View Toggle - Mobile scrollable */}
+          <div className="flex gap-1 p-1 rounded-xl bg-gray-100 overflow-x-auto hide-scrollbar -mx-3 px-3 sm:mx-0 sm:px-1 sm:w-fit">
             {[
-              { id: 'interactive', label: 'Mixing Recipes' },
-              { id: 'artists', label: 'Artist Palettes' },
-              { id: 'colors', label: 'All Colors' },
-              { id: 'brands', label: 'By Brand' },
-              { id: 'palettes', label: 'Theme Palettes' },
-              { id: 'activity', label: 'Activity Sheet' },
+              { id: 'interactive', label: 'Recipes', fullLabel: 'Mixing Recipes' },
+              { id: 'artists', label: 'Artists', fullLabel: 'Artist Palettes' },
+              { id: 'colors', label: 'Colors', fullLabel: 'All Colors' },
+              { id: 'brands', label: 'Brands', fullLabel: 'By Brand' },
+              { id: 'palettes', label: 'Palettes', fullLabel: 'Theme Palettes' },
+              { id: 'activity', label: 'Activity', fullLabel: 'Activity Sheet' },
             ].map(view => (
               <button key={view.id} onClick={() => setViewMode(view.id)}
-                className="px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap"
+                className="px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all whitespace-nowrap flex-shrink-0"
                 style={{
                   backgroundColor: viewMode === view.id ? 'white' : 'transparent',
                   color: viewMode === view.id ? '#1a1a1a' : '#666',
                   boxShadow: viewMode === view.id ? '0 1px 3px rgba(0,0,0,0.1)' : 'none'
                 }}>
-                {view.label}
+                <span className="sm:hidden">{view.label}</span>
+                <span className="hidden sm:inline">{view.fullLabel}</span>
               </button>
             ))}
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 py-6">
+      <main className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
 
         {/* ============ MIXING RECIPES VIEW ============ */}
         {viewMode === 'interactive' && (
@@ -1677,12 +1683,12 @@ export default function ColorMixingMasterGuide() {
             </div>
 
             {/* Tips Section */}
-            <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl border border-blue-200 print-card">
-              <h3 className="text-xl font-bold text-blue-800 mb-4">Pro Mixing Tips</h3>
-              <div className="grid md:grid-cols-2 gap-6">
+            <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl border border-blue-200 print-card">
+              <h3 className="text-lg sm:text-xl font-bold text-blue-800 mb-3 sm:mb-4">Pro Mixing Tips</h3>
+              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>
-                  <h4 className="font-bold text-blue-700 mb-2">For Clean Colors:</h4>
-                  <ul className="text-sm text-blue-900 space-y-1">
+                  <h4 className="font-bold text-blue-700 mb-2 text-sm sm:text-base">For Clean Colors:</h4>
+                  <ul className="text-xs sm:text-sm text-blue-900 space-y-1">
                     <li>• Add dark colors to light (not light to dark)</li>
                     <li>• Clean brush between colors</li>
                     <li>• Mix on a white palette to see true color</li>
@@ -1690,8 +1696,8 @@ export default function ColorMixingMasterGuide() {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-bold text-purple-700 mb-2">For Better Results:</h4>
-                  <ul className="text-sm text-purple-900 space-y-1">
+                  <h4 className="font-bold text-purple-700 mb-2 text-sm sm:text-base">For Better Results:</h4>
+                  <ul className="text-xs sm:text-sm text-purple-900 space-y-1">
                     <li>• Warm yellow + Warm blue = Bright green</li>
                     <li>• Cool yellow + Cool blue = Muted green</li>
                     <li>• Use complement to dull a color (not black!)</li>
@@ -1707,10 +1713,10 @@ export default function ColorMixingMasterGuide() {
         {viewMode === 'colors' && (
           <div>
             {/* Category Filter */}
-            <nav className="flex gap-2 overflow-x-auto hide-scrollbar pb-4 mb-4 no-print">
+            <nav className="flex gap-1.5 sm:gap-2 overflow-x-auto hide-scrollbar pb-3 sm:pb-4 mb-3 sm:mb-4 no-print -mx-3 px-3 sm:mx-0 sm:px-0">
               {categories.map(cat => (
                 <button key={cat} onClick={() => setActiveCategory(cat)}
-                  className="px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all"
+                  className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-all flex-shrink-0 active:scale-95"
                   style={{
                     backgroundColor: activeCategory === cat ? '#3b82f6' : 'white',
                     color: activeCategory === cat ? 'white' : '#666',
@@ -1722,26 +1728,26 @@ export default function ColorMixingMasterGuide() {
             </nav>
 
             {/* Search */}
-            <div className="mb-6 no-print">
+            <div className="mb-4 sm:mb-6 no-print">
               <input
                 type="text"
-                placeholder="Search colors by name, hex, or pigment code..."
+                placeholder="Search colors..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full max-w-md px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full sm:max-w-md px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
               />
             </div>
 
             {/* Color Grid */}
             {Object.entries(filteredPigments).map(([category, colors], catIndex) => (
-              <section key={category} className="mb-8 print-card">
-                <div className="flex items-center gap-3 mb-4">
-                  <h2 className="text-xl font-bold text-gray-800">{category}</h2>
-                  <span className="text-xs bg-gray-200 text-gray-600 px-2 py-1 rounded-full">
-                    {colors.length} colors
+              <section key={category} className="mb-6 sm:mb-8 print-card">
+                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                  <h2 className="text-lg sm:text-xl font-bold text-gray-800">{category}</h2>
+                  <span className="text-[10px] sm:text-xs bg-gray-200 text-gray-600 px-2 py-0.5 sm:py-1 rounded-full">
+                    {colors.length}
                   </span>
                 </div>
-                <div className="grid gap-4" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(90px, 1fr))' }}>
+                <div className="grid gap-3 sm:gap-4" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(70px, 1fr))' }}>
                   {colors.map((color) => (
                     <ColorSwatch key={color.name} color={color} onClick={setSelectedColor} />
                   ))}
@@ -1750,8 +1756,8 @@ export default function ColorMixingMasterGuide() {
             ))}
 
             {Object.keys(filteredPigments).length === 0 && (
-              <div className="text-center py-20">
-                <p className="text-gray-500 text-lg">No colors found for "{searchTerm}"</p>
+              <div className="text-center py-12 sm:py-20">
+                <p className="text-gray-500 text-sm sm:text-lg">No colors found for "{searchTerm}"</p>
               </div>
             )}
           </div>
@@ -1759,34 +1765,34 @@ export default function ColorMixingMasterGuide() {
 
         {/* ============ PALETTES VIEW ============ */}
         {viewMode === 'palettes' && (
-          <div className="space-y-6">
-            <div className="text-center mb-8 no-print">
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">Color Palettes</h2>
-              <p className="text-gray-500">Beautiful color combinations ready to use!</p>
+          <div className="space-y-4 sm:space-y-6">
+            <div className="text-center mb-6 sm:mb-8 no-print">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Color Palettes</h2>
+              <p className="text-sm sm:text-base text-gray-500">Beautiful color combinations ready to use!</p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
               {themePalettes.map((palette, i) => (
                 <PaletteCard key={i} palette={palette} />
               ))}
             </div>
 
             {/* Complementary Colors */}
-            <div className="p-6 rounded-xl bg-white border border-gray-200 print-card">
-              <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Colors That Go Together (Complementary)</h3>
-              <p className="text-center text-gray-500 mb-4">These opposite colors make each other POP!</p>
-              <div className="grid grid-cols-3 gap-6">
+            <div className="p-4 sm:p-6 rounded-xl bg-white border border-gray-200 print-card">
+              <h3 className="text-base sm:text-lg font-bold text-gray-800 mb-3 sm:mb-4 text-center">Colors That Go Together (Complementary)</h3>
+              <p className="text-center text-xs sm:text-base text-gray-500 mb-3 sm:mb-4">These opposite colors make each other POP!</p>
+              <div className="grid grid-cols-3 gap-3 sm:gap-6">
                 {[
                   { c1: "#E30022", c2: "#32CD32", n1: "Red", n2: "Green" },
                   { c1: "#FF7F00", c2: "#0047AB", n1: "Orange", n2: "Blue" },
                   { c1: "#FFD300", c2: "#8B008B", n1: "Yellow", n2: "Purple" },
                 ].map((pair, i) => (
                   <div key={i} className="flex flex-col items-center">
-                    <div className="flex gap-2">
-                      <div className="w-16 h-16 rounded-lg shadow" style={{ backgroundColor: pair.c1 }} />
-                      <div className="w-16 h-16 rounded-lg shadow" style={{ backgroundColor: pair.c2 }} />
+                    <div className="flex gap-1 sm:gap-2">
+                      <div className="w-10 h-10 sm:w-16 sm:h-16 rounded-lg shadow" style={{ backgroundColor: pair.c1 }} />
+                      <div className="w-10 h-10 sm:w-16 sm:h-16 rounded-lg shadow" style={{ backgroundColor: pair.c2 }} />
                     </div>
-                    <span className="text-sm mt-2 font-medium">{pair.n1} & {pair.n2}</span>
+                    <span className="text-[10px] sm:text-sm mt-1 sm:mt-2 font-medium text-center">{pair.n1} & {pair.n2}</span>
                   </div>
                 ))}
               </div>
@@ -1796,13 +1802,13 @@ export default function ColorMixingMasterGuide() {
 
         {/* ============ ARTIST PALETTES VIEW ============ */}
         {viewMode === 'artists' && (
-          <div className="space-y-6">
-            <div className="text-center mb-8 no-print">
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">Famous Artist Palettes</h2>
-              <p className="text-gray-500">Paint like the masters with these authentic color palettes</p>
+          <div className="space-y-4 sm:space-y-6">
+            <div className="text-center mb-6 sm:mb-8 no-print">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Famous Artist Palettes</h2>
+              <p className="text-sm sm:text-base text-gray-500">Paint like the masters with these authentic color palettes</p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
               {artistPalettes.map((palette, i) => (
                 <ArtistPaletteCard
                   key={i}
@@ -1813,12 +1819,12 @@ export default function ColorMixingMasterGuide() {
             </div>
 
             {/* Tips for using artist palettes */}
-            <div className="p-6 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 print-card">
-              <h3 className="text-xl font-bold text-amber-800 mb-4">How to Use Artist Palettes</h3>
-              <div className="grid md:grid-cols-2 gap-6">
+            <div className="p-4 sm:p-6 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 print-card">
+              <h3 className="text-lg sm:text-xl font-bold text-amber-800 mb-3 sm:mb-4">How to Use Artist Palettes</h3>
+              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>
-                  <h4 className="font-bold text-amber-700 mb-2">Getting Started:</h4>
-                  <ul className="text-sm text-amber-900 space-y-1">
+                  <h4 className="font-bold text-amber-700 mb-2 text-sm sm:text-base">Getting Started:</h4>
+                  <ul className="text-xs sm:text-sm text-amber-900 space-y-1">
                     <li>• Start with a limited palette (4-6 colors)</li>
                     <li>• Mix all colors on your palette before painting</li>
                     <li>• Create a value scale from light to dark</li>
@@ -1826,8 +1832,8 @@ export default function ColorMixingMasterGuide() {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-bold text-amber-700 mb-2">Pro Tips:</h4>
-                  <ul className="text-sm text-amber-900 space-y-1">
+                  <h4 className="font-bold text-amber-700 mb-2 text-sm sm:text-base">Pro Tips:</h4>
+                  <ul className="text-xs sm:text-sm text-amber-900 space-y-1">
                     <li>• Study the master's actual paintings</li>
                     <li>• Note which colors appear most often</li>
                     <li>• Practice their brushwork techniques</li>
@@ -1841,19 +1847,19 @@ export default function ColorMixingMasterGuide() {
 
         {/* ============ BRANDS VIEW ============ */}
         {viewMode === 'brands' && (
-          <div className="space-y-6">
-            <div className="text-center mb-8 no-print">
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">Colors by Brand</h2>
-              <p className="text-gray-500">Find exact product codes for your favorite paint brands</p>
+          <div className="space-y-4 sm:space-y-6">
+            <div className="text-center mb-6 sm:mb-8 no-print">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Colors by Brand</h2>
+              <p className="text-sm sm:text-base text-gray-500">Find exact product codes for your favorite paint brands</p>
             </div>
 
             {/* Brand selector */}
-            <nav className="flex gap-2 overflow-x-auto hide-scrollbar pb-4 mb-4 no-print">
+            <nav className="flex gap-1.5 sm:gap-2 overflow-x-auto hide-scrollbar pb-3 sm:pb-4 mb-3 sm:mb-4 no-print -mx-3 px-3 sm:mx-0 sm:px-0">
               {['All', ...Object.keys(brandData)].map(brand => (
                 <button
                   key={brand}
                   onClick={() => setActiveBrand(brand)}
-                  className="px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all"
+                  className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-all flex-shrink-0 active:scale-95"
                   style={{
                     backgroundColor: activeBrand === brand ? '#3b82f6' : 'white',
                     color: activeBrand === brand ? 'white' : '#666',
@@ -1870,25 +1876,25 @@ export default function ColorMixingMasterGuide() {
               .filter(([name]) => activeBrand === 'All' || activeBrand === name)
               .map(([brandName, brand]) => (
                 <div key={brandName} className="bg-white rounded-2xl border border-gray-200 overflow-hidden print-card">
-                  <div className="p-4 bg-gradient-to-r from-gray-100 to-gray-50 border-b">
-                    <h3 className="text-xl font-bold text-gray-800">{brandName}</h3>
-                    <p className="text-sm text-gray-500">{brand.type}</p>
+                  <div className="p-3 sm:p-4 bg-gradient-to-r from-gray-100 to-gray-50 border-b">
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-800">{brandName}</h3>
+                    <p className="text-xs sm:text-sm text-gray-500">{brand.type}</p>
                   </div>
-                  <div className="p-4">
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                  <div className="p-3 sm:p-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-3">
                       {Object.entries(brand.colors).map(([colorName, info]) => {
                         const pigment = Object.values(pigmentData).flat().find(p => p.name === colorName);
                         const hex = pigment?.hex || '#888888';
                         return (
-                          <div key={colorName} className="flex items-center gap-3 p-2 rounded-lg bg-gray-50">
+                          <div key={colorName} className="flex items-center gap-2 sm:gap-3 p-2 rounded-lg bg-gray-50">
                             <div
-                              className="w-10 h-10 rounded-lg shadow flex-shrink-0"
+                              className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg shadow flex-shrink-0"
                               style={{ backgroundColor: hex, border: hex === '#FFFFFF' ? '1px solid #ddd' : 'none' }}
                             />
-                            <div className="min-w-0">
-                              <p className="font-medium text-sm text-gray-800 truncate">{colorName}</p>
-                              <p className="text-xs text-gray-500">
-                                #{info.code} {info.series && `• Series ${info.series}`}
+                            <div className="min-w-0 flex-1">
+                              <p className="font-medium text-xs sm:text-sm text-gray-800 truncate">{colorName}</p>
+                              <p className="text-[10px] sm:text-xs text-gray-500 truncate">
+                                #{info.code} {info.series && `• S${info.series}`}
                               </p>
                             </div>
                           </div>
@@ -1900,21 +1906,21 @@ export default function ColorMixingMasterGuide() {
               ))}
 
             {/* Brand comparison tip */}
-            <div className="p-6 rounded-xl bg-blue-50 border border-blue-200 print-card">
-              <h3 className="text-lg font-bold text-blue-800 mb-3">About Paint Brands</h3>
-              <p className="text-sm text-blue-900 mb-3">
+            <div className="p-4 sm:p-6 rounded-xl bg-blue-50 border border-blue-200 print-card">
+              <h3 className="text-base sm:text-lg font-bold text-blue-800 mb-2 sm:mb-3">About Paint Brands</h3>
+              <p className="text-xs sm:text-sm text-blue-900 mb-3">
                 Different brands may have slightly different formulations of the same pigment. The Color Index code (PY, PR, PB, etc.) tells you the actual pigment used, regardless of brand name.
               </p>
-              <div className="grid md:grid-cols-3 gap-4 text-sm">
-                <div className="bg-white p-3 rounded-lg">
+              <div className="grid sm:grid-cols-3 gap-3 sm:gap-4 text-xs sm:text-sm">
+                <div className="bg-white p-2 sm:p-3 rounded-lg">
                   <p className="font-bold text-blue-800">Professional Grade</p>
                   <p className="text-blue-700">Higher pigment concentration, better lightfastness</p>
                 </div>
-                <div className="bg-white p-3 rounded-lg">
+                <div className="bg-white p-2 sm:p-3 rounded-lg">
                   <p className="font-bold text-blue-800">Student Grade</p>
                   <p className="text-blue-700">More affordable, good for learning</p>
                 </div>
-                <div className="bg-white p-3 rounded-lg">
+                <div className="bg-white p-2 sm:p-3 rounded-lg">
                   <p className="font-bold text-blue-800">"Hue" Colors</p>
                   <p className="text-blue-700">Less expensive alternatives to cadmium/cobalt</p>
                 </div>
@@ -1925,19 +1931,19 @@ export default function ColorMixingMasterGuide() {
 
         {/* ============ ACTIVITY SHEET VIEW ============ */}
         {viewMode === 'activity' && (
-          <div className="space-y-6">
-            <div className="text-center mb-8 no-print">
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">Activity Worksheets</h2>
-              <p className="text-gray-500">Print these out and practice your color mixing!</p>
+          <div className="space-y-4 sm:space-y-6">
+            <div className="text-center mb-6 sm:mb-8 no-print">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Activity Worksheets</h2>
+              <p className="text-sm sm:text-base text-gray-500">Print these out and practice your color mixing!</p>
             </div>
 
             <ActivityWorksheet />
 
             {/* Color Code Reference */}
-            <div className="p-6 rounded-xl bg-blue-50 border border-blue-200 print-card">
-              <h3 className="text-lg font-bold text-blue-800 mb-4">Color Code Reference</h3>
-              <p className="text-blue-700 mb-4">Use these numbers for color-by-number activities!</p>
-              <div className="grid grid-cols-6 gap-3">
+            <div className="p-4 sm:p-6 rounded-xl bg-blue-50 border border-blue-200 print-card">
+              <h3 className="text-base sm:text-lg font-bold text-blue-800 mb-3 sm:mb-4">Color Code Reference</h3>
+              <p className="text-xs sm:text-base text-blue-700 mb-3 sm:mb-4">Use these numbers for color-by-number activities!</p>
+              <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 sm:gap-3">
                 {[
                   { num: 1, color: "#E30022", name: "Red" },
                   { num: 2, color: "#FF7F00", name: "Orange" },
@@ -1954,7 +1960,7 @@ export default function ColorMixingMasterGuide() {
                 ].map(item => (
                   <div key={item.num} className="flex flex-col items-center">
                     <div
-                      className="w-12 h-12 rounded-lg shadow flex items-center justify-center font-bold"
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg shadow flex items-center justify-center font-bold text-sm sm:text-base"
                       style={{
                         backgroundColor: item.color,
                         border: item.color === '#FFFFFF' ? '2px solid #ddd' : 'none',
@@ -1963,7 +1969,7 @@ export default function ColorMixingMasterGuide() {
                     >
                       {item.num}
                     </div>
-                    <span className="text-xs mt-1">{item.name}</span>
+                    <span className="text-[10px] sm:text-xs mt-1">{item.name}</span>
                   </div>
                 ))}
               </div>
@@ -1973,8 +1979,8 @@ export default function ColorMixingMasterGuide() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t py-6 mt-8 bg-white no-print">
-        <div className="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+      <footer className="border-t py-4 sm:py-6 mt-6 sm:mt-8 bg-white no-print">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 text-center text-gray-500 text-xs sm:text-sm">
           <p>Pigment codes (PY, PR, PB...) are standard Color Index names used by professional artists</p>
           <p className="mt-1">Print any page to use as a reference chart!</p>
         </div>
