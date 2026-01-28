@@ -1324,6 +1324,55 @@ const brushHairTypes = [
 ];
 
 // ==========================================
+// BRUSH REFERENCE IMAGES (Wikimedia Commons)
+// ==========================================
+
+const brushReferenceImages = [
+  {
+    name: "Artist Paint Brushes Collection",
+    description: "Various brush shapes and sizes for painting",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Paint_Brushes.jpg/640px-Paint_Brushes.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Paint_Brushes.jpg",
+    license: "CC BY-SA 3.0"
+  },
+  {
+    name: "Watercolor Brush Set",
+    description: "Round brushes ideal for watercolor painting",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Watercolor_brushes.jpg/640px-Watercolor_brushes.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Watercolor_brushes.jpg",
+    license: "CC BY-SA 4.0"
+  },
+  {
+    name: "Oil Painting Brushes",
+    description: "Flat and filbert brushes for oil painting",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Oil_painting_brushes.jpg/640px-Oil_painting_brushes.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Oil_painting_brushes.jpg",
+    license: "CC BY-SA 3.0"
+  },
+  {
+    name: "Chinese Calligraphy Brushes",
+    description: "Traditional brushes with bamboo handles",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Chinese_calligraphy_brushes.jpg/640px-Chinese_calligraphy_brushes.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Chinese_calligraphy_brushes.jpg",
+    license: "CC BY-SA 3.0"
+  },
+  {
+    name: "Fan Brush",
+    description: "Specialty brush for texture effects, foliage, and blending",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Fan_brush.jpg/640px-Fan_brush.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Fan_brush.jpg",
+    license: "CC BY-SA 4.0"
+  },
+  {
+    name: "Palette Knives",
+    description: "Metal tools for mixing paint and impasto techniques",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Palette_knives.jpg/640px-Palette_knives.jpg",
+    wikiLink: "https://commons.wikimedia.org/wiki/File:Palette_knives.jpg",
+    license: "CC BY-SA 3.0"
+  }
+];
+
+// ==========================================
 // PAINT MEDIA & BRANDS DATABASE
 // ==========================================
 
@@ -2551,6 +2600,55 @@ export default function ColorMixingMasterGuide() {
               <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Brushes & Paper Guide</h2>
               <p className="text-sm sm:text-base text-gray-500">Learn how different brushes work on various paper types</p>
             </div>
+
+            {/* Real Brush Reference Images */}
+            <section className="bg-gradient-to-r from-stone-50 to-neutral-50 rounded-2xl border border-stone-200 p-4 sm:p-6 print-card">
+              <h3 className="text-lg sm:text-xl font-bold text-stone-800 mb-4 flex items-center gap-2">
+                <span className="text-2xl">📷</span> Real Brush References
+              </h3>
+              <p className="text-xs sm:text-sm text-stone-600 mb-4">Actual photographs of artist brushes and tools (Creative Commons images):</p>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+                {brushReferenceImages.map((ref, i) => (
+                  <a
+                    key={i}
+                    href={ref.wikiLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group bg-white rounded-xl border border-stone-200 overflow-hidden hover:shadow-lg transition-all hover:border-stone-400"
+                  >
+                    <div className="aspect-[4/3] bg-stone-100 overflow-hidden">
+                      <img
+                        src={ref.imageUrl}
+                        alt={ref.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.parentElement.innerHTML = '<div class="w-full h-full flex items-center justify-center text-stone-400 text-xs p-2 text-center">Image unavailable<br/>Click to view on Wikimedia</div>';
+                        }}
+                      />
+                    </div>
+                    <div className="p-2 sm:p-3">
+                      <h4 className="font-semibold text-stone-800 text-xs sm:text-sm group-hover:text-blue-600 transition-colors line-clamp-1">
+                        {ref.name}
+                      </h4>
+                      <p className="text-[10px] sm:text-xs text-stone-500 line-clamp-2 mt-0.5">
+                        {ref.description}
+                      </p>
+                      <div className="flex items-center gap-1 mt-1">
+                        <span className="text-[9px] text-stone-400">{ref.license}</span>
+                        <span className="text-blue-500 text-[10px] ml-auto group-hover:underline">View →</span>
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+
+              <p className="text-[10px] text-stone-500 mt-4 text-center">
+                All images from Wikimedia Commons. Click any image to view full resolution and attribution.
+              </p>
+            </section>
 
             {/* Brush Types Section */}
             <section>
